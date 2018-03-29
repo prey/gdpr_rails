@@ -1,0 +1,7 @@
+<h2>Pending Policies </h2>
+
+<ul>
+  <% @pending_policies.each do |category| %>
+    <li><%= link_to category.name, user_term_path(category.id) %></li>
+  <% end %>
+</ul>

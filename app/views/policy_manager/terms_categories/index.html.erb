@@ -1,0 +1,24 @@
+
+<h1>Terms Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @terms_categories.each do |terms_category| %>
+      <tr>
+        <td><%= link_to 'Show', terms_category %></td>
+        <td><%= link_to 'Edit', edit_terms_category_path(terms_category) %></td>
+        <td><%= link_to 'Destroy', terms_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Terms Category', new_terms_category_path %>

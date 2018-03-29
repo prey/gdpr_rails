@@ -1,0 +1,32 @@
+
+<%= raw @term.to_html %>
+
+<hr/>
+
+<% if @user_term.persisted? && @user_term.state == "accepted" %>
+  
+  <div>
+    <strong>THIS POLICY HAS ALREADY BEEN ACCEPTED</strong>
+    <br/> change your mind ??
+
+    <%= form_with model: @user_term, url: reject_user_term_path(params[:id]), method: :put, local: true do |f| %>
+      <%= f.submit "reject", class: "btn btn-danger" %>
+      <a href="" class="btn btn-secondary">not now</a>
+    <% end %>
+
+  </div>
+
+<% else %>
+  <strong>
+    <%= current_user.email %>
+  </strong> please accept terms
+
+  <hr/>
+
+  <%= form_with model: @user_term, url: accept_user_term_path(params[:id]), method: :put, local: true do |f| %>
+    <%= f.submit "accept", class: "btn btn-success" %>
+    <a href="" class="btn btn-secondary">not now</a>
+  <% end %>
+
+  <hr/>
+<% end %>

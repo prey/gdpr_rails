@@ -1,0 +1,33 @@
+
+<h3>Categories</h3>
+
+<div>
+  <% PolicyManager::UserTerm.group("year(created_at)").group("month(created_at)").count.each do |ut| %>
+    <%= ut.first %> | <%= ut.last %>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Articles</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% PolicyManager::Category.all.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.terms.size %></td>
+        <td><%= link_to 'Show', category %></td>
+        <td><%= link_to 'Edit', edit_category_path(category) %></td>
+        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

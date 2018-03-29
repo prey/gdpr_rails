@@ -1,0 +1,17 @@
+<%= form_with(model: terms_category, local: true) do |form| %>
+  <% if terms_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(terms_category.errors.count, "error") %> prohibited this terms_category from being saved:</h2>
+
+      <ul>
+      <% terms_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+
+<h2>Terms</h2>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Category</th>
+      <th>updated at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @terms.each do |term| %>
+      <tr>
+        <td><%= truncate(term.description, length: 170, separator: " ", omission: '... (more)') %></td>        
+        <td><%= term.category.name %></td>
+        <td><%= term.updated_at %></td>
+        <td><%= link_to 'Show', category_term_path(term.category,term) %></td>
+        <td><%= link_to 'Edit', edit_category_term_path(term.category,term) %></td>
+        <td><%= link_to 'Destroy', category_term_path(term.category, term), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+<br>
+
+<%= link_to 'New Term', new_category_term_path(params[:category_id]) %>

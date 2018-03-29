@@ -1,0 +1,32 @@
+
+<% path = @term.persisted? ? category_term_path(params[:category_id], @term) : category_terms_path(params[:category_id]) %>
+
+<%= form_with(model: term, local: true, url: path ) do |form| %>
+  <% if term.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(term.errors.count, "error") %> prohibited this term from being saved:</h2>
+
+      <ul>
+      <% term.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+      <%= form.select :category_id, PolicyManager::Category.all.map{|o| [o.name, o.id]}, :selected => params[:category_id] %>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, id: :term_description, class: "form-control" %>
+    </div>
+
+    <%= form.submit class: "btn btn-primary" %>
+
+<% end %>
+
+<script>
+var simplemde = new SimpleMDE({ element: $("#term_description")[0] });
+</script>

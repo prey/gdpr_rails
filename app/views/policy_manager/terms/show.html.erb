@@ -1,0 +1,16 @@
+
+<div class="float-right">
+  published in 
+<span class="badge badge-pill badge-primary">
+  <%= @term.category.name %>
+</span>
+  <br/>
+  <span class="text-muted">
+    last updated on <%= @term.updated_at %>
+  </span>
+</div>
+
+<%= raw @term.to_html %>
+
+<%= link_to 'Edit', edit_category_term_path(@term.category, @term) %> |
+<%= link_to 'Back', category_terms_path(@term.category) %>

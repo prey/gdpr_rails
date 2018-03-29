@@ -1,0 +1,6 @@
+<h1>Editing Term</h1>
+
+<%= render 'form', term: @term %>
+
+<%= link_to 'Show', category_term_path(@term.category, @term) %> |
+<%= link_to 'Back', category_terms_path %>

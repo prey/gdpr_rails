@@ -1,0 +1,39 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</p>
+
+
+<%= link_to 'New Article', new_category_term_path(@category), class: " btn btn-success float-right" %>
+
+<%= link_to 'Edit', edit_category_path(@category), class: "btn btn-default" %> |
+<%= link_to 'Back', categories_path , class: "btn btn-default"%>
+
+
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>content</th>
+        <th>updated at</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @category.terms.each do |term| %>
+        <tr>
+          <td><%= term.id %></td>
+          <td><%= truncate(term.description, length: 17, separator: " ", omission: '... (more)') %></td>
+          <td><%= term.updated_at %></td>
+          <td><%= link_to 'Show', category_term_path(@category, term) %></td>
+          <td><%= link_to 'Edit', edit_category_term_path(@category, term) %></td>
+          <td><%= link_to 'Destroy', category_term_path(@category, term), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
