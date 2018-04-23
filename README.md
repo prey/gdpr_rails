@@ -6,23 +6,23 @@
 
 ## About this project
 
-GDPR RAILS or PolicyManager was created with flexibility in mind to tackle the requirements of GDPR (General Data Protection Regulation) and it's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com).
+GDPR RAILS or PolicyManager was created with flexibility in mind to tackle the requirements of GDPR (General Data Protection Regulation) compliance. It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25.
 
 ### Main Features:
 
 #### Policy Rules
 + Configurable policy rules, supports activerecord validations for new or existing users
-+ supports session-less terms to consent
-+ versioning system for new policies
-+ json endpoints to consume which terms must be consented
++ supports session-less terms to consent which will be persisted when user sign in / sign up
++ Versioning system for new policies
++ Json endpoints to consume which terms must be consent
 
 #### Portability
 Portability module let's you define export options, this will generate a navegable static site with all the data
-+ seamless data export with a configurable templates
-+ downloads images to local filesystem
-+ zip all the information
-+ define export options
-
++ Seamless data export with a configurable templates
++ Downloads images to local filesystem
++ Zip all the information
++ Define export options
++ configurable Mailer templates
 
 #### Forgotability
 + TBD
