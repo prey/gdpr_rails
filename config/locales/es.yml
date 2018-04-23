@@ -1,0 +1,118 @@
+es:
+  terms_app:
+    title: PreyProject
+    sub_title: PreyProject
+    sign_out: Salir
+    menu:
+      policies: Políticas
+      portability_requests: Solicitudes de portabilidad
+      user_portability_requests: Mis solicitudes de portabilidad
+      user_pending_policies: Mis políticas pendientes
+    misc:
+      back: Atras
+      edit: Editar
+      show: Ver
+      save: Guardar
+      download: Descargar
+      are_you_sure: ¿Estás seguro?
+    states:
+      draft: Borrador
+      published: Publicado
+    categories:
+      index: 
+        title: Políticas
+        table:
+          name: Nombre
+          terms: Términos
+          show: Ver
+      show:
+        title: "Términos de política %{name}"
+        new: Nuevo término
+        table:
+          id: Id
+          content: Contenido
+          state: Estado
+          updated_at: Fecha de actualización
+          show: Ver
+    terms:
+      index: 
+        title: Términos
+        button: Nuevo término
+        table:
+          description: Descripción
+          category: Politica
+          updated_at: Fecha de actualización
+          show: Ver
+          edit: Editar
+          destroy: Eliminar
+      new: 
+        title: Nuevo término para %{name}
+        state: Estado
+        description: Descripción
+        button: Crear término
+        error: al guardar término
+        created: Término creado correctamente
+        updated: Término actualizado correctamente
+        destroyed: Término eliminado correctamente
+      edit: 
+        title: Editar término %{name}
+        state: Estado
+        description: Descripción
+        error: al guardar término
+      show: 
+        title: Término
+        last_update: Última actualización
+        table:
+          name: Nombre
+          terms: Términos
+          show: Ver
+    user_terms:
+      pending: 
+        title: Mis politicas pendientes de aceptar
+        empty: No existen politicas por aceptar
+      show: 
+        accepted: 
+          message: Esta politica ya ha sido aceptada
+          question: ¿Deseas cambiar tu elección?
+          reject: Rechazar
+          not_now: No por ahora
+        pending: 
+          message: por favor acepta esta politica
+          agree: Acepto
+          not_now: No por ahora
+    user_portability_requests:
+      index: 
+        title: Mis solicitudes de portabilidad
+        empty:  No existen solicitudes de portabilidad
+        table: 
+          state: Estado
+          file: Archivo
+          created_at: Fecha de creación
+          destroy: Eliminar
+        button: Solicitar portabilidad
+        states:
+          pending: Pendiente
+          progress: En progreso
+          completed: Completado
+        has_pending: Ya tienes una solicitud pendiente, no puedes crear otra
+        created: Solicitud creada
+    portability_requests:
+      index:
+        title: Solicitudes pendientes
+        destroyed: Solicitud eliminada exitosamente.
+        empty: No existen solicitudes por revisar
+        table:
+          user: Usuario
+          state: Estado
+          created_at: Fecha de creación
+          destroy: Eliminar
+          confirm: Confirmar
+        states:
+          pending: Pendiente
+          progress: En progreso
+          completed: Completado
+    mails:
+      progress:
+        subject: Tu información esta siendo descargada
+      completed:
+        subject: Tu información está disponible

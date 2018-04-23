@@ -1,0 +1,23 @@
+<h2><%= I18n.t("terms_app.categories.index.title") %></h2>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th><%= I18n.t("terms_app.categories.index.table.name") %></th>
+      <th><%= I18n.t("terms_app.categories.index.table.terms") %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.terms.size %></td>
+        <td><%= link_to I18n.t("terms_app.categories.index.table.show"), category_path(category.name) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

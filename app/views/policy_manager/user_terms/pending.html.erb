@@ -1,0 +1,11 @@
+<h2><%= I18n.t("terms_app.user_terms.pending.title") %></h2>
+
+<% if @pending_policies.size == 0 %>
+  <p><%= I18n.t("terms_app.user_terms.pending.empty") %></p>
+<% else %>
+  <ul>
+    <% @pending_policies.each do |category| %>
+      <li><%= link_to category.name, user_term_path(category.name) %></li>
+    <% end %>
+  </ul>
+<% end %>

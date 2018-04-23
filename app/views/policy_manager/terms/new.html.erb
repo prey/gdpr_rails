@@ -1,0 +1,7 @@
+<h2><%= I18n.t("terms_app.terms.new.title", name: params[:category_id]) %></h2>
+
+<div class="float-right">
+  <%= link_to I18n.t("terms_app.misc.back"), category_terms_path(params[:category_id]), class: " btn btn-primary" %>
+</div>
+
+<%= render 'form', term: @term %>

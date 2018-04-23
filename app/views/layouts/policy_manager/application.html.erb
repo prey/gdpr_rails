@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= I18n.t("terms_app.title") %></title>
+
+  <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+  <%= stylesheet_link_tag    "policy_manager/application", media: "all" %>
+  <%= javascript_include_tag "policy_manager/application", debug: false %>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><%= I18n.t("terms_app.sub_title") %></a>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <% if PolicyManager::Config.logout_url.present? %>
+          <a class="nav-link" href="<%= PolicyManager::Config.logout_url %>"><%= I18n.t("terms_app.sign_out") %></a>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <% if PolicyManager::Config.is_admin?(current_user) %>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= categories_path %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  <%= I18n.t("terms_app.menu.policies") %> 
+                </a>
+              </li>
+            <% end %>
+            
+
+            <% if PolicyManager::Config.is_admin?(current_user) %>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= portability_requests_path %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  <%= I18n.t("terms_app.menu.portability_requests") %>
+                </a>
+              </li>
+            <% end %>
+
+            <li class="separator"></li>
+               
+            <li class="nav-item">
+              <a class="nav-link" href="<%= pending_user_terms_path %>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <%= I18n.t("terms_app.menu.user_pending_policies") %>                
+              </a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="<%= user_portability_requests_path %>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <%= I18n.t("terms_app.menu.user_portability_requests") %>
+              </a>
+            </li>
+  
+          </ul>
+
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <p id="notice">
+          <%= notice %>
+        </p>
+        <%= yield %>
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>
