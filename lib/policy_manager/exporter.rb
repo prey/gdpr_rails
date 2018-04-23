@@ -10,7 +10,9 @@ module PolicyManager
                   :mail_helpers, 
                   :attachment_path,
                   :attachment_storage, 
-                  :expiration_link
+                  :expiration_link,
+                  :mailer_templates,
+                  :mailer
 
     def initialize(opts={})
       self.path = opts[:path]
@@ -22,6 +24,7 @@ module PolicyManager
       self.attachment_path = opts[:attachment_path]
       self.attachment_storage = opts[:attachment_storage]
       self.expiration_link = opts[:expiration_link]
+      self.mailer_templates = opts[:mailer_templates]
     end
 
     def perform(resource)

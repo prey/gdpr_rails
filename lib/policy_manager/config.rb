@@ -1,7 +1,11 @@
 module PolicyManager
   class Config
 
-    mattr_accessor :exporter, :from_email, :is_admin_method, :logout_url, :portability_templates, :user_language_method
+    mattr_accessor :exporter, 
+                   :from_email, 
+                   :is_admin_method,
+                   :logout_url, 
+                   :user_language_method
 
     def self.setup
       @@rules = []

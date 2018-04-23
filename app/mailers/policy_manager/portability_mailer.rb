@@ -8,9 +8,9 @@ module PolicyManager
       
       opts = {}
       opts.merge!({
-        template_path: PolicyManager::Config.portability_templates[:path].to_s, 
-        template_name: PolicyManager::Config.portability_templates[:progress]
-      }) if PolicyManager::Config.portability_templates.any?
+        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
+        template_name: PolicyManager::Config.exporter.mailer_templates[:progress]
+      }) if PolicyManager::Config.exporter.mailer_templates.present?
       
       send!(opts)
     end
@@ -23,9 +23,9 @@ module PolicyManager
       
       opts = {}
       opts.merge!({
-        template_path: PolicyManager::Config.portability_templates[:path].to_s, 
-        template_name: PolicyManager::Config.portability_templates[:complete]
-      }) if PolicyManager::Config.portability_templates.any?
+        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
+        template_name: PolicyManager::Config.exporter.mailer_templates[:complete]
+      }) if PolicyManager::Config.exporter.mailer_templates.present?
       
       send!(opts)
     end

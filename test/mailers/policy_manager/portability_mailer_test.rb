@@ -28,12 +28,12 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.from_email = "foo@bar.org"
-        c.portability_templates = {
-          path: "user_mailer",
-          complete: "complete",
-          progress: "progress"
-        }
-        c.exporter = @exporter_config
+        c.exporter = @exporter_config.merge({mailer_templates: {
+            path: "user_mailer",
+            complete: "complete",
+            progress: "progress"
+          }
+        })
       end
 
       user = User.create(email: "a@a.cl")
@@ -72,12 +72,12 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.from_email = "foo@bar.org"
-        c.portability_templates = {
-          path: "user_mailer",
-          complete: "complete",
-          progress: "progress"
-        }
-        c.exporter = @exporter_config
+        c.exporter = @exporter_config.merge!({mailer_templates: {
+            path: "user_mailer",
+            complete: "complete",
+            progress: "progress"
+          }
+        })
       end
 
       user = User.create(email: "a@a.cl")
