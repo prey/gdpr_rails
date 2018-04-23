@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+  <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
   <%= stylesheet_link_tag    "policy_manager/application", media: "all" %>
   <%= javascript_include_tag "policy_manager/application", debug: false %>
 
@@ -22,7 +25,8 @@
 <body>
 
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><%= I18n.t("terms_app.sub_title") %></a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">
+      <%= I18n.t("terms_app.sub_title") %></a>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
         <% if PolicyManager::Config.logout_url.present? %>
@@ -40,7 +44,7 @@
             <% if PolicyManager::Config.is_admin?(current_user) %>
               <li class="nav-item">
                 <a class="nav-link" href="<%= categories_path %>">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  <i class="fas fa-balance-scale"></i>
                   <%= I18n.t("terms_app.menu.policies") %> 
                 </a>
               </li>
@@ -50,24 +54,24 @@
             <% if PolicyManager::Config.is_admin?(current_user) %>
               <li class="nav-item">
                 <a class="nav-link" href="<%= portability_requests_path %>">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  <i class="fas fa-suitcase"></i>
                   <%= I18n.t("terms_app.menu.portability_requests") %>
                 </a>
               </li>
             <% end %>
 
             <li class="separator"></li>
-               
+
             <li class="nav-item">
               <a class="nav-link" href="<%= pending_user_terms_path %>">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                <%= I18n.t("terms_app.menu.user_pending_policies") %>                
+                <i class="fas fa-user-secret"></i>
+                <%= I18n.t("terms_app.menu.user_pending_policies") %>       
               </a>
             </li>
           
             <li class="nav-item">
               <a class="nav-link" href="<%= user_portability_requests_path %>">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <i class="fas fa-suitcase"></i>
                 <%= I18n.t("terms_app.menu.user_portability_requests") %>
               </a>
             </li>
@@ -79,7 +83,7 @@
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
         <p id="notice">
-          <%= notice %>
+          <%= flash_messages %>
         </p>
         <%= yield %>
       </main>

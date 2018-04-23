@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency "aasm"
   s.add_dependency "rubyzip", '>= 1.0.0'
   s.add_dependency "paperclip"
+  s.add_dependency "groupdate", "4.0.0"
+  s.add_dependency "chartkick", "2.3.4"
   #s.add_dependency "kaminari"
   s.add_development_dependency "minitest-stub_any_instance"
   s.add_development_dependency "nokogiri"

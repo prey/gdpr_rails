@@ -3,6 +3,9 @@
 <% if @portability_requests.size == 0 %>
   <p><%= I18n.t("terms_app.portability_requests.index.empty") %></p>
 <% else %>
+
+  <%= column_chart PolicyManager::PortabilityRequest.group_by_day(:created_at, format: "%a").count %>
+
   <div class="table-responsive">
     <table class="table table-striped table-sm">
       <thead>

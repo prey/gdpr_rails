@@ -1,7 +1,7 @@
 en:
   terms_app:
-    title: PreyProject
-    sub_title: PreyProject
+    title: PolicyManager
+    sub_title: PolicyManager
     sign_out: Logout
     menu:
       policies: Políticas

@@ -1,4 +1,6 @@
 
+require "groupdate"
+require "chartkick"
 require "policy_manager/engine"
 require "policy_manager/rule"
 require "policy_manager/portability_rule"
