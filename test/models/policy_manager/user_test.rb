@@ -28,7 +28,13 @@ module PolicyManager
         }
       end
 
-      PolicyManager::Term.create(description: "el", rule: "age")
+      if defined?(User)
+        Object.send(:remove_const, :User)
+        load Rails.root + 'app/models/user.rb'
+      end
+
+      pr = PolicyManager::Term.create(description: "el", rule: "age")
+      pr.publish!
     end
 
     test "dummy user creation with validation rules" do
@@ -62,17 +68,21 @@ module PolicyManager
     end
 
     test "get policies on existing terms will return pending policies" do
-      PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      pr = PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      pr.publish!
       user = User.create(email: "a@a.cl", policy_rule_age: true)
-      PolicyManager::Term.create(description: "version 2", rule: "age")
+      pr = PolicyManager::Term.create(description: "version 2", rule: "age")
+      pr.publish!
       assert user.pending_policies.size == 1
       assert user.needs_policy_confirmation_for?(config.rules.first.name)
     end
 
     test "accept policies will empty pending policies" do
-      PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      pr = PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      pr.publish!
       user = User.create(email: "a@a.cl", policy_rule_age: true)
-      PolicyManager::Term.create(description: "version 2", rule: "age")
+      pr = PolicyManager::Term.create(description: "version 2", rule: "age")
+      pr.publish!
       assert user.pending_policies.size == 1
       user_term = user.handle_policy_for(config.rules.first.terms.last)
       user_term.accept!

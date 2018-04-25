@@ -11,7 +11,6 @@ module PolicyManager::Concerns::UserBehavior
     PolicyManager::Config.rules.each do |rule|
       # next if rule. !internal?
       rule_name = "policy_rule_#{rule.name}".to_sym
-      
       attr_accessor rule_name
 
       if rule.validates_on
@@ -42,7 +41,6 @@ module PolicyManager::Concerns::UserBehavior
 
     # adds portability rules
     PolicyManager::Config.portability_rules.each do |rule|
-
       if rule.collection 
         define_method :"portability_collection_#{rule.name}" do |page=1|
           portability_collection_for(rule, page)
@@ -112,7 +110,7 @@ module PolicyManager::Concerns::UserBehavior
 
   def policy_term_on(rule)
     category = PolicyManager::Config.rules.find{|o| o.name == rule}
-    term = category.terms.last
+    term = category.terms.where(state: "published").last
     raise "no term for #{rule} policy" if term.blank?
     term
   end

@@ -4,6 +4,7 @@ module PolicyManager
   class PortabilityRuleTest < ActiveSupport::TestCase
     
     def setup
+
       @config = PolicyManager::Config.setup do |c|
         c.add_rule({name: "age", validates_on: [:create, :update], if: ->(o){false} })
         c.add_portability_rule({
@@ -19,7 +20,13 @@ module PolicyManager
 
       end
 
-      PolicyManager::Term.create(description: "el", rule: "age")
+      if defined?(User)
+        Object.send(:remove_const, :User)
+        load Rails.root + 'app/models/user.rb'
+      end
+
+      pr = PolicyManager::Term.create(description: "el", rule: "age")
+      pr.publish!
     end
 
     test "return a collection" do

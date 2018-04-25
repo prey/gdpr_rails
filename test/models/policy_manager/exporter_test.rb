@@ -5,7 +5,6 @@ module PolicyManager
   class ExporterTest < ActiveSupport::TestCase
     
     def setup
-
       PolicyManager::Term.create(description: "el", rule: "age")
 
       @config = PolicyManager::Config.setup do |c|
@@ -27,10 +26,6 @@ module PolicyManager
                     <body>
                     <h1>layout header</h1>
                     <div class="container">
-                      <% @collection.each do |rule| %>
-                        <li><%= link_to rule.name, "./#{rule.name}/index.html" %></li>
-                      <% end %>
-
                       <%= yield %>
                     </div>
                     <footer>layout footer</footer>
@@ -50,7 +45,7 @@ module PolicyManager
           <%= @base_path %>
            <% @collection.each do |item| %>
             <p><%= item.country%></p>
-             <%= image_tag(item.image) %>
+
            <% end %>
            <%= will_paginate(@collection, renderer: PolicyManager::PaginatorRenderer) %>",
           per: 10
