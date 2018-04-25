@@ -1,4 +1,5 @@
 
+
 # GDPR RAILS
 
 ### Rails Engine for the GDPR compliance
@@ -7,27 +8,27 @@
 
 ## About this project
 
-PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply the requirements of GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
+PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
 
 ### Main Features:
 
 #### Policy Rules
 + Configurable policy rules, supports activerecord validations for new or existing users
-+ Supports session-less consent policies which will be persisted once user signs in or signs up
++ Supports session-less consent policies which will become persistent once the user signs in or signs up
 + Versioning system for new policies
-+ Json endpoints to handle pending policies and portability logic in order to be implemented for client interfaces, ie: frontend apps like React, Vue, Backbone, you name it.
++ JSON endpoints to handle pending policies and portability logic in order to be implemented in *client only* interfaces, ie: frontend apps like React, Vue, Backbone, you name it.
 
 #### Portability
-Portability module let's you define export options, this will generate a navegable static site with all the data
+Portability module lets you define export options, that will generate a navigable static site with all the data you've defined in the **portability rules**
 + Seamless data export with configurable templates
-+ Configurable Mailer templates for progress & completion download
-+ Downloads images to local filesystem in order to comply GDPR requirements on accesibility of data.
-+ Zip all the information and delivers it with a expirable download link
++ Configurable Mailer templates for progress & download completion
++ Downloads images to the local filesystem in order to comply with GDPR requirements on data accessibility.
++ Zips all the information and delivers it with a expirable download link
 + ActiveJob to handle the process
-+ Behind the scenes uses a paperclip gem in which you can set up storages, like S3, Google
++ Behind the scenes uses the paperclip gem in which you can set up storages, like S3, Google
 
 #### Forgotability
-+ TBD, for now we simply delete all the data when user closes account. But this could be handled in the future like encription of emails or other sensible fields on database
++ TBD, for now we simply delete all the data when a user closes the account.  This could be handled in the future with encryption like in emails or other kind of sensible fields on a database.
 
 ### Admin Panel
 ![ioj](./panel.jpg)
@@ -59,8 +60,8 @@ config = PolicyManager::Config.setup do |c|
   }
 ```
 
-In order for this engine to work you must supply some rules according to your needs, in order to be in comply with GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and a Age +16 confirmation. 
-So, let's start doing that 
+In order for this engine to work you must supply some rules according to your needs, in order to be in comply with the GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and an Age  confirmation (+16). 
+So, let's start by doing that: 
 
 ### Term rules
 
@@ -85,13 +86,13 @@ PolicyManager::UserTermsController.send(:include, Devise::Controllers::Helpers)
 
 ### Policy rules:
 
-+ **sessionless:** will allow rules to be available for non logged users, if accepted a cookie `cookies["policy_rule_cookie"]` will be generated. If then the user sign in or signs up you could get this cookie and persist in database.
-**Use this in your controller**
++ **sessionless:** will allow rules to be available for non logged users, if accepted a cookie `cookies["policy_rule_cookie"]` will be generated. If then the user sign in or signs up you could get this cookie it will persist in database.
+**Use this in your controller:**
 ```ruby
 @user.store_policy_cookie if cookies["policy_rule_cookie"] == "accepted"
 ```
 
-+ **validates_on:** will require users validation, will automagically create virtual attributes for the policy you set, so, if you set `age` in your config you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those then the user validation will return errors on `policy_rule_age` . Also don't forget to add the fields in your strong params in the controller which handles the request.
++ **validates_on:** will require users validation, will automagically create virtual attributes for the policy you set, so, if you set `age` in your config you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those then the user validation will return errors on `policy_rule_age` . Don't forget to add the fields in your strong params in the controller which handles the request.
 + **if:** you can add conditions as a Proc in order skip validations:
 ```ruby
   c.add_rule({name: "age", validates_on: [:create, :update], 
@@ -101,7 +102,7 @@ PolicyManager::UserTermsController.send(:include, Devise::Controllers::Helpers)
 #### Policy handling:
 
 There are some endpoints that will handle json in order to interact with client applications, like react interfaces, $.ajax etc. 
-Also you can use the web html panel directly from the engine.
+you can also use the html web panel directly from the engine.
 So, if the Engine was mounted on `/policies` then your routes will be:
 
     pending_user_terms          GET    /user_terms/pending(.:format)                     policy_manager/user_terms#pending
@@ -114,13 +115,13 @@ So, if the Engine was mounted on `/policies` then your routes will be:
 
 ### Portability Rules
 
-Export option & Portability rules will allow you to set up how and which data you will give to requester user.
+Export option & Portability rules will allow you to set up how and which data you will give to a requester user.
 
 #### Exporter:
 + **path**: where the folder will be generated, usually can be set on /tmp, this will need a pathname, like `Rails.root.join("tmp/export")`
 + **resource**: which model , ie: `User`
 + **index_template**: The first page. defaults to a simple ul li list of links tied to your rules, this expects a Pathname or a String with yout template
-+ **layout**: A layout template to wrap the static site,  this expects a Pathname or a String with yout template
++ **layout**: A layout template to wrap the static site,  this expects a Pathname or a String with your template
 + **after_zip**: a callback to handle the zip file on the resource, something like: 
 ```ruby
 after_zip: ->(zip_path, resource){ 
@@ -170,7 +171,7 @@ end
 **Important:**
 > If the content that will be delivered has images use the `image_tag`
 > in your template.  This helper was reimplemented in order for the remote image to be downloaded automatically.
-> And will be served locally in order to be in compliant with the
+> And will be served locally in order to comply with the
 > Portability data requirements.
 
 ### Web Endpoints and methods for user:
@@ -182,7 +183,7 @@ user_portability_request    DELETE /user_portability_requests/:id(.:format)     
 
 ```
 ### Web Endpoints and methods for admin :
-this routes are accesibles from engine's admin panel
+this routes are accessible from engine's admin panel
 ```
 
 confirm_portability_request GET    /portability_requests/:id/confirm(.:format)       policy_manager/portability_requests#confirm
@@ -191,15 +192,14 @@ portability_request         DELETE /portability_requests/:id(.:format)          
 ```
 
 
-# TODO
+# TO DO
 +   anonimyzer 
 
-#### Acknowlegments
-+ Prey Team
+#### Acknowledgments
++ [Prey Team](https://github.com/orgs/prey/people)
 + Special thanks to our legal GDPR advisor: Paul Lagniel <paul@preyhq.com>
 
 #### Main maintainers
-
 + Miguel Michelson - miguel@preyhq.com
 + Patricio Jofré - pato@preyhq.com
 
