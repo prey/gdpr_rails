@@ -169,7 +169,7 @@ end
 ```
 **Important:**
 > If the content that will be delivered has images use the `image_tag`
-> in your template.  This helper was reimplemented in order for the remote image will be downloaded automatically.
+> in your template.  This helper was reimplemented in order for the remote image to be downloaded automatically.
 > And will be served locally in order to be in compliant with the
 > Portability data requirements.
 
