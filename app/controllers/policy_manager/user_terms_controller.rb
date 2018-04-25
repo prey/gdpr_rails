@@ -56,7 +56,7 @@ module PolicyManager
         format.js
         format.json{
           render json: {
-            state: @user_term ? @user_term.state : cookies["policy_rule_#{@term.rule.name}"]
+            status: @user_term ? @user_term.state : cookies["policy_rule_#{@term.rule.name}"]
           }
         }
       end

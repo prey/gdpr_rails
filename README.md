@@ -1,9 +1,9 @@
 
 # GDPR RAILS
 
-### Rails Engine for GDPR compliance
-![RB](http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/6/85//bungle.jpg?itok=DPY-M9_6)
-> Rainbow - Bungle's takes your privacy very seriously
+### Rails Engine for the GDPR compliance
+![RB](https://media.giphy.com/media/L74KIFFW4kUkE/giphy.gif)
+> The world needs some privacy, please
 
 ## About this project
 
@@ -46,6 +46,18 @@ Install & run the migrations
 `rake policy_manager:install:migrations`
 
 ## Usage examples
+
+### Basic config
+```ruby
+config = PolicyManager::Config.setup do |c|  
+  c.logout_url = "logout"
+  c.from_email = "admin@acme.com"
+  # is_admin method in order for engine to know  
+  # how to authorize admin only areas  
+  c.is_admin_method = ->(o){ 
+    o.is_god? || o.is_admin? || o.is_me?
+  }
+```
 
 In order for this engine to work you must supply some rules according to your needs, in order to be in comply with GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and a Age +16 confirmation. 
 So, let's start doing that 
