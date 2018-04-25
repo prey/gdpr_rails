@@ -4,113 +4,113 @@ en:
     sub_title: PolicyManager
     sign_out: Logout
     menu:
-      policies: Políticas
-      portability_requests: Solicitudes de portabilidad
-      user_portability_requests: Mis solicitudes de portabilidad
-      user_pending_policies: Mis políticas pendientes
+      policies: Policies
+      portability_requests: Portability requests
+      user_portability_requests: My Portability requests
+      user_pending_policies: My pending policies
     misc:
-      back: Atras
-      edit: Editar
-      show: Ver
-      save: Guardar
-      download: Descargar
-      are_you_sure: ¿Estás seguro?
+      back: Back
+      edit: Edit
+      show: Show
+      save: Save
+      download: Download
+      are_you_sure: Are you sure?
     states:
-      draft: Borrador
-      published: Publicado
+      draft: Draft
+      published: Published
     categories:
       index: 
-        title: Políticas
+        title: Policies
         table:
           name: Nombre
-          terms: Términos
-          show: Ver
+          terms: Terms
+          show: Show
       show:
-        title: "Términos de política %{name}"
-        new: Nuevo término
+        title: "%{name} Policy"
+        new: New Term
         table:
           id: Id
-          content: Contenido
-          state: Estado
-          updated_at: Fecha de actualización
-          show: Ver
+          content: Content
+          state: State
+          updated_at: Updated at
+          show: Show
     terms:
       index: 
-        title: Términos
-        button: Nuevo término
+        title: Terms
+        button: New Term
         table:
-          description: Descripción
-          category: Politica
-          updated_at: Fecha de actualización
-          show: Ver
-          edit: Editar
-          destroy: Eliminar
+          description: Description
+          category: Policy
+          updated_at: Updated at
+          show: Show
+          edit: Edit
+          destroy: Destroy
       new: 
-        title: Nuevo término para %{name}
-        state: Estado
-        description: Descripción
-        button: Crear término
-        error: al guardar término
-        created: Término creado correctamente
-        updated: Término actualizado correctamente
-        destroyed: Término eliminado correctamente
+        title: "%{name} new term"
+        state: State
+        description: Description
+        button: Button
+        error: error saving term
+        created: successfully created
+        updated: successfully updated
+        destroyed: successfully deleted
       edit: 
-        title: Editar término %{name}
-        state: Estado
-        description: Descripción
-        error: al guardar término
+        title: edit %{name} term
+        state: State
+        description: Description
+        error: saving term
       show: 
-        title: Término
-        last_update: Última actualización
+        title: term
+        last_update: last update
         table:
-          name: Nombre
-          terms: Términos
-          show: Ver
+          name: Name
+          terms: Terms
+          show: Show
     user_terms:
       pending: 
-        title: Mis politicas pendientes de aceptar
-        empty: No existen politicas por aceptar
+        title: My pending policies
+        empty: There are no pending policies
       show: 
         accepted: 
-          message: Esta politica ya ha sido aceptada
-          question: ¿Deseas cambiar tu elección?
-          reject: Rechazar
-          not_now: No por ahora
+          message: Accepted policy
+          question: Change your mind?
+          reject: Reject
+          not_now: No not now
         pending: 
-          message: por favor acepta esta politica
-          agree: Acepto
-          not_now: No por ahora
+          message: Please accept this policy
+          agree: Accept
+          not_now: No not now
     user_portability_requests:
       index: 
-        title: Mis solicitudes de portabilidad
-        empty:  No existen solicitudes de portabilidad
+        title: My portability requests
+        empty:  There are no portability requests
         table: 
-          state: Estado
-          file: Archivo
-          created_at: Fecha de creación
-          destroy: Eliminar
-        button: Solicitar portabilidad
+          state: State
+          file: File
+          created_at: Created at
+          destroy: Delete
+        button: New portability request
         states:
-          pending: Pendiente
-          progress: En progreso
-          completed: Completado
-        has_pending: Ya tienes una solicitud pendiente, no puedes crear otra
-        created: Solicitud creada
+          pending: Pending
+          progress: In progress
+          completed: Completed
+        has_pending: You have a pending request already, you can't create another.
+        created: Created request
     portability_requests:
       index:
-        title: Solicitudes pendientes
-        destroyed: Solicitud eliminada exitosamente.
-        empty: No existen solicitudes por revisar
+        title: Pending requests
+        destroyed: successfully deleted
+        empty: There is no requests
         table:
-          user: Usuario
-          state: Estado
-          created_at: Fecha de creación
-          destroy: Eliminar
-          confirm: Confirmar
+          user: User
+          state: State
+          created_at: Created at
+          destroy: Destroy
+          confirm: Confirm
         states:
-          pending: Pendiente
-          progress: En progreso
-          completed: Completado
+          pending: Pending
+          progress: In Progress
+          completed: Completed
     mails:
       progress:
         subject: Your data is being handled

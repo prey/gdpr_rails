@@ -1,34 +1,36 @@
+
 # GDPR RAILS
 
 ### Rails Engine for GDPR compliance
-![ioj](http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/6/85//bungle.jpg?itok=DPY-M9_6)
+![RB](http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/6/85//bungle.jpg?itok=DPY-M9_6)
 > Rainbow - Bungle's takes your privacy very seriously
 
 ## About this project
 
-GDPR RAILS or PolicyManager was created with flexibility in mind to tackle the requirements of GDPR (General Data Protection Regulation) compliance. It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25.
+PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply the requirements of GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
 
 ### Main Features:
 
 #### Policy Rules
 + Configurable policy rules, supports activerecord validations for new or existing users
-+ supports session-less terms to consent which will be persisted when user sign in / sign up
++ Supports session-less consent policies which will be persisted once user signs in or signs up
 + Versioning system for new policies
-+ Json endpoints to consume which terms must be consent
++ Json endpoints to handle pending policies and portability logic in order to be implemented for client interfaces, ie: frontend apps like React, Vue, Backbone, you name it.
 
 #### Portability
 Portability module let's you define export options, this will generate a navegable static site with all the data
-+ Seamless data export with a configurable templates
-+ Downloads images to local filesystem
-+ Zip all the information
-+ Define export options
-+ configurable Mailer templates
++ Seamless data export with configurable templates
++ Configurable Mailer templates for progress & completion download
++ Downloads images to local filesystem in order to comply GDPR requirements on accesibility of data.
++ Zip all the information and delivers it with a expirable download link
++ ActiveJob to handle the process
++ Behind the scenes uses a paperclip gem in which you can set up storages, like S3, Google
 
 #### Forgotability
-+ TBD
++ TBD, for now we simply delete all the data when user closes account. But this could be handled in the future like encription of emails or other sensible fields on database
 
 ### Admin Panel
-+ show 
+![ioj](./panel.jpg)
 
 ## Installation
 Add this line to your application's Gemfile: 
@@ -39,10 +41,13 @@ Then in yout application.rb require the policy_manager lib with
 
 `require "policy_manager"`
 
+Install & run the migrations
+
+`rake policy_manager:install:migrations`
 
 ## Usage examples
 
-in order to work with the engine you must supply some rules according to your needs, in order to be in compliance with GDPR you will need 3 rules at least. A cookie consent, an Privacy& TOS and a Age +16 confirmation. 
+In order for this engine to work you must supply some rules according to your needs, in order to be in comply with GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and a Age +16 confirmation. 
 So, let's start doing that 
 
 ### Term rules
@@ -53,25 +58,28 @@ In your app router add the following:
   mount PolicyManager::Engine => "/policies"
 ```
 
-then add an initializer, `config/initializers/gdpr.rb` and inside it set your policy rules.
+Then add an initializer, `config/initializers/gdpr.rb` and inside it set your policy rules.
 
 ```ruby
-config = PolicyManager::Config.setup do |c|
+PolicyManager::Config.setup do |c|
   c.add_rule({name: "cookie", sessionless: true }  )
   c.add_rule({name: "age", validates_on: [:create, :update], blocking: true })
   c.add_rule({name: "privacy_terms", validates_on: [:create, :update], blocking: true })
 end
 
-# if you are using devise, you must extend engines's controller with devise helpers in order to use current_user
+# If you are using devise, you must extend engines's controller with devise helpers in order to get current_user
 PolicyManager::UserTermsController.send(:include, Devise::Controllers::Helpers)
 ```
 
-
-
 ### Policy rules:
 
-+ **sessionless:** will allow rules to be available for non logged users, if accepted a cookie `cookies["policy_rule_cookie"]` will be generated.
-+ **validates_on:** will require users validation, will automagically create virtual attributes for name, so if you set `age` you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those the user instance will validates and you will get the `policy_rule_age` in the activerecord errors response when try to save record.
++ **sessionless:** will allow rules to be available for non logged users, if accepted a cookie `cookies["policy_rule_cookie"]` will be generated. If then the user sign in or signs up you could get this cookie and persist in database.
+**Use this in your controller**
+```ruby
+@user.store_policy_cookie if cookies["policy_rule_cookie"] == "accepted"
+```
+
++ **validates_on:** will require users validation, will automagically create virtual attributes for the policy you set, so, if you set `age` in your config you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those then the user validation will return errors on `policy_rule_age` . Also don't forget to add the fields in your strong params in the controller which handles the request.
 + **if:** you can add conditions as a Proc in order skip validations:
 ```ruby
   c.add_rule({name: "age", validates_on: [:create, :update], 
@@ -80,37 +88,42 @@ PolicyManager::UserTermsController.send(:include, Devise::Controllers::Helpers)
 
 #### Policy handling:
 
-There will be some endpoints that will return json or html to be handled on your frontend or directly in the engine web panel.
-if the Engine was mounted on `/policies` then your routes will be:
+There are some endpoints that will handle json in order to interact with client applications, like react interfaces, $.ajax etc. 
+Also you can use the web html panel directly from the engine.
+So, if the Engine was mounted on `/policies` then your routes will be:
 
-    pending_user_terms GET    /user_terms/pending(.:format)                     policy_manager/user_terms#pending
+    pending_user_terms          GET    /user_terms/pending(.:format)                     policy_manager/user_terms#pending
     accept_multiples_user_terms PUT    /user_terms/accept_multiples(.:format)            policy_manager/user_terms#accept_multiples
-    blocking_terms_user_terms GET    /user_terms/blocking_terms(.:format)              policy_manager/user_terms#blocking_terms
-    accept_user_term PUT    /user_terms/:id/accept(.:format)                  policy_manager/user_terms#accept
-    reject_user_term PUT    /user_terms/:id/reject(.:format)                  policy_manager/user_terms#reject
-    user_terms GET    /user_terms(.:format)                             policy_manager/user_terms#index
-    user_term GET    /user_terms/:id(.:format)                         policy_manager/user_terms#show
-
-
+    blocking_terms_user_terms   GET    /user_terms/blocking_terms(.:format)              policy_manager/user_terms#blocking_terms
+    accept_user_term            PUT    /user_terms/:id/accept(.:format)                  policy_manager/user_terms#accept
+    reject_user_term            PUT    /user_terms/:id/reject(.:format)                  policy_manager/user_terms#reject
+    user_terms                  GET    /user_terms(.:format)                             policy_manager/user_terms#index
+    user_term                   GET    /user_terms/:id(.:format)                         policy_manager/user_terms#show
 
 ### Portability Rules
 
 Export option & Portability rules will allow you to set up how and which data you will give to requester user.
 
 #### Exporter:
-+ **path**: where the folder will be generated
-+ **resource**: which model
-+ **index_template**: the first page. defaults to a simple ul li list of links tied to your rules
-+ **layout**: a layout template to wrap the static site
-+ **after_zip**: a callback to handle the zip file on the resource
-+ **mail_helpers**: ,
++ **path**: where the folder will be generated, usually can be set on /tmp, this will need a pathname, like `Rails.root.join("tmp/export")`
++ **resource**: which model , ie: `User`
++ **index_template**: The first page. defaults to a simple ul li list of links tied to your rules, this expects a Pathname or a String with yout template
++ **layout**: A layout template to wrap the static site,  this expects a Pathname or a String with yout template
++ **after_zip**: a callback to handle the zip file on the resource, something like: 
+```ruby
+after_zip: ->(zip_path, resource){ 
+  puts "THIS IS GREAT #{zip_path} was zipped, now what ??" 
+}   
+```
+
++ **mail_helpers**:  If you have some helpers you want to add to the mailers, then you can pass an Array of helpers, `[MailHelper, OtherMailHelper]`,
 + **attachment_path**: Paperclip upload path , defaults to "portability/:id/build.zip",
-+ **attachment_storage**: Paperclip storage, defaults to filesystem 
++ **attachment_storage**: Paperclip storage, defaults to filesystem , you can set `s3` or `google` or whatever paperclip supports
 + **expiration_link**: integer, defaults to 60 (1 minute),
 
 #### Portability Rules:
 
-portability rules  collection render. This will call a @user.articles
+Portability rules collection render. This will call a @user.articles
 and will auto paginate records
 
 ```ruby
@@ -124,34 +137,50 @@ PolicyManager::Config.setup do |c|
 
   # portability rules, collection render. This will call a @user.articles
   # and will auto paginate records
+  # template expects a string or path
   c.add_portability_rule({
     name: "exportable_data", 
     collection: :articles, 
-    template: "hello, a collection will be rendered here <%= @collection.to_json %>",
+    template: "hello, a collection will be rendered here use @collection.to_json",
     per: 10
   })
 
+  # portability rules, member render. This will call a @user.account_data
+  # template expects a string or path
   c.add_portability_rule({
     name: "my_account", 
     member: :account_data,
-    template: "hellow , here a resource will be rendered <%= image_tag(@member[:image]) %> <%= @member.to_json %> "          
+    template: "hellow , here a resource will be rendered <%= @member.to_json %> "          
   })
 
 end
 ```
+**Important:**
+> If the content that will be delivered has images use the `image_tag`
+> in your template.  This helper was reimplemented in order for the remote image will be downloaded automatically.
+> And will be served locally in order to be in compliant with the
+> Portability data requirements.
 
-If the content that will be delivered has images use the `image_tag` in your template. The remote image will be downloaded automatically and will be served locally in order to be in compliant with the Portability data.
+### Web Endpoints and methods for user:
 
+```
+user_portability_requests   GET    /user_portability_requests(.:format)              policy_manager/user_portability_requests#index
+                            POST   /user_portability_requests(.:format)              policy_manager/user_portability_requests#create
+user_portability_request    DELETE /user_portability_requests/:id(.:format)          policy_manager/user_portability_requests#destroy
 
-### Web Endpoints and methods:
+```
+### Web Endpoints and methods for admin :
+this routes are accesibles from engine's admin panel
+```
 
-
+confirm_portability_request GET    /portability_requests/:id/confirm(.:format)       policy_manager/portability_requests#confirm
+portability_requests        GET    /portability_requests(.:format)                   policy_manager/portability_requests#index
+portability_request         DELETE /portability_requests/:id(.:format)               policy_manager/portability_requests#destroy
+```
 
 
 # TODO
-
-+ anonimyzer
-+ unsubscriber
++   anonimyzer 
 
 #### Acknowlegments
 + Prey Team
