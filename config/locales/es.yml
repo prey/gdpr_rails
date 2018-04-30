@@ -19,7 +19,7 @@ es:
       draft: Borrador
       published: Publicado
     categories:
-      index: 
+      index:
         title: Políticas
         table:
           name: Nombre
@@ -35,7 +35,7 @@ es:
           updated_at: Fecha de actualización
           show: Ver
     terms:
-      index: 
+      index:
         title: Términos
         button: Nuevo término
         table:
@@ -45,7 +45,7 @@ es:
           show: Ver
           edit: Editar
           destroy: Eliminar
-      new: 
+      new:
         title: Nuevo término para %{name}
         state: Estado
         description: Descripción
@@ -54,12 +54,12 @@ es:
         created: Término creado correctamente
         updated: Término actualizado correctamente
         destroyed: Término eliminado correctamente
-      edit: 
+      edit:
         title: Editar término %{name}
         state: Estado
         description: Descripción
         error: al guardar término
-      show: 
+      show:
         title: Término
         last_update: Última actualización
         table:
@@ -67,24 +67,24 @@ es:
           terms: Términos
           show: Ver
     user_terms:
-      pending: 
+      pending:
         title: Mis politicas pendientes de aceptar
         empty: No existen politicas por aceptar
-      show: 
-        accepted: 
+      show:
+        accepted:
           message: Esta politica ya ha sido aceptada
           question: ¿Deseas cambiar tu elección?
           reject: Rechazar
           not_now: No por ahora
-        pending: 
+        pending:
           message: por favor acepta esta politica
           agree: Acepto
           not_now: No por ahora
     user_portability_requests:
-      index: 
+      index:
         title: Mis solicitudes de portabilidad
         empty:  No existen solicitudes de portabilidad
-        table: 
+        table:
           state: Estado
           file: Archivo
           created_at: Fecha de creación
@@ -94,8 +94,8 @@ es:
           pending: Pendiente
           progress: En progreso
           completed: Completado
-        has_pending: Ya tienes una solicitud pendiente, no puedes crear otra
-        created: Solicitud creada
+        has_pending: Tienes una solicitud de información pendiente, no puedes hacer otra aún
+        created: Petición de Datos Iniciada!
     portability_requests:
       index:
         title: Solicitudes pendientes
@@ -116,3 +116,7 @@ es:
         subject: Tu información esta siendo descargada
       completed:
         subject: Tu información está disponible
+  will_paginate:
+    previous_label: "&lt;"
+    next_label: "&gt;"
+    page_gap: "&hellip;"

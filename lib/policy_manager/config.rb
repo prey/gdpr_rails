@@ -5,12 +5,14 @@ module PolicyManager
                    :from_email, 
                    :is_admin_method,
                    :logout_url, 
-                   :user_language_method
+                   :user_language_method,
+                   :scripts
 
     def self.setup
       @@rules = []
       @@portability_rules = []
       @@portability_templates = []
+      @@scripts = []
       yield self
       self
     end
@@ -41,6 +43,10 @@ module PolicyManager
 
     def self.add_portability_rule(opts={}, &block)
       @@portability_rules << PolicyManager::PortabilityRule.new(opts, &block)
+    end
+
+    def self.add_script(opts={}, &block)
+      @@scripts << PolicyManager::Script.new(opts, &block)
     end
 
   end

@@ -19,10 +19,10 @@ en:
       draft: Draft
       published: Published
     categories:
-      index: 
+      index:
         title: Policies
         table:
-          name: Nombre
+          name: Name
           terms: Terms
           show: Show
       show:
@@ -35,7 +35,7 @@ en:
           updated_at: Updated at
           show: Show
     terms:
-      index: 
+      index:
         title: Terms
         button: New Term
         table:
@@ -44,47 +44,47 @@ en:
           updated_at: Updated at
           show: Show
           edit: Edit
-          destroy: Destroy
-      new: 
+          destroy: Delete
+      new:
         title: "%{name} new term"
         state: State
         description: Description
         button: Button
         error: error saving term
-        created: successfully created
-        updated: successfully updated
-        destroyed: successfully deleted
-      edit: 
-        title: edit %{name} term
+        created: Successfully created
+        updated: Successfully updated
+        destroyed: Successfully deleted
+      edit:
+        title: Edit %{name} term
         state: State
         description: Description
         error: saving term
-      show: 
-        title: term
-        last_update: last update
+      show:
+        title: Term
+        last_update: Last update
         table:
           name: Name
           terms: Terms
           show: Show
     user_terms:
-      pending: 
+      pending:
         title: My pending policies
         empty: There are no pending policies
-      show: 
-        accepted: 
+      show:
+        accepted:
           message: Accepted policy
           question: Change your mind?
           reject: Reject
           not_now: No not now
-        pending: 
+        pending:
           message: Please accept this policy
           agree: Accept
           not_now: No not now
     user_portability_requests:
-      index: 
+      index:
         title: My portability requests
         empty:  There are no portability requests
-        table: 
+        table:
           state: State
           file: File
           created_at: Created at
@@ -94,18 +94,18 @@ en:
           pending: Pending
           progress: In progress
           completed: Completed
-        has_pending: You have a pending request already, you can't create another.
-        created: Created request
+        has_pending: You have one pending information request, you can't create another one yet.
+        created: Information Request Submitted!
     portability_requests:
       index:
         title: Pending requests
-        destroyed: successfully deleted
+        destroyed: Successfully deleted
         empty: There is no requests
         table:
           user: User
           state: State
           created_at: Created at
-          destroy: Destroy
+          destroy: Delete
           confirm: Confirm
         states:
           pending: Pending
@@ -116,3 +116,7 @@ en:
         subject: Your data is being handled
       completed:
         subject: Your data is available
+  will_paginate:
+    previous_label: "&lt;"
+    next_label: "&gt;"
+    page_gap: "&hellip;"
