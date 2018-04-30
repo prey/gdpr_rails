@@ -105,8 +105,8 @@ module PolicyManager
           assert noko.css("footer").text == "layout footer"
         end
 
-        #FileUtils.rm_rf(Rails.root.join("tmp/export/#{user.id}"))
-        #FileUtils.rm_rf(Rails.root.join("tmp/export/#{user.id}-out.zip"))
+        FileUtils.rm_rf(Rails.root.join("tmp/export/#{user.id}"))
+        FileUtils.rm_rf(Rails.root.join("tmp/export/#{user.id}-out.zip"))
       
       end
     end
