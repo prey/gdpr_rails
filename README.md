@@ -6,7 +6,9 @@
 ![RB](https://media.giphy.com/media/L74KIFFW4kUkE/giphy.gif)
 > The world needs some privacy, please
 
-![CI](https://api.travis-ci.org/prey/gdpr_rails.svg?branch=master)
+
+[![Build Status](https://travis-ci.org/prey/gdpr_rails.svg?branch=master)](https://travis-ci.org/prey/gdpr_rails)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/4908e74f90a34ba473df/maintainability)](https://codeclimate.com/github/prey/gdpr_rails/maintainability)
 
 ## About this project
