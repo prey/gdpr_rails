@@ -5,6 +5,6 @@ rvm:
  - 2.3.1
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS myapp_test;'
-  -  bin/rails db:migrate RAILS_ENV=test
+  - bundle exec rails db:migrate RAILS_ENV=test
 
 script: bundle exec rails test test/models/*
