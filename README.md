@@ -6,6 +6,9 @@
 ![RB](https://media.giphy.com/media/L74KIFFW4kUkE/giphy.gif)
 > The world needs some privacy, please
 
+![CI](https://travis-ci.org/prey/gdpr_rails.svg?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4908e74f90a34ba473df/maintainability)](https://codeclimate.com/github/prey/gdpr_rails/maintainability)
+
 ## About this project
 
 PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
