@@ -123,7 +123,9 @@ module PolicyManager
       def handle_term_accept
         if current_user
           @user_term = current_user.handle_policy_for(@term)
-          @user_term.accept!
+          if @user_term.accept!
+            @term.rule.on_accept.call(self) if @term.rule.on_accept.is_a?(Proc)
+          end
         end
 
         cookies["policy_rule_#{@term.rule.name}"] = {
@@ -135,7 +137,9 @@ module PolicyManager
       def handle_term_reject
         if current_user
           @user_term = current_user.handle_policy_for(@term)
-          @user_term.reject!
+          if @user_term.reject!
+            @term.rule.on_reject.call(self) if @term.rule.on_reject.is_a?(Proc)
+          end
         end
 
         cookies.delete("policy_rule_#{@term.rule.name}")
