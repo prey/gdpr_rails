@@ -15,7 +15,7 @@ module PolicyManager
         end
       end.join(@options[:link_separator])
 
-      list_wrapper = tag :ul, list_items, class: "pagination"
+      list_wrapper = tag :nav, list_items, class: "pagination button-group"
       tag :nav, list_wrapper
     end
 
@@ -29,9 +29,9 @@ module PolicyManager
       link_options = @options[:link_options] || {}
 
       if page == current_page
-        tag :li, tag(:span, page, class: 'page-link'), class: 'page-item active'
+        tag(:a, page, class: 'btn page-item active', href: '')
       else
-        tag :li, tag(:a, page, href: page_path(page), class: 'page-link', rel: rel_value(page)), class: 'page-item'
+        tag(:a, page, href: page_path(page), class: 'page-link btn', rel: rel_value(page))
       end
     end
 
@@ -48,26 +48,26 @@ module PolicyManager
     def previous_or_next_page(page, text, classname)
       link_options = @options[:link_options] || {}
       if page
-        link_wrapper = tag(:a, text || page, href: page_path(page), class: "page-link " + classname.to_s)
-        tag :li, link_wrapper, class: 'page-item'
+        link_wrapper = tag(:a, text || page, href: page_path(page), class: "page-link btn" + classname.to_s)
+        # link_wrapper, class: 'page-item '
       else
-        span_wrapper = tag(:span, text, class: 'page-link')
-        tag :li, span_wrapper, class: 'page-item disabled'
+        tag(:a, text, href:'', class: 'page-link btn')
+        # span_wrapper, class: 'page-item disabled'
       end
     end
 
     def gap
-      tag :li, tag(:i, ELLIPSIS, class: 'page-link'), class: 'page-item disabled'
+      tag :p, tag(:i, ELLIPSIS, class: 'page-link'), class: 'page-item disabled btn'
     end
 
     def previous_page
       num = @collection.current_page > 1 && @collection.current_page - 1
-      previous_or_next_page num, @options[:previous_label], 'previous'
+      previous_or_next_page num, @options[:previous_label], 'previous btn'
     end
 
     def next_page
       num = @collection.current_page < @collection.total_pages && @collection.current_page + 1
-      previous_or_next_page num, @options[:next_label], 'next'
+      previous_or_next_page num, @options[:next_label], 'next btn'
     end
 
   end
