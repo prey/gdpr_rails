@@ -1,6 +1,6 @@
 <h2><%= I18n.t("terms_app.user_portability_requests.index.title") %></h2>
 
-<% if current_user.portability_requests.any? %>
+<% if @user_portability_requests.any? %>
   <div class="table-responsive">
     <table class="table table-striped table-sm">
       <thead>
@@ -14,7 +14,7 @@
       </thead>
 
       <tbody>
-        <% current_user.portability_requests.each do |portability_request| %>
+        <% @user_portability_requests.each do |portability_request| %>
           <tr>
             <td><%= I18n.t("terms_app.user_portability_requests.index.states.#{portability_request.state}") %></td>
             <% if portability_request.completed? %>
@@ -31,7 +31,10 @@
     </table>
   </div>
 
-  <br>
+  <%= will_paginate @user_portability_requests, :style => 'letter-spacing: 5px' %>
+  
+  <br/>
+  
 <% else %>
   <p><%= I18n.t("terms_app.user_portability_requests.index.empty") %></p>
 <% end %>

@@ -3,6 +3,10 @@ require_dependency "policy_manager/application_controller"
 module PolicyManager
   class UserPortabilityRequestsController < ApplicationController
 
+    def index
+      @user_portability_requests = current_user.portability_requests.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+    end
+
     def create
       respond_to do |format|
         format.html{

@@ -7,7 +7,7 @@ module PolicyManager
 
     # GET /portability_requests
     def index
-      @portability_requests = PortabilityRequest.all
+      @portability_requests = PortabilityRequest.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def confirm
