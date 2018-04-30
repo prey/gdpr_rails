@@ -11,6 +11,8 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/4908e74f90a34ba473df/maintainability)](https://codeclimate.com/github/prey/gdpr_rails/maintainability)
 
+[![Coverage Status](https://coveralls.io/repos/github/prey/gdpr_rails/badge.svg?branch=master)](https://coveralls.io/github/prey/gdpr_rails?branch=master)
+
 ## About this project
 
 PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
