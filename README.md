@@ -41,7 +41,7 @@ Add this line to your application's Gemfile:
 
 as `gem 'gdpr_rails'`
 
-Then in yout application.rb require the policy_manager lib with 
+Then in your application.rb require the policy_manager lib with 
 
 `require "policy_manager"`
 
@@ -126,7 +126,7 @@ When the policies are configured will generate some helper methods on User model
 + **on_accept**: Proc which will be triggered when user accepts a policy (has an argument that contains the controller context)
 
 #### Example
-> This is an example for a `cookie` rule. The expected behavior would be when the user rejects cookies iterate over out scripts and delete cookies:
+> This is an example for a `cookie` rule. The expected behavior would be when the user rejects cookies iterate over our scripts and delete cookies:
 
 ```ruby
   c.add_rule({name: "cookie", sessionless: true, on_reject: ->(context){
