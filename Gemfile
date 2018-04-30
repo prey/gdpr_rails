@@ -16,3 +16,5 @@ gem 'puma'
 
 # Added at 2018-04-02 12:15:56 -0300 by michelson:
 gem "capybara", "~> 2.18"
+gem 'simplecov', require: false, group: :test
+
