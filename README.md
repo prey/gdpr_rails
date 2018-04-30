@@ -27,11 +27,14 @@ Portability module lets you define export options, that will generate a navigabl
 + ActiveJob to handle the process
 + Behind the scenes uses the paperclip gem in which you can set up storages, like S3, Google
 
+#### Scripts & Cookies
+Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up. 
+
 #### Forgotability
 + TBD, for now we simply delete all the data when a user closes the account.  This could be handled in the future with encryption like in emails or other kind of sensible fields on a database.
 
 ### Admin Panel
-![ioj](./panel.jpg)
+![admin panel](./panel.jpg)
 
 ## Installation
 Add this line to your application's Gemfile: 
@@ -56,14 +59,14 @@ config = PolicyManager::Config.setup do |c|
   # is_admin method in order for engine to know  
   # how to authorize admin only areas  
   c.is_admin_method = ->(o){ 
-    o.is_god? || o.is_admin? || o.is_me?
+    o.is_god? || o.is_admin? || o.is_me? || o.watheva
   }
 ```
 
 In order for this engine to work you must supply some rules according to your needs, in order to be in comply with the GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and an Age  confirmation (+16). 
 So, let's start by doing that: 
 
-### Term rules
+## Term rules
 
 In your app router add the following:
 
@@ -84,19 +87,58 @@ end
 PolicyManager::UserTermsController.send(:include, Devise::Controllers::Helpers)
 ```
 
-### Policy rules:
+> Note that you will need to go to the policy panel and add the policy
+> content for each term at `http://localhost:3000/policies/categories` otherwise you will see errors like `no term for #{rule} policy`
+
+### ActiveRecord Methods
+
+When the policies are configured will generate some helper methods on User model. For example, with the example above you will get the following methods for free:
+
++ `@user.has_consented_cookie?`
++ `@user.has_consented_age?`
++ `@user.has_consented_privacy_terms?`
+#### also you get:
++ `@user.pending_policies`
++ `@user.pending_blocking_policies`
++ `@user.confirm_all_policies!`
++ `@user.reject_all_policies!`
++ `@user.needs_policy_confirmation_for?(rule)`
++ `@user.policy_term_on(rule)`
++ `@user.policy_user_term_on(term)`
++ `@user.handle_policy_for(term)`
++ `@user.can_request_portability?`
+
+## Policy rules:
 
 + **sessionless:** will allow rules to be available for non logged users, if accepted a cookie `cookies["policy_rule_cookie"]` will be generated. If then the user sign in or signs up you could get this cookie it will persist in database.
+
 **Use this in your controller:**
 ```ruby
 @user.store_policy_cookie if cookies["policy_rule_cookie"] == "accepted"
 ```
-
 + **validates_on:** will require users validation, will automagically create virtual attributes for the policy you set, so, if you set `age` in your config you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those then the user validation will return errors on `policy_rule_age` . Don't forget to add the fields in your strong params in the controller which handles the request.
 + **if:** you can add conditions as a Proc in order skip validations:
 ```ruby
   c.add_rule({name: "age", validates_on: [:create, :update], 
               if: ->(o){ o.enabled_for_validation } })
+```
++ **on_reject**: Proc which will be triggered when user rejects a policy (has an argument that contains the controller context)
++ **on_accept**: Proc which will be triggered when user accepts a policy (has an argument that contains the controller context)
+
+#### Example
+> This is an example for a `cookie` rule. The expected behavior would be when the user rejects cookies iterate over out scripts and delete cookies:
+
+```ruby
+  c.add_rule({name: "cookie", sessionless: true, on_reject: ->(context){
+      PolicyManager::Script.cookies
+      .select{|o| !o.permanent }
+      .each{|o| 
+        o.cookies.each{|c| 
+          context.send(:cookies).delete(c, domain: o.domain)  
+        } 
+      }
+    }
+  })
 ```
 
 #### Policy handling:
@@ -113,7 +155,35 @@ So, if the Engine was mounted on `/policies` then your routes will be:
     user_terms                  GET    /user_terms(.:format)                             policy_manager/user_terms#index
     user_term                   GET    /user_terms/:id(.:format)                         policy_manager/user_terms#show
 
-### Portability Rules
+## Scripts & Cookies
+
+This is supposed to in mix with your declared cookie term. So, this configuration let's you declare your external scripts that are related with tracking, ie: Google Analytics, Kissmetrics, Google Tag manager, etc... This configuration expects that you declare scripts that will be rendered over certain contexts (environments) and have the names (and domains) of the cookies that those scripts generates.  
+
+#### example: 
+```ruby
+  c.add_script(
+    name: "google analytics",
+    script: 'shared/analytics/universal',
+    environments: [:production],
+    description: ->{I18n.t("cookies.list.google_analytics")},
+    cookies: ["_ga", "_gid", "_gat_XXX-XXX"],
+    domain: ".panel.preyproject.com"
+  )
+```
+
+> **Importance of declaring the cookie domain**: When you clean up the cookies (like in the example above for `on_reject`) is important to set the domain that this cookies belongs. In some cases this external scripts could add the cookie on your subdomain or your base domain. In out case we found that some cookies are generated on panel.preyproject.com or .panel.preyproject or just preyproject.com. Try to get that information on chrome console -> application -> cookies.
+
+### Example in your layout:
+This is an example on how you would render your scripts only if the user has accepted the cookie
+```ruby
+    <% if current_user.has_consented_cookie? %>
+     <!--  # this cames from portability/helpers/scripts_helpers -->
+      <%= render_scripts %>
+    <% end %>
+```
+`render_scripts` will iterate over your configured scripts and render the templates defined on `PolicyManager::Script`
+
+## Portability Rules
 
 Export option & Portability rules will allow you to set up how and which data you will give to a requester user.
 
