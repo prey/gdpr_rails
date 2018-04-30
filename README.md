@@ -8,9 +8,7 @@
 
 
 [![Build Status](https://travis-ci.org/prey/gdpr_rails.svg?branch=master&aa=123)](https://travis-ci.org/prey/gdpr_rails)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/4908e74f90a34ba473df/maintainability)](https://codeclimate.com/github/prey/gdpr_rails/maintainability)
-
 [![Coverage Status](https://coveralls.io/repos/github/prey/gdpr_rails/badge.svg?branch=master)](https://coveralls.io/github/prey/gdpr_rails?branch=master)
 
 ## About this project
