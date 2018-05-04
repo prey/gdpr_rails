@@ -6,7 +6,9 @@ module PolicyManager
                    :is_admin_method,
                    :logout_url, 
                    :user_language_method,
-                   :scripts
+                   :scripts,
+                   :admin_email_inbox,
+                   :error_notifier
 
     def self.setup
       @@rules = []
@@ -15,6 +17,14 @@ module PolicyManager
       @@scripts = []
       yield self
       self
+    end
+
+    def self.error_notifier_method(error)
+      @@error_notifier.call(error)
+    end
+
+    def self.admin_email(user)
+      @@admin_email_inbox.is_a?(Proc) ? @@admin_email_inbox.call(user) : @@admin_email_inbox
     end
     
     def self.exporter=(opts)

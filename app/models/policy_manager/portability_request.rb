@@ -17,7 +17,7 @@ module PolicyManager
     include AASM
 
     aasm column: :state do
-      state :pending, :initial => true
+      state :pending, :initial => true, :after_enter => :notify_progress_to_admin
       state :progress, :after_enter => :handle_progress
       state :completed, :after_enter => :notify_completeness
 
@@ -55,6 +55,10 @@ module PolicyManager
 
     def notify_progress
       PortabilityMailer.progress_notification(self.id).deliver_now
+    end
+
+    def notify_progress_to_admin
+      PortabilityMailer.admin_notification(self.user.id).deliver_now
     end
 
     def notify_completeness

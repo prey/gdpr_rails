@@ -56,7 +56,7 @@ module PolicyManager
         self.save_image(remote_image, path)
         tag(:img, {src: "./#{id}-#{File.basename(URI(remote_image).path)}" }.merge(opts))
       rescue => e
-        Bugsnag.notify(e)
+        Config.error_notifier_method(e)
         content_tag(:p, "broken image")
       end
     end

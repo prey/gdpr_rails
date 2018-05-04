@@ -112,6 +112,8 @@ en:
           progress: In Progress
           completed: Completed
     mails:
+      admin:
+        subject: User %{email} sent a portability request
       progress:
         subject: Your data is being handled
       completed:
