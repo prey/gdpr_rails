@@ -7,3 +7,12 @@ test/dummy/log/*.log
 test/dummy/tmp/
 
 test/dummy/public/system
+
+# Mac
+.DS_Store
+
+# Windows
+.Thumbs.db
+
+# Rails
+Gemfile.lock
