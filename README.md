@@ -35,7 +35,7 @@ Portability module lets you define export options, that will generate a navigabl
 #### Scripts & Cookies
 Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up. 
 
-#### Forgotability
+#### Forgetability
 + TBD, for now we simply delete all the data when a user closes the account.  This could be handled in the future with encryption like in emails or other kind of sensible fields on a database.
 
 ### Admin Panel
