@@ -33,7 +33,7 @@ Portability module lets you define export options, that will generate a navigabl
 + Behind the scenes uses the paperclip gem in which you can set up storages, like S3, Google
 
 #### Scripts & Cookies
-Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up. 
+Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up.
 
 #### Forgetability
 + TBD, for now we simply delete all the data when a user closes the account.  This could be handled in the future with encryption like in emails or other kind of sensible fields on a database.
@@ -42,11 +42,11 @@ Configurable *scripts* which will bind cookie names in order to handle the scrip
 ![admin panel](./panel.jpg)
 
 ## Installation
-Add this line to your application's Gemfile: 
+Add this line to your application's Gemfile:
 
 as `gem 'gdpr_rails'`
 
-Then in your application.rb require the policy_manager lib with 
+Then in your application.rb require the policy_manager lib with
 
 `require "policy_manager"`
 
@@ -57,20 +57,22 @@ Install & run the migrations
 ## Usage examples
 
 ### Basic config
+
 ```ruby
-config = PolicyManager::Config.setup do |c|  
+config = PolicyManager::Config.setup do |c|
   c.logout_url = "logout"
   c.from_email = "admin@acme.com"
   c.admin_email_inbox = "foo@baaz.org"
-  # is_admin method in order for engine to know  
-  # how to authorize admin only areas  
-  c.is_admin_method = ->(o){ 
+  # is_admin method in order for engine to know
+  # how to authorize admin only areas
+  c.is_admin_method = ->(o){
     o.is_god? || o.is_admin? || o.is_me? || o.watheva
   }
+end
 ```
 
-In order for this engine to work you must supply some rules according to your needs, in order to be in comply with the GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and an Age  confirmation (+16). 
-So, let's start by doing that: 
+In order for this engine to work you must supply some rules according to your needs, in order to be in comply with the GDPR you will need 3 rules at least. A cookie consent, a Privacy& TOS and an Age  confirmation (+16).
+So, let's start by doing that:
 
 ## Term rules
 
@@ -78,6 +80,14 @@ In your app router add the following:
 
 ```ruby
   mount PolicyManager::Engine => "/policies"
+```
+
+Then add the concern to your `User` model:
+
+```ruby
+class User < ApplicationRecord
+  include PolicyManager::Concerns::UserBehavior
+end
 ```
 
 Then add an initializer, `config/initializers/gdpr.rb` and inside it set your policy rules.
@@ -125,7 +135,7 @@ When the policies are configured will generate some helper methods on User model
 + **validates_on:** will require users validation, will automagically create virtual attributes for the policy you set, so, if you set `age` in your config you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those then the user validation will return errors on `policy_rule_age` . Don't forget to add the fields in your strong params in the controller which handles the request.
 + **if:** you can add conditions as a Proc in order skip validations:
 ```ruby
-  c.add_rule({name: "age", validates_on: [:create, :update], 
+  c.add_rule({name: "age", validates_on: [:create, :update],
               if: ->(o){ o.enabled_for_validation } })
 ```
 + **on_reject**: Proc which will be triggered when user rejects a policy (has an argument that contains the controller context)
@@ -138,10 +148,10 @@ When the policies are configured will generate some helper methods on User model
   c.add_rule({name: "cookie", sessionless: true, on_reject: ->(context){
       PolicyManager::Script.cookies
       .select{|o| !o.permanent }
-      .each{|o| 
-        o.cookies.each{|c| 
-          context.send(:cookies).delete(c, domain: o.domain)  
-        } 
+      .each{|o|
+        o.cookies.each{|c|
+          context.send(:cookies).delete(c, domain: o.domain)
+        }
       }
     }
   })
@@ -149,7 +159,7 @@ When the policies are configured will generate some helper methods on User model
 
 #### Policy handling:
 
-There are some endpoints that will handle json in order to interact with client applications, like react interfaces, $.ajax etc. 
+There are some endpoints that will handle json in order to interact with client applications, like react interfaces, $.ajax etc.
 you can also use the html web panel directly from the engine.
 So, if the Engine was mounted on `/policies` then your routes will be:
 
@@ -163,9 +173,9 @@ So, if the Engine was mounted on `/policies` then your routes will be:
 
 ## Scripts & Cookies
 
-This is supposed to in mix with your declared cookie term. So, this configuration let's you declare your external scripts that are related with tracking, ie: Google Analytics, Kissmetrics, Google Tag manager, etc... This configuration expects that you declare scripts that will be rendered over certain contexts (environments) and have the names (and domains) of the cookies that those scripts generates.  
+This is supposed to in mix with your declared cookie term. So, this configuration let's you declare your external scripts that are related with tracking, ie: Google Analytics, Kissmetrics, Google Tag manager, etc... This configuration expects that you declare scripts that will be rendered over certain contexts (environments) and have the names (and domains) of the cookies that those scripts generates.
 
-#### example: 
+#### example:
 ```ruby
   c.add_script(
     name: "google analytics",
@@ -198,11 +208,11 @@ Export option & Portability rules will allow you to set up how and which data yo
 + **resource**: which model , ie: `User`
 + **index_template**: The first page. defaults to a simple ul li list of links tied to your rules, this expects a Pathname or a String with yout template
 + **layout**: A layout template to wrap the static site,  this expects a Pathname or a String with your template
-+ **after_zip**: a callback to handle the zip file on the resource, something like: 
++ **after_zip**: a callback to handle the zip file on the resource, something like:
 ```ruby
-after_zip: ->(zip_path, resource){ 
-  puts "THIS IS GREAT #{zip_path} was zipped, now what ??" 
-}   
+after_zip: ->(zip_path, resource){
+  puts "THIS IS GREAT #{zip_path} was zipped, now what ??"
+}
 ```
 
 + **mail_helpers**:  If you have some helpers you want to add to the mailers, then you can pass an Array of helpers, `[MailHelper, OtherMailHelper]`,
@@ -219,17 +229,17 @@ and will auto paginate records
 PolicyManager::Config.setup do |c|
 
   # minimal exporter setup
-  c.exporter = { 
-    path: Rails.root + "tmp/export", 
-    resource: User 
+  c.exporter = {
+    path: Rails.root + "tmp/export",
+    resource: User
   }
 
   # portability rules, collection render. This will call a @user.articles
   # and will auto paginate records
   # template expects a string or path
   c.add_portability_rule({
-    name: "exportable_data", 
-    collection: :articles, 
+    name: "exportable_data",
+    collection: :articles,
     template: "hello, a collection will be rendered here use @collection.to_json",
     per: 10
   })
@@ -237,9 +247,9 @@ PolicyManager::Config.setup do |c|
   # portability rules, member render. This will call a @user.account_data
   # template expects a string or path
   c.add_portability_rule({
-    name: "my_account", 
+    name: "my_account",
     member: :account_data,
-    template: "hellow , here a resource will be rendered <%= @member.to_json %> "          
+    template: "hellow , here a resource will be rendered <%= @member.to_json %> "
   })
 
 end
@@ -269,7 +279,7 @@ portability_request         DELETE /portability_requests/:id(.:format)          
 
 
 # TO DO
-+   anonimyzer 
++   anonimyzer
 
 #### Acknowledgments
 + [Prey Team](https://github.com/orgs/prey/people)
