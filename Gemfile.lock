@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gdpr_rails (0.2.0)
+    gdpr_rails (0.2.1)
       aasm
       chartkick (= 2.3.4)
       groupdate (= 4.0.0)
