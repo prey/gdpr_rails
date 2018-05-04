@@ -6,6 +6,7 @@ rvm:
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS myapp_test;'
 before_script:
+  - cp ./test/dummy/config/database.yml.test ./test/dummy/config/database.yml
   - bundle exec rails db:migrate RAILS_ENV=test
 
 script: COVERALLS_REPO_TOKEN=bPQteZngJWF84BYuws90hMmXwWYcMpV9S bundle exec rails test test/models/*

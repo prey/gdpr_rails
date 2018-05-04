@@ -1,0 +1,11 @@
+default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+
+test:
+  adapter: mysql2
+  database: myapp_test
+  username: travis
+  encoding: utf8

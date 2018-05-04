@@ -9,7 +9,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
-test-local:
+test:
   adapter: mysql2
   database: gdpr_test
   host: "localhost"
@@ -19,12 +19,6 @@ test-local:
   port: 3306
   encoding: utf8
 
-
-test:
-  adapter: mysql2
-  database: myapp_test
-  username: travis
-  encoding: utf8
 
 testSQLITE:
   <<: *default
