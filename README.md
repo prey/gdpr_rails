@@ -61,6 +61,7 @@ Install & run the migrations
 config = PolicyManager::Config.setup do |c|  
   c.logout_url = "logout"
   c.from_email = "admin@acme.com"
+  c.admin_email_inbox = "foo@baaz.org"
   # is_admin method in order for engine to know  
   # how to authorize admin only areas  
   c.is_admin_method = ->(o){ 

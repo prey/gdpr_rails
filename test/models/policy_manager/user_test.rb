@@ -7,6 +7,7 @@ module PolicyManager
       @config = PolicyManager::Config.setup do |c|
         c.add_rule({name: "age", validates_on: [:create, :update], if: ->(o){ o.enabled_for_validation } })
         c.from_email = "foo@bar.org"
+        c.admin_email_inbox = "foo@baaz.org"
         c.user_language_method = -> (o){ o.lang }
         c.exporter = { 
           path: Rails.root + "tmp/export", 

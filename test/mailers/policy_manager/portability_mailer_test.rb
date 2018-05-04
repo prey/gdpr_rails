@@ -28,6 +28,7 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.from_email = "foo@bar.org"
+        c.admin_email_inbox = "foo@baaz.org"
         c.exporter = @exporter_config.merge({mailer_templates: {
             path: "user_mailer",
             progress: "progress"
@@ -52,6 +53,7 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.from_email = "foo@bar.org"
+        c.admin_email_inbox = "foo@baaz.org"
         c.exporter = @exporter_config
       end
       user = User.create(email: "a@a.cl")
@@ -71,6 +73,7 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.from_email = "foo@bar.org"
+        c.admin_email_inbox = "foo@baaz.org"
         c.exporter = @exporter_config.merge!({mailer_templates: {
             path: "user_mailer",
             complete: "complete",
@@ -97,6 +100,7 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.from_email = "foo@bar.org"
+        c.admin_email_inbox = "foo@baaz.org"
         c.exporter = @exporter_config
       end
 
