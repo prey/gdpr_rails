@@ -23,7 +23,11 @@ module PolicyManager
     end
 
     def current_user
-      @_current_user ||=  super || Config.current_admin_user_method&.call(self)
+      @_current_user ||=  super || (Config.has_different_admin_user_resource? && admin_user)
+    end
+
+    def admin_user
+      self.send("current_#{Config.admin_user_resource.name.underscore}")
     end
 
     protect_from_forgery with: :exception
