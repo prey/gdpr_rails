@@ -16,3 +16,4 @@ test/dummy/public/system
 
 # Rails
 Gemfile.lock
+coverage/

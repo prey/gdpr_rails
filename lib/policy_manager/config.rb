@@ -1,10 +1,11 @@
 module PolicyManager
   class Config
 
-    mattr_accessor :exporter, 
-                   :from_email, 
+    mattr_accessor :exporter,
+                   :from_email,
+                   :current_admin_user_method,
                    :is_admin_method,
-                   :logout_url, 
+                   :logout_url,
                    :user_language_method,
                    :scripts,
                    :admin_email_inbox,
@@ -26,7 +27,7 @@ module PolicyManager
     def self.admin_email(user)
       @@admin_email_inbox.is_a?(Proc) ? @@admin_email_inbox.call(user) : @@admin_email_inbox
     end
-    
+
     def self.exporter=(opts)
       @@exporter = Exporter.new(opts)
     end
