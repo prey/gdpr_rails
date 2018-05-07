@@ -13,13 +13,21 @@ module PolicyManager
     end
 
     def user_authenticated?
-      if current_user.blank?
+      if !current_user
         render :file => "public/401.html", :layout => false, :status => :unauthorized
       end
     end
 
     def set_language
       I18n.locale = Config.user_language(current_user)
+    end
+
+    def current_user
+      @_current_user ||=  super || (Config.has_different_admin_user_resource? && admin_user)
+    end
+
+    def admin_user
+      self.send("current_#{Config.admin_user_resource.name.underscore}")
     end
 
     protect_from_forgery with: :exception

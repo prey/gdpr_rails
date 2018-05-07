@@ -1,20 +1,26 @@
 module PolicyManager
   class Config
 
-    mattr_accessor :exporter, 
-                   :from_email, 
+    mattr_accessor :exporter,
+                   :from_email,
                    :is_admin_method,
-                   :logout_url, 
+                   :logout_url,
                    :user_language_method,
                    :scripts,
                    :admin_email_inbox,
-                   :error_notifier
+                   :error_notifier,
+                   :user_resource,
+                   :admin_user_resource
 
     def self.setup
       @@rules = []
       @@portability_rules = []
       @@portability_templates = []
       @@scripts = []
+
+      @@user_resource = User
+      @@admin_user_resource = User
+
       yield self
       self
     end
@@ -26,13 +32,21 @@ module PolicyManager
     def self.admin_email(user)
       @@admin_email_inbox.is_a?(Proc) ? @@admin_email_inbox.call(user) : @@admin_email_inbox
     end
-    
+
     def self.exporter=(opts)
       @@exporter = Exporter.new(opts)
     end
 
     def self.is_admin?(user)
-      @@is_admin_method.call(user)
+      if has_different_admin_user_resource?
+        user.is_a? admin_user_resource
+      else
+        @@is_admin_method.call(user)
+      end
+    end
+
+    def self.has_different_admin_user_resource?
+      user_resource != admin_user_resource
     end
 
     def self.user_language(user)

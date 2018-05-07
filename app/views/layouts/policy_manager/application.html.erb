@@ -42,40 +42,43 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <% if PolicyManager::Config.is_admin?(current_user) %>
+
               <li class="nav-item">
                 <a class="nav-link" href="<%= categories_path %>">
                   <i class="fas fa-balance-scale"></i>
-                  <%= I18n.t("terms_app.menu.policies") %> 
+                  <%= I18n.t("terms_app.menu.policies") %>
                 </a>
               </li>
-            <% end %>
-            
 
-            <% if PolicyManager::Config.is_admin?(current_user) %>
               <li class="nav-item">
                 <a class="nav-link" href="<%= portability_requests_path %>">
                   <i class="fas fa-suitcase"></i>
                   <%= I18n.t("terms_app.menu.portability_requests") %>
                 </a>
-              </li>
+              </li
+
             <% end %>
 
-            <li class="separator"></li>
+            <% if current_user.is_a? PolicyManager::Config.user_resource %>
 
-            <li class="nav-item">
-              <a class="nav-link" href="<%= pending_user_terms_path %>">
-                <i class="fas fa-user-secret"></i>
-                <%= I18n.t("terms_app.menu.user_pending_policies") %>       
-              </a>
-            </li>
-          
-            <li class="nav-item">
-              <a class="nav-link" href="<%= user_portability_requests_path %>">
-                <i class="fas fa-suitcase"></i>
-                <%= I18n.t("terms_app.menu.user_portability_requests") %>
-              </a>
-            </li>
-  
+              <li class="separator"></li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="<%= pending_user_terms_path %>">
+                  <i class="fas fa-user-secret"></i>
+                  <%= I18n.t("terms_app.menu.user_pending_policies") %>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="<%= user_portability_requests_path %>">
+                  <i class="fas fa-suitcase"></i>
+                  <%= I18n.t("terms_app.menu.user_portability_requests") %>
+                </a>
+              </li>
+
+            <% end %>
+
           </ul>
 
         </div>
