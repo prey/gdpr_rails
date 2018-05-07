@@ -3,7 +3,7 @@ module PolicyManager
 
     def progress_notification(portability_request_id)
       @portability_request = PortabilityRequest.find(portability_request_id)
-      @user = User.find(@portability_request.user_id)
+      @user = Config.user_resource.find(@portability_request.user_id)
       
       opts = { :to => @user.email, :subject => I18n.t("terms_app.mails.progress.subject") }
       opts.merge!({
@@ -18,7 +18,7 @@ module PolicyManager
 
     def completed_notification(portability_request_id)
       @portability_request = PortabilityRequest.find(portability_request_id)
-      @user = User.find(@portability_request.user_id)
+      @user = Config.user_resource.find(@portability_request.user_id)
       @link = @portability_request.download_link
       
       opts = { :to => @user.email, :subject => I18n.t("terms_app.mails.completed.subject") }
@@ -33,7 +33,7 @@ module PolicyManager
     end
 
     def admin_notification(user_id)
-      @user = User.find(user_id)
+      @user = Config.user_resource.find(user_id)
   
       opts = { :to => Config.admin_email(@user), :subject => I18n.t("terms_app.mails.admin.subject", email: @user.email) }
       opts.merge!({
