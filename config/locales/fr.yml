@@ -1,0 +1,124 @@
+fr:
+  terms_app:
+    title: Gestionnaire de données personnelles
+    sub_title: Gestionnaire de données personnelles
+    sign_out: Se déconnecter
+    menu:
+      policies: Consentements
+      portability_requests: Demandes de portabilité
+      user_portability_requests: Mes demandes de portabilité
+      user_pending_policies: Consentements en attente de validation
+    misc:
+      back: Précédent
+      edit: Modifier
+      show: Afficher
+      save: Sauvegarder
+      download: Télécharger
+      are_you_sure: Êtes-vous certain(e) ?
+    states:
+      draft: Brouillon
+      published: Publié
+    categories:
+      index:
+        title: Traitements
+        table:
+          name: Intitulé
+          terms: Conditions
+          show: Afficher
+      show:
+        title: "%{name}"
+        new: Nouvelle condition
+        table:
+          id: ID
+          content: Contenu
+          state: Etat
+          updated_at: Modifié à
+          show: Afficher
+    terms:
+      index:
+        title: Conditions
+        button: Nouvelle condition
+        table:
+          description: Description
+          category: Traitement
+          updated_at: Modifié à
+          show: Afficher
+          edit: Modifier
+          destroy: Supprimer
+      new:
+        title: "Nouvelle condition pour %{name}"
+        state: Etat
+        description: Description
+        button: Bouton
+        error: Une erreur s'est produise lors de la création de la condition
+        created: Créée avec succès
+        updated: Modifiée avec succès
+        destroyed: Supprimée avec succès
+      edit:
+        title: Modifier la condition pour %{name}
+        state: Etat
+        description: Description
+        error: Enregistrement en cours
+      show:
+        title: Condition
+        last_update: dernière modification
+        table:
+          name: Intitulé
+          terms: Conditions
+          show: Afficher
+    user_terms:
+      pending:
+        title: Consentements en attente de validation
+        empty: Vous n'avez pas de constements en attent de validation
+      show:
+        accepted:
+          message: Consentement enregistré
+          question: Souhaitez-vous changer d'avis ?
+          reject: Refuser
+          not_now: Pas maintenant
+        pending:
+          message: Veuillez accepter ce traitement
+          agree: Accepter
+          not_now: Pas maintenant
+    user_portability_requests:
+      index:
+        title: Mes demandes de portabilité
+        empty: Vous n'avez pas de demande de portabilité
+        table:
+          state: Etat
+          file: Fichier
+          created_at: Créée à
+          destroy: Supprimer
+        button: Nouvelle demande de portabilité
+        states:
+          pending: En attente
+          progress: En cours de traitement
+          completed: Finalisée
+        has_pending: Vous avez déjà une demande de portabilité en cours, vous ne pouvez en avoir plus.
+        created: Votre demande de portabilité a bien été enregistrée.
+    portability_requests:
+      index:
+        title: Demandes de portabilité en attente
+        destroyed: Supprimée avec succès
+        empty: Il n'y a aucune demande de portabilité
+        table:
+          user: Utilisateur
+          state: Etat
+          created_at: Créée à
+          destroy: Supprimer
+          confirm: Confirmation
+        states:
+          pending: En attente
+          progress: En cours de traitement
+          completed: Finalisée
+    mails:
+      admin:
+        subject: L'utilisateur %{email} vient d'effectuer une demande de portabilité.
+      progress:
+        subject: Votre demande de portabilité est cours de préparation.
+      completed:
+        subject: Vos données sont disponibles.
+  will_paginate:
+    previous_label: "&lt;"
+    next_label: "&gt;"
+    page_gap: "&hellip;"
