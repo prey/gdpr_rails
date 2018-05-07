@@ -18,10 +18,12 @@ module PolicyManager
       @@portability_templates = []
       @@scripts = []
 
-      @@user_resource = User
-      @@admin_user_resource = User
-
       yield self
+
+      # sets this defaults after configuration
+      @@user_resource ||= User
+      @@admin_user_resource ||= User
+
       self
     end
 

@@ -63,11 +63,15 @@ config = PolicyManager::Config.setup do |c|
   c.logout_url = "logout"
   c.from_email = "admin@acme.com"
   c.admin_email_inbox = "foo@baaz.org"
+
+  c.user_resource = User # defaults to User
+  c.admin_user_resource = AdminUser # defaults to User
   # is_admin method in order for engine to know
   # how to authorize admin only areas
   c.is_admin_method = ->(o){
     o.is_god? || o.is_admin? || o.is_me? || o.watheva
   }
+
 end
 ```
 
