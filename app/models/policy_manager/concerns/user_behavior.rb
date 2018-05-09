@@ -130,7 +130,7 @@ module PolicyManager::Concerns::UserBehavior
     self.portability_requests.select{|p| p.pending? || p.progress?}.blank?
   end
 
-  def store_cookie(name)
+  def accept_policy_from(name)
     term = PolicyManager::Config.rules.find{|o| o.name == name}.terms.published.last
     if term.present?
       user_term = self.handle_policy_for(term)
