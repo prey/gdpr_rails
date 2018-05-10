@@ -87,14 +87,14 @@ module PolicyManager::Concerns::UserBehavior
   end
 
   def confirm_all_policies!
-    peding_policies.each do |c|
+    pending_policies.each do |c|
       term = c.terms.last
       current_user.handle_policy_for(term).accept!
     end
   end
 
   def reject_all_policies!
-    peding_policies.each do |c|
+    pending_policies.each do |c|
       term = c.terms.last
       current_user.handle_policy_for(term).reject!
     end
