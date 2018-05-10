@@ -134,7 +134,7 @@ When the policies are configured will generate some helper methods on User model
 
 **Use this in your controller:**
 ```ruby
-@user.store_policy_cookie if cookies["policy_rule_cookie"] == "accepted"
+@user.accept_policy_from("your_cookie") if cookies["policy_rule_your_cookie"] == "accepted"
 ```
 + **validates_on:** will require users validation, will automagically create virtual attributes for the policy you set, so, if you set `age` in your config you must supply in your forms a `policy_rule_age` checkbox in your form, if you don't supply those then the user validation will return errors on `policy_rule_age` . Don't forget to add the fields in your strong params in the controller which handles the request.
 + **if:** you can add conditions as a Proc in order skip validations:
