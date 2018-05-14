@@ -8,8 +8,10 @@ require "policy_manager/portability_rule"
 require "policy_manager/exporter"
 require "policy_manager/exporter/handler.rb"
 require "policy_manager/exporter/view.rb"
+require "policy_manager/exporter/json_view.rb"
 require "policy_manager/exporter/zip_generator.rb"
 require "policy_manager/exporter/paginator_renderer.rb"
+require "policy_manager/exporter/json_link.rb"
 
 require "policy_manager/config"
 
