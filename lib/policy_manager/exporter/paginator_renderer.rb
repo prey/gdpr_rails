@@ -1,5 +1,6 @@
 require "will_paginate"
 require 'will_paginate/view_helpers/action_view'
+require 'will_paginate/array'
 
 module PolicyManager
   class PaginatorRenderer < WillPaginate::ActionView::LinkRenderer
