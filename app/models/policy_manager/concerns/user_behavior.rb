@@ -65,11 +65,9 @@ module PolicyManager::Concerns::UserBehavior
     self.send(rule.member)
   end
 
-  def portability_collection_for(rule, page)
-    # if kaminari
-    # self.send(rule.collection).page(1)
-    # if will paginate
-    self.send(rule.collection).paginate(page: page, per_page: rule.per)
+  def portability_collection_for(rule, page = nil)
+    collection = self.send(rule.collection)
+                     .paginate(page: page, per_page: rule.per)
   end
 
   def pending_policies

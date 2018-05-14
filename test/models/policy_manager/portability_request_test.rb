@@ -21,20 +21,7 @@ module PolicyManager
                               <li><%= link_to rule.name, "./#{rule.name}/index.html" %></li>
                             <% end %>
                           </ul>',
-          layout: '<body>
-                  <strong><%= @build_path %></strong>
-                  <br/>
-                  <strong><%= @base_path %></strong>
-                  <br/>
-                  <strong><%= @index_path %></strong>
-                  <br/>
-                  <% PolicyManager::Config.portability_rules.each do |rule| %>
-                      <li><%= link_to rule.name, "#{@index_path}#{rule.name}/index.html" %></li>
-                  <% end %>
-                  <h1>layout header</h1>
-                  <%= yield %>
-                  <footer>layout footer</footer>
-                  </body>',
+          layout: 'portability_requests',
           after_zip: ->(zip_path, resource){ 
             puts "THIS IS GREAT #{zip_path} was zipped, now what ??" 
           }
