@@ -66,37 +66,72 @@ module PolicyManager
       return unless resource.respond_to?(:portability_member_for)
       o = resource.portability_member_for(rule)
       base_dir = self.base_path.join(rule.name)
-      resource_path = base_dir.join("index.html")
       FileUtils.mkdir_p(base_dir)
-      view = ExporterView.new({member: o}, {build_path: self.base_path, base_path: resource_path, template: rule.template, rule: rule})
+      resource_path = base_dir.join("index.html")
+      
+      view = ExporterView.new({
+        assigns: {member: o}, 
+        build_path: self.base_path, 
+        base_path: resource_path, 
+        template: rule.template, 
+        rule: rule
+      }).save(resource_path)
+
       puts "saving at #{self.path.join rule.name}"
-      view.save(resource_path )
+      
+      json = JsonExporterView.new({
+        assigns: {member: o}, 
+        template: rule.json_template, 
+        folder: base_dir
+      }).save if rule.json_template.present?
     end
 
     def render_collection(rule)
       return unless resource.respond_to?(:portability_collection_for)
-      o = resource.portability_collection_for(rule ,1)
-      
+      o = resource.portability_collection_for(rule, 1)
+
+      base_dir  = self.base_path.join(rule.name)
+      FileUtils.mkdir_p(base_dir)
+
       (1..o.total_pages).to_a.each do |i| 
-        o = resource.portability_collection_for(rule,i)
-        page_name = i #== 1 ? "index" : i
-        base_dir  = self.base_path.join(rule.name)
-        base_dir  = base_dir.join(page_name.to_s) unless page_name == 1
-        FileUtils.mkdir_p(base_dir)
-        resource_path = base_dir.join("index.html")
-        view = ExporterView.new({collection: o}, {build_path: self.base_path, base_path: resource_path, template: rule.template, rule: rule})
+        o = resource.portability_collection_for(rule, i)
+
+        page_name = i
+        folder_dir = page_name == 1 ? base_dir : base_dir.join(page_name.to_s)
+        FileUtils.mkdir_p(folder_dir)
+        resource_path = folder_dir.join("index.html")
+        
+        view = ExporterView.new({
+          assigns: {collection: o} , 
+          build_path: self.base_path, 
+          base_path: resource_path, 
+          template: rule.template, 
+          rule: rule
+        }).save(resource_path)
+
+        
+        json = JsonExporterView.new({
+          assigns: {collection: o}, 
+          template: rule.json_template, 
+          folder: folder_dir
+        }).save if rule.json_template.present?
+
         puts "saving at #{self.path.join rule.name}"
-        view.save( resource_path )
       end
     end
 
     def render_index
       resource_path = self.base_path.join("index.html")
       template = PolicyManager::Config.exporter.index_template
-      view = ExporterView.new({collection: PolicyManager::Config.portability_rules}, 
-        {build_path: self.base_path, base_path: resource_path, template: template})
+      view = ExporterView.new({ 
+        assigns: {
+          collection: PolicyManager::Config.portability_rules
+        }, 
+        build_path: self.base_path, 
+        base_path: resource_path, 
+        template: template
+      }).save( resource_path )
       puts "saving at #{resource_path}"
-      view.save( resource_path )
     end
 
     def generate_zip
