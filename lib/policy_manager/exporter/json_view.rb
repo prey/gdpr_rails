@@ -22,7 +22,7 @@ module PolicyManager
     end
 
     def render_json
-      ac = ActionController::Base.new()
+      ac = PolicyManager::ExporterController.new()
       options = handled_template.merge!({assigns: self.assigns })
       content = ac.render_to_string(options)
       save_json("#{folder}/data.json", content)
