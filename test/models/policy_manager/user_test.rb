@@ -18,11 +18,7 @@ module PolicyManager
                               <li><%= link_to rule.name, "./#{rule.name}/index.html" %></li>
                             <% end %>
                           </ul>',
-          layout: "<body>
-                  <h1>layout header</h1>
-                  <%= yield %>
-                  <footer>layout footer</footer>
-                  </body>",
+          layout: "portability",
           after_zip: ->(zip_path, resource){ 
             puts "THIS IS GREAT #{zip_path} was zipped, now what ??" 
           }

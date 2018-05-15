@@ -24,7 +24,7 @@ PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply wi
 + JSON endpoints to handle pending policies and portability logic in order to be implemented in *client only* interfaces, ie: frontend apps like React, Vue, Backbone, you name it.
 
 #### Portability
-Portability module lets you define export options, that will generate a navigable static site with all the data you've defined in the **portability rules**
+Portability module lets you define export options, that will generate a navigable static HTML site with all the data you've defined in the **portability rules** with json support too.
 + Seamless data export with configurable templates
 + Configurable Mailer templates for progress & download completion
 + Downloads images to the local filesystem in order to comply with GDPR requirements on data accessibility.
@@ -210,8 +210,8 @@ Export option & Portability rules will allow you to set up how and which data yo
 #### Exporter:
 + **path**: where the folder will be generated, usually can be set on /tmp, this will need a pathname, like `Rails.root.join("tmp/export")`
 + **resource**: which model , ie: `User`
-+ **index_template**: The first page. defaults to a simple ul li list of links tied to your rules, this expects a Pathname or a String with yout template
-+ **layout**: A layout template to wrap the static site,  this expects a Pathname or a String with your template
++ **index_template**: The first page. defaults to a simple ul li list of links tied to your rules, this expects a Pathname or a String with your template
++ **layout**: A layout template this expects a layout name which has to be available on your app.
 + **after_zip**: a callback to handle the zip file on the resource, something like:
 ```ruby
 after_zip: ->(zip_path, resource){
@@ -245,6 +245,8 @@ PolicyManager::Config.setup do |c|
     name: "exportable_data",
     collection: :articles,
     template: "hello, a collection will be rendered here use @collection.to_json",
+    json_template: "collection.json.jbuilder", # or Rails.root.join("app/views/collection.json.jbuilder")
+
     per: 10
   })
 

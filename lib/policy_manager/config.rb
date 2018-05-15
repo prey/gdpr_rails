@@ -28,7 +28,8 @@ module PolicyManager
     end
 
     def self.error_notifier_method(error)
-      @@error_notifier.call(error)
+      puts error
+      @@error_notifier.call(error) unless @@error_notifier.blank?
     end
 
     def self.admin_email(user)
