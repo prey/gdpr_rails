@@ -66,8 +66,7 @@ module PolicyManager::Concerns::UserBehavior
   end
 
   def portability_collection_for(rule, page = nil)
-    collection = self.send(rule.collection)
-                     .paginate(page: page, per_page: rule.per)
+    self.send(rule.collection).paginate(page: page, per_page: rule.per)
   end
 
   def pending_policies
