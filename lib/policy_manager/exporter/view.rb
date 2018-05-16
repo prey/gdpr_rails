@@ -1,6 +1,5 @@
 require "erb"
 require 'open-uri'
-require "tilt"
 require "will_paginate"
 require 'will_paginate/view_helpers'
 require 'will_paginate/view_helpers/action_view'

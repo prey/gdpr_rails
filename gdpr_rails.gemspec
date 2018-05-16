@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
   s.add_dependency "rails", ">= 5.1.4", "< 5.3"
-  s.add_dependency "tilt"
   s.add_dependency "redcarpet"
   s.add_dependency "will_paginate"
   s.add_dependency "aasm"
@@ -26,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency "groupdate", "4.0.0"
   s.add_dependency "chartkick", "2.3.4"
   #s.add_dependency "kaminari"
-  s.add_development_dependency "minitest-stub_any_instance"
   s.add_development_dependency "mocha"
   s.add_development_dependency "nokogiri"
   s.add_development_dependency "sqlite3"
