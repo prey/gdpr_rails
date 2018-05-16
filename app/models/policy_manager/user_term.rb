@@ -10,15 +10,16 @@ module PolicyManager
     validates_uniqueness_of :term_id, :scope => :user_id
 
     aasm :column => :state do
-      state :rejected, :initial => true
+      state :passive, :initial => true
+      state :rejected
       state :accepted
 
       event :accept do
-        transitions from: :rejected, to: :accepted
+        transitions from: [:passive, :rejected], to: :accepted
       end
 
       event :reject do
-        transitions from: :accepted, to: :rejected
+        transitions from: [:passive, :accepted], to: :rejected
       end
     end
 

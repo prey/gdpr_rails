@@ -24,7 +24,7 @@ module PolicyManager
       create_sections
       generate_zip
       handle_zip_upload
-      after_zip.call(zip_path, resource)
+      after_zip.call(zip_path, resource) if after_zip.is_a?(Proc)
       clear!
     end
 

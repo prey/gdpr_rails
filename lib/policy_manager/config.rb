@@ -44,7 +44,8 @@ module PolicyManager
       if has_different_admin_user_resource?
         user.is_a? admin_user_resource
       else
-        @@is_admin_method.call(user)
+        raise Rails.logger.error("GDPR ERROR! please add is_admin_method to your gdpr initializer") if @@is_admin_method.blank?
+        @@is_admin_method.call(user) 
       end
     end
 

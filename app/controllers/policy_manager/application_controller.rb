@@ -14,7 +14,7 @@ module PolicyManager
 
     def user_authenticated?
       if !current_user
-        render :file => "public/401.html", :layout => false, :status => :unauthorized
+        render :file => "401.erb", :layout => false, :status => :unauthorized
       end
     end
 

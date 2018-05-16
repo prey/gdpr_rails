@@ -5,9 +5,9 @@ if @user_term.persisted? && @user_term.state == "accepted"
   json.message "#{I18n.t("terms_app.user_terms.show.accepted.message")}"
   json.url reject_user_term_path(params[:id])
   json.method :put
-elsif current_user.present? 
+elsif controller.current_user.present? 
   json.status "pending"
-  json.message "#{current_user.email} #{I18n.t("terms_app.user_terms.show.pending.message")}"
+  json.message "#{controller.current_user.email} #{I18n.t("terms_app.user_terms.show.pending.message")}"
   json.url accept_user_term_path(params[:id])
   json.method :put
 else
