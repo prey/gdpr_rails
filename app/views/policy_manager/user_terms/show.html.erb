@@ -17,7 +17,7 @@
 
 <% else %>
   <strong>
-    <%= current_user.email %>
+    <%= controller.current_user.email %>
   </strong> <%= I18n.t("terms_app.user_terms.show.pending.message") %>
 
   <hr/>

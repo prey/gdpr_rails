@@ -24,7 +24,10 @@ module PolicyManager
     def blocking_terms
       respond_to do |format|
         format.html{ }
-        format.json{ render json: PolicyManager::Config.rules.map{|p| p.name if p.blocking == true }.compact! }
+        format.json{ render json: PolicyManager::Config.rules
+                                                       .select{|p| p.blocking }
+                                                       .map(&:name) 
+        }
       end
     end
 
@@ -32,7 +35,6 @@ module PolicyManager
       rules = current_user.pending_policies.map{|o| "policy_rule_#{o.name}"}
       resource_params = params.require(:user).permit(rules)
       current_user.update_attributes(resource_params)
-      
       @pending_policies = current_user.pending_policies
       
       respond_to do |format|
@@ -63,7 +65,6 @@ module PolicyManager
     end
 
     def reject
-
       handle_term_reject
 
       respond_to do |format|
@@ -87,6 +88,7 @@ module PolicyManager
       end
     end
 
+=begin
     # GET /user_terms/new
     def new
       @user_term = UserTerm.new
@@ -117,6 +119,7 @@ module PolicyManager
       @user_term.destroy
       redirect_to user_terms_url, notice: 'User term was successfully destroyed.'
     end
+=end
 
     private
 

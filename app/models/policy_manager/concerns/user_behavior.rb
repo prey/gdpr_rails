@@ -107,6 +107,7 @@ module PolicyManager::Concerns::UserBehavior
 
   def policy_term_on(rule)
     category = PolicyManager::Config.rules.find{|o| o.name == rule}
+    #binding.pry if category.blank?
     term = category.terms.where(state: "published").last
     raise "no term for #{rule} policy" if term.blank?
     term

@@ -7,7 +7,11 @@ module PolicyManager
 
     # GET /portability_requests
     def index
-      @portability_requests = PortabilityRequest.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+      @portability_requests = PortabilityRequest.order(created_at: :desc)
+                                                .paginate(
+                                                  :page => params[:page], 
+                                                  :per_page => 10
+                                                )
     end
 
     def confirm
@@ -19,7 +23,7 @@ module PolicyManager
 
     # DELETE /portability_requests/1
     def destroy
-      @portability_request.destroy
+      @portability_request = PortabilityRequest.find(params[:id]).destroy
       redirect_to portability_requests_url, notice: I18n.t("terms_app.portability_requests.index.destroyed")
     end
 

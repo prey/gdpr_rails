@@ -7,7 +7,9 @@ module PolicyManager
     
     # GET /terms
     def index
-      @terms = Term.all
+      @terms = Term.where(rule: params[:category_id]).paginate(
+                                                :page => params[:page], 
+                                                :per_page => 10)
     end
 
     # GET /terms/1

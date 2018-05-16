@@ -41,7 +41,7 @@
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
-            <% if PolicyManager::Config.is_admin?(current_user) %>
+            <% if PolicyManager::Config.is_admin?(controller.current_user) %>
 
               <li class="nav-item">
                 <a class="nav-link" href="<%= categories_path %>">
@@ -59,7 +59,7 @@
 
             <% end %>
 
-            <% if current_user.is_a? PolicyManager::Config.user_resource %>
+            <% if controller.current_user.is_a? PolicyManager::Config.user_resource %>
 
               <li class="separator"></li>
 

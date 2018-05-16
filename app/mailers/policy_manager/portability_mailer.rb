@@ -5,7 +5,7 @@ module PolicyManager
       @portability_request = PortabilityRequest.find(portability_request_id)
       @user = Config.user_resource.find(@portability_request.user_id)
       
-      opts = { :to => @user.email, :subject => I18n.t("terms_app.mails.progress.subject") }
+      opts = { from: Config.from_email, to: @user.email, subject: I18n.t("terms_app.mails.progress.subject") }
       opts.merge!({
         template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
         template_name: PolicyManager::Config.exporter.mailer_templates[:progress]
@@ -21,7 +21,7 @@ module PolicyManager
       @user = Config.user_resource.find(@portability_request.user_id)
       @link = @portability_request.download_link
       
-      opts = { :to => @user.email, :subject => I18n.t("terms_app.mails.completed.subject") }
+      opts = { from: Config.from_email, to: @user.email, subject: I18n.t("terms_app.mails.completed.subject") }
       opts.merge!({
         template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
         template_name: PolicyManager::Config.exporter.mailer_templates[:complete]
@@ -35,7 +35,7 @@ module PolicyManager
     def admin_notification(user_id)
       @user = Config.user_resource.find(user_id)
   
-      opts = { :to => Config.admin_email(@user), :subject => I18n.t("terms_app.mails.admin.subject", email: @user.email) }
+      opts = { from: Config.from_email, to: Config.admin_email(@user), subject: I18n.t("terms_app.mails.admin.subject", email: @user.email) }
       opts.merge!({
         template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
         template_name: PolicyManager::Config.exporter.mailer_templates[:admin]

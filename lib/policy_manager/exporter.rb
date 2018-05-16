@@ -42,7 +42,7 @@ module PolicyManager
     end
 
     def layout
-      handled_template(@layout) || '<body> eeeee <%= yield %> eeee</body>'
+      handled_template(@layout) || 'policy_manager/portability'
     end
 
     def mail_helpers

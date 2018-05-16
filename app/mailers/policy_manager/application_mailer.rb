@@ -4,8 +4,10 @@ module PolicyManager
     layout 'mailer'
 
     # configurable mailer helpers
-    Config.exporter.mail_helpers.each do |helpers|
-      add_template_helper(helpers)
+    if Config.exporter.present?
+      Config.exporter.mail_helpers.each do |helpers|
+        add_template_helper(helpers)
+      end
     end
   end
 end
