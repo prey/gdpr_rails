@@ -41,7 +41,8 @@ module PolicyManager
     end
 
     def download_link
-      self.attachment.expiring_url(PolicyManager::Config.exporter.expiration_link)
+      url = self.attachment.expiring_url(PolicyManager::Config.exporter.expiration_link) 
+      PolicyManager::Config.exporter.customize_link(url)
     end
 
     def handle_progress

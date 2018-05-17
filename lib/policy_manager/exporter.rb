@@ -11,6 +11,7 @@ module PolicyManager
                   :attachment_path,
                   :attachment_storage, 
                   :expiration_link,
+                  :customize_link,
                   :mailer_templates,
                   :mailer
 
@@ -24,6 +25,7 @@ module PolicyManager
       self.attachment_path = opts[:attachment_path]
       self.attachment_storage = opts[:attachment_storage]
       self.expiration_link = opts[:expiration_link]
+      self.customize_link = opts[:customize_link]
       self.mailer_templates = opts[:mailer_templates]
     end
 
@@ -51,6 +53,10 @@ module PolicyManager
 
     def expiration_link
       @expiration_link ||= 60
+    end
+
+    def customize_link(url)
+      @customize_link.is_a?(Proc) ? @customize_link.call(url) : url
     end
 
     def handled_template(template)

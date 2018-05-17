@@ -12,6 +12,7 @@ require "policy_manager/exporter/json_view.rb"
 require "policy_manager/exporter/zip_generator.rb"
 require "policy_manager/exporter/paginator_renderer.rb"
 require "policy_manager/exporter/json_link.rb"
+require "policy_manager/bootstrap_link_renderer"
 
 require "policy_manager/config"
 

@@ -39,7 +39,7 @@ Configurable *scripts* which will bind cookie names in order to handle the scrip
 + TBD, for now we simply delete all the data when a user closes the account.  This could be handled in the future with encryption like in emails or other kind of sensible fields on a database.
 
 ### Admin Panel
-![admin panel](./panel.jpg)
+![Admin panel](https://user-images.githubusercontent.com/11976/40152755-856941e2-5954-11e8-87d0-1464c21a61c2.png)
 
 ## Installation
 Add this line to your application's Gemfile:

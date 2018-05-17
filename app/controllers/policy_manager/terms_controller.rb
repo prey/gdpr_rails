@@ -5,13 +5,6 @@ module PolicyManager
     before_action :set_term, only: [:show, :edit, :update, :destroy]
     before_action :allow_admins
     
-    # GET /terms
-    def index
-      @terms = Term.where(rule: params[:category_id]).paginate(
-                                                :page => params[:page], 
-                                                :per_page => 10)
-    end
-
     # GET /terms/1
     def show
     end

@@ -1,0 +1,42 @@
+<div class="col-md-3">
+  <h3 class="page-title mb-5">
+    <%= I18n.t("terms_app.terms.new.title", name: params[:category_id]) %>
+  </h3>
+  <div>
+    <div class="list-group list-group-transparent mb-0">
+      
+      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+        <span class="icon mr-3">
+          <i class="fa fa-check"></i>
+        </span>
+
+        Published Policies on
+
+        <strong>
+        <%= params[:category_id] %>
+        </strong> 
+        <span class="ml-auto badge badge-primary">
+          <%= PolicyManager::Term.where(rule: params[:category_id], state: "published").size %>
+        </span>
+      </a>
+
+      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+        <span class="icon mr-3">
+          <i class="fa fa-exclamation-triangle"></i>
+        </span>
+        
+        Draft Policies on 
+        <strong><%= params[:category_id] %></strong>
+        
+        <span class="ml-auto badge badge-primary">
+          <%= PolicyManager::Term.where(rule: params[:category_id], state: "draft").size %>
+        </span>
+      </a>
+
+    </div>
+    <div class="mt-6">
+      <%= link_to I18n.t("terms_app.terms.index.button"), new_category_term_path(params[:category_id]), class:"btn btn-secondary btn-block" %>
+    
+    </div>
+  </div>
+</div>

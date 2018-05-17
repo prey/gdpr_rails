@@ -1,5 +1,7 @@
 PolicyManager::Engine.routes.draw do
 
+  get "documentation", to: "application#doc", as: :documentation
+
   resources :user_portability_requests, only: [:index, :create, :destroy]
 
   resources :portability_requests, only: [:index, :destroy] do
@@ -9,7 +11,7 @@ PolicyManager::Engine.routes.draw do
   end
   
   resources :categories, only: [:show, :index] do 
-    resources :terms
+    resources :terms, except: [:index]
   end
 
   resources :user_terms, only: [:show] do 

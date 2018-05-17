@@ -12,9 +12,20 @@ module PolicyManager
       return redirect_to root_path unless Config.is_admin?(current_user)
     end
 
+    def doc
+      require "redcarpet"
+      @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
+      lines = File.open( PolicyManager::Engine.root.join("README.md")).readlines
+      @html = @markdown.render(lines.join(""))
+      render "policy_manager/doc"
+      #render inline: html, layout: "policy_manager/application"
+    end
+
     def user_authenticated?
       if !current_user
-        render :file => "401.erb", :layout => false, :status => :unauthorized
+        render :file => "policy_manager/401.erb", 
+        :layout => "policy_manager/blank", 
+        :status => :unauthorized
       end
     end
 

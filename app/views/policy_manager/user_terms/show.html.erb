@@ -1,31 +1,59 @@
-<%= raw @term.to_html %>
 
-<hr/>
 
-<% if @user_term.persisted? && @user_term.state == "accepted" %>
-  
-  <div>
-    <strong><%= I18n.t("terms_app.user_terms.show.accepted.message") %></strong>
-    <br/><%= I18n.t("terms_app.user_terms.show.accepted.question") %>
+<div class="card">
 
-    <%= form_with model: @user_term, url: reject_user_term_path(params[:id]), method: :put, local: true do |f| %>
-      <%= f.submit I18n.t("terms_app.user_terms.show.accepted.reject"), class: "btn btn-danger" %>
-      <%= link_to I18n.t("terms_app.user_terms.show.pending.not_now"), pending_user_terms_path, class: "btn btn-secondary" %>
+  <div class="card-header">
+    <h3 class="card-title">
+      <%= I18n.t("terms_app.categories.index.title") %> : 
+      <strong><%= @term.rule.name %></strong>
+    </h3>
+
+  </div>
+
+  <div class="card-body">
+    <%= raw @term.to_html %>
+  </div>
+
+  <div class="card-footer">
+    
+    <% if @user_term.persisted? && @user_term.state == "accepted" %>
+      
+      <div>
+        <strong>
+          <%= I18n.t("terms_app.user_terms.show.accepted.message") %>
+          
+        </strong>
+        <br/>
+        
+        <%= I18n.t("terms_app.user_terms.show.accepted.question") %>
+
+        <%= form_with model: @user_term, url: reject_user_term_path(params[:id]), method: :put, local: true do |f| %>
+          <%= f.submit I18n.t("terms_app.user_terms.show.accepted.reject"), class: "btn btn-danger" %>
+          <%= link_to I18n.t("terms_app.user_terms.show.pending.not_now"), pending_user_terms_path, class: "btn btn-secondary" %>
+        <% end %>
+
+      </div>
+
+    <% else %>
+
+      <strong>
+        <%= controller.current_user.email %>
+      </strong> 
+      
+      <%= I18n.t("terms_app.user_terms.show.pending.message") %>
+
+      <%= form_with model: @user_term, url: accept_user_term_path(params[:id]), method: :put, local: true do |f| %>
+        <%= f.submit I18n.t("terms_app.user_terms.show.pending.agree"), class: "btn btn-success" %>
+        <%= link_to I18n.t("terms_app.user_terms.show.pending.not_now"), pending_user_terms_path, class: "btn btn-secondary" %>
+      <% end %>
+
     <% end %>
 
   </div>
 
-<% else %>
-  <strong>
-    <%= controller.current_user.email %>
-  </strong> <%= I18n.t("terms_app.user_terms.show.pending.message") %>
+</div>
 
-  <hr/>
 
-  <%= form_with model: @user_term, url: accept_user_term_path(params[:id]), method: :put, local: true do |f| %>
-    <%= f.submit I18n.t("terms_app.user_terms.show.pending.agree"), class: "btn btn-success" %>
-    <%= link_to I18n.t("terms_app.user_terms.show.pending.not_now"), pending_user_terms_path, class: "btn btn-secondary" %>
-  <% end %>
 
-  <hr/>
-<% end %>
+
+

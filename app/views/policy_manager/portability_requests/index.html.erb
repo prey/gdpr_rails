@@ -1,42 +1,65 @@
+
 <h2><%= I18n.t("terms_app.portability_requests.index.title") %></h2>
 
 <% if @portability_requests.size == 0 %>
   <p><%= I18n.t("terms_app.portability_requests.index.empty") %></p>
 <% else %>
 
-  <%= chart ->{PolicyManager::PortabilityRequest.group_by_day(:created_at).count} %>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <%= chart ->{PolicyManager::PortabilityRequest.group_by_day(:created_at).count} %>
+      </div>
+    </div>
+  </div>
 
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th><%= I18n.t("terms_app.portability_requests.index.table.user") %></th>
-          <th><%= I18n.t("terms_app.portability_requests.index.table.state") %></th>
-          <th><%= I18n.t("terms_app.portability_requests.index.table.created_at") %></th>
-          <!--<th>Expire at</th>-->
-          <th colspan="2"></th>
-        </tr>
-      </thead>
+  <div class="card">
 
-      <tbody>
-        <% @portability_requests.each do |portability_request| %>
+    <div class="card-header">
+      <h3 class="card-title">
+        <%= I18n.t("terms_app.portability_requests.index.title") %>
+      </h3>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap">
+        <thead>
           <tr>
-            <td><%= portability_request.user.email %></td>
-            <td><%= I18n.t("terms_app.portability_requests.index.states.#{portability_request.state}") %></td>
-            <td><%= portability_request.created_at %></td>
-            <!--<td><%= portability_request.expire_at %></td>-->
-            <td>
-              <%= link_to I18n.t("terms_app.portability_requests.index.table.confirm"), confirm_portability_request_path(portability_request), data: { confirm: I18n.t("terms_app.misc.are_you_sure") } if portability_request.pending?
-              %>
-            
-            </td>
-            <td><%= link_to I18n.t("terms_app.portability_requests.index.table.destroy"), portability_request, method: :delete, data: { confirm: I18n.t("terms_app.misc.are_you_sure") } %></td>
+            <th><%= I18n.t("terms_app.portability_requests.index.table.user") %></th>
+            <th><%= I18n.t("terms_app.portability_requests.index.table.state") %></th>
+            <th><%= I18n.t("terms_app.portability_requests.index.table.created_at") %></th>
+            <!--<th>Expire at</th>-->
+            <th colspan="2"></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
 
-    <%= will_paginate @portability_requests, :style => 'letter-spacing: 5px' %>
+        <tbody>
+          <% @portability_requests.each do |portability_request| %>
+            <tr>
+              <td><%= portability_request.user.email %></td>
+              <td>
+                <span class="tag <%=state_color(portability_request.state)%>">
+                  <%= I18n.t("terms_app.portability_requests.index.states.#{portability_request.state}") %>
+                </span>
+
+                </td>
+              <td><%= portability_request.created_at %></td>
+              <!--<td><%= portability_request.expire_at %></td>-->
+              <td>
+                <%= link_to I18n.t("terms_app.portability_requests.index.table.confirm"), confirm_portability_request_path(portability_request), data: { confirm: I18n.t("terms_app.misc.are_you_sure") } if portability_request.pending?
+                %>
+              
+              </td>
+              <td><%= link_to I18n.t("terms_app.portability_requests.index.table.destroy"), portability_request, method: :delete, data: { confirm: I18n.t("terms_app.misc.are_you_sure") }, class: "btn btn-sm btn-danger" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
 
   </div>
+
+  <%= will_paginate @portability_requests, renderer: PolicyManager::BootstrapLinkRenderer %>
+
 <% end %>

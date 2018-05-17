@@ -13,6 +13,8 @@ module PolicyManager
     # GET /categories/1
     def show
       @category = PolicyManager::Config.rules.find{|o| o.name == params[:id]}
+      @terms = @category.terms.paginate(:page => params[:page], 
+                                        :per_page => 12)
     end
 
     private

@@ -1,8 +1,16 @@
-<h2><%= I18n.t("terms_app.terms.edit.title", name: @term.rule.name) %></h2>
+<div class="row">
 
-<div class="float-right">
-  <%= link_to I18n.t("terms_app.misc.back"), category_path(@term.rule.name), class: "btn btn-primary" %>
-  <%= link_to I18n.t("terms_app.misc.show"), category_term_path(@term.rule.name, @term),  class: "btn btn-success" %>
+  <%= render "side" %>
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <%= I18n.t("terms_app.terms.edit.title", name: params[:category_id]) %>
+        </h3>
+      </div>
+      <div class="card-body">
+        <%= render 'form', term: @term %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= render 'form', term: @term %>
