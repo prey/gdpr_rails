@@ -15,7 +15,7 @@ module PolicyManager
     def doc
       require "redcarpet"
       @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
-      lines = File.open( PolicyManager::Engine.root.join("Readme.md")).readlines
+      lines = File.open( PolicyManager::Engine.root.join("README.md")).readlines
       @html = @markdown.render(lines.join(""))
       render "policy_manager/doc"
       #render inline: html, layout: "policy_manager/application"
