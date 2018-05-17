@@ -42,10 +42,11 @@
         </tbody>
       </table>
 
-      <%= will_paginate @terms %>
+      
     </div>
-
   </div> 
 </div>
+
+<%= will_paginate @terms, renderer: PolicyManager::BootstrapLinkRenderer %>
 
 

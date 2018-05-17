@@ -54,13 +54,13 @@
         </tbody>
       </table>
 
-      <%= will_paginate @user_portability_requests, :style => 'letter-spacing: 5px' %>
-
     </div>
 
 
   </div>
-  
+
+  <%= will_paginate @user_portability_requests, renderer: PolicyManager::BootstrapLinkRenderer %>
+
 <% else %>
   <p><%= I18n.t("terms_app.user_portability_requests.index.empty") %></p>
 <% end %>
