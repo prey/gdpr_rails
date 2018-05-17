@@ -29,24 +29,6 @@
 </head>
 
 <body>
-
-    <div class="page">
-      <div class="page-main">
-        <%= render partial: "policy_manager/shared/header" %>
-      
-        <div class="my-3 my-md-5">
-          <div class="container">
-            <p id="notice">
-              <%= flash_messages %>
-            </p>
-            <%= yield %>    
-          </div>
-        </div>
-      </div>
-
-      <%= render partial: "policy_manager/shared/footer" %>
-    </div>
- 
-
+    <%= yield %>
 </body>
 </html>

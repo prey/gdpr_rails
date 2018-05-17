@@ -1,11 +1,39 @@
+
 <h2><%= I18n.t("terms_app.user_terms.pending.title") %></h2>
 
 <% if @pending_policies.size == 0 %>
-  <p><%= I18n.t("terms_app.user_terms.pending.empty") %></p>
+
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close invisible" data-dismiss="alert"></button>
+    <%= I18n.t("terms_app.user_terms.pending.empty") %>
+  </div>
+
 <% else %>
-  <ul>
+
+  <div class="row row-cards row-deck">
     <% @pending_policies.each do |category| %>
-      <li><%= link_to category.name, user_term_path(category.name) %></li>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-status bg-purple"></div>
+          <div class="card-header">
+            <h3 class="card-title">
+              <%= link_to category.name, user_term_path(category.name) %>
+            </h3>
+          </div>
+          <div class="card-body">
+            <%= truncate(category.terms.published.last.to_html.html_safe, length: 25) %>
+          </div>
+          <div class="card-footer">
+            <strong>policy updated at:</strong> 
+            <br/>
+            <span class="muted">
+              <%= category.terms.published.last.updated_at %>
+            </span>
+            
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
+
 <% end %>

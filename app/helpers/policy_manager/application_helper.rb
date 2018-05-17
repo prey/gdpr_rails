@@ -19,6 +19,21 @@ module PolicyManager
       nil
     end
 
+    def state_color(state)
+      case state
+      when "pending", "draft"
+        return "tag-yellow"
+      when "progress"
+        return "tag-azure"
+      when "completed", "published"
+        return "tag-green"
+      end
+    end
+
+    def gravatar_url(user, size)
+      gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+    end
 
     def chart(data)
       begin

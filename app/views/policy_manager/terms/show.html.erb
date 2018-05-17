@@ -1,18 +1,33 @@
-<h2><%= I18n.t("terms_app.terms.show.title") %> <%= @term.rule.name %></h2>
+<h2>
+  <%= I18n.t("terms_app.terms.show.title") %> <%= @term.rule.name %>
+</h2>
 
-<div class="float-right">
-  <%= link_to I18n.t("terms_app.misc.back"), category_path(@term.rule.name), class: "btn btn-primary" %>
-  <%= link_to I18n.t("terms_app.misc.edit"), edit_category_term_path(@term.rule.name, @term), class: "btn btn-success" %>
+<div class="card">
+
+  <div class="card-header">
+    <span class="badge-xl badge-pill badge-primary">
+      <%= I18n.t("terms_app.states.#{@term.state}") %>
+    </span>
+
+    <span class="text-muted">
+      <%= I18n.t("terms_app.terms.show.last_update") %> 
+      <%= @term.updated_at %>
+    </span>      
+  </div>
+
+  <div class="card-body">
+    <%= raw @term.to_html %>
+  </div>
+
+  <div class="card-footer">
+    <div class="float-right">
+      <%= link_to I18n.t("terms_app.misc.back"), category_path(@term.rule.name), class: "btn-sm btn-primary" %>
+      <%= link_to I18n.t("terms_app.misc.edit"), edit_category_term_path(@term.rule.name, @term), class: "btn-sm btn-success" %>      
+    </div>
+
+  </div>
 </div>
 
-<span class="badge badge-pill badge-primary">
-  <%= I18n.t("terms_app.states.#{@term.state}") %>
-</span>
 
-<span class="text-muted">
-  <%= I18n.t("terms_app.terms.show.last_update") %> <%= @term.updated_at %>
-</span>
 
-<hr />
 
-<%= raw @term.to_html %>

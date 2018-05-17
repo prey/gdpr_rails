@@ -28,36 +28,6 @@ module PolicyManager
       ApplicationController.any_instance.stubs(:current_user).returns(User.first)
     end
 
-    it "should get index" do
-      PolicyManager::Config.stubs(:is_admin?).returns(true)
-
-      get :index , params: { category_id: (@category) }
-      assert_response :success
-      assert_select "table td", "desc 1"
-
-      pr = PolicyManager::Term.create(description: "desc 2", rule: "age")
-      pr.publish!
-
-      get :index , params: { category_id: (@category) }
-      assert_response :success
-      assert_select "table td", "desc 2"
-    end
-
-    it "should get index will not render other terms" do
-      PolicyManager::Config.stubs(:is_admin?).returns(true)
-
-      get :index , params: { category_id: (@category) }
-      assert_response :success
-      assert_select "table td", "desc 1"
-
-      pr = PolicyManager::Term.create(description: "desc 2", rule: "age-non")
-      pr.publish!
-
-      get :index , params: {category_id: @category}
-      assert_response :success
-      assert_select "table td", {count: 0, text: "desc 2"}
-    end
-
     it "should get new" do
       PolicyManager::Config.stubs(:is_admin?).returns(true)
 
@@ -88,7 +58,7 @@ module PolicyManager
 
       get :show , params: {category_id: @category, id: @term}
       assert_response :success
-      assert_select ".badge", @term.state.capitalize
+      assert_select ".badge-xl", @term.state.capitalize
     end
 
     it "should get edit" do

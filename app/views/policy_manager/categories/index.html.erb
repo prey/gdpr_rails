@@ -1,26 +1,43 @@
 <h2><%= I18n.t("terms_app.categories.index.title") %></h2>
 
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <%= chart ->{PolicyManager::UserTerm.group_by_day(:created_at, format: "%a").count} %> 
+    </div>
+  </div>
+</div>
 
-<%= chart ->{PolicyManager::UserTerm.group_by_day(:created_at, format: "%a").count} %>
 
-<div class="table-responsive">
-  <table class="table table-striped table-sm">
-  <thead>
-    <tr>
-      <th><%= I18n.t("terms_app.categories.index.table.name") %></th>
-      <th><%= I18n.t("terms_app.categories.index.table.terms") %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="card">
 
-  <tbody>
-    <% @categories.each do |category| %>
+  <div class="card-header">
+    <h3 class="card-title">
+      <%= I18n.t("terms_app.categories.index.title") %>
+    </h3>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table card-table table-vcenter text-nowrap">
+    <thead>
       <tr>
-        <td><%= category.name %></td>
-        <td><%= category.terms.size %></td>
-        <td><%= link_to I18n.t("terms_app.categories.index.table.show"), category_path(category.name) %></td>
+        <th><%= I18n.t("terms_app.categories.index.table.name") %></th>
+        <th><%= I18n.t("terms_app.categories.index.table.terms") %></th>
+        <th colspan="1"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td><%= category.terms.size %></td>
+          <td><%= link_to I18n.t("terms_app.categories.index.table.show"), category_path(category.name), class: "btn btn-secondary btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+
+  
 </div>
