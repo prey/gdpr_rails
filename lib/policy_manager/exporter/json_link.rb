@@ -8,11 +8,7 @@ module PolicyManager
     private
 
     def self.link(collection)
-      if collection.nil? || collection.current_page == 1
-        return "./data.json"
-      else
-        return "./../data.json"
-      end
+      return "./data.json"
     end
 
   end
