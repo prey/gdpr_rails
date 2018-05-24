@@ -3,7 +3,7 @@ require_dependency "policy_manager/application_controller"
 module PolicyManager
   class CategoriesController < ApplicationController
 
-    before_action :allow_admins 
+    before_action :allow_admins, except: [:index]
 
     # GET /categories
     def index
