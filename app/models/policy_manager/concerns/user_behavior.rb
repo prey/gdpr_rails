@@ -32,6 +32,7 @@ module PolicyManager::Concerns::UserBehavior
       end
 
       define_method :"#{rule_name}=" do |val=true|
+        val = ActiveRecord::Type::Boolean.new.cast(val)
         self.instance_variable_set("@#{rule_name}", val)
         ut = user_terms.new
         ut.term = policy_term_on(rule.name)
