@@ -9,7 +9,7 @@ module PolicyManager
     before_action :set_language
 
     def allow_admins
-      return redirect_to root_path unless Config.is_admin?(current_user)
+      return redirect_to pending_user_terms_path unless Config.is_admin?(current_user)
     end
 
     def doc
