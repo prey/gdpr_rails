@@ -4,7 +4,7 @@ module PolicyManager::Concerns::UserBehavior
 
   included do
     has_many :user_terms, class_name: "PolicyManager::UserTerm", autosave: true
-    has_many :terms, through: :user_terms, class_name : "PolicyManager::Term"
+    has_many :terms, through: :user_terms, class_name: "PolicyManager::Term"
     has_many :portability_requests, class_name: "PolicyManager::PortabilityRequest"
 
     # adds policies
