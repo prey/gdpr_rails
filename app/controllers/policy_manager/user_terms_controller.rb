@@ -47,8 +47,7 @@ module PolicyManager
     end
 
     def accept
-      
-      handle_term_accept
+      @user_term = accept_term(@term)
 
       respond_to do |format|
         format.html{ 
@@ -68,7 +67,7 @@ module PolicyManager
     end
 
     def reject
-      handle_term_reject
+      @user_term = reject_term(@term)
 
       respond_to do |format|
         format.html{ 
