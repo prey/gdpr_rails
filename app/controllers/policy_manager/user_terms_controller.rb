@@ -1,5 +1,5 @@
 require_dependency "policy_manager/application_controller"
-require "../../../app/controllers/policy_manager/concerns/user_terms"
+require "policy_manager/concerns/user_terms"
 
 module PolicyManager
   class UserTermsController < ApplicationController
