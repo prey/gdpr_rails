@@ -28,9 +28,9 @@ module PolicyManager::Concerns::UserTerms
   end
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_user_term
-    @category = PolicyManager::Config.rules.find{|o| o.name == params[:id]}
-    @term = @category.terms.last
+  def policy_term_on(name)
+    category = PolicyManager::Config.rules.find{|o| o.name == name}
+    category.terms.last
   end
 
 end

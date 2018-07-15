@@ -126,6 +126,10 @@ module PolicyManager
 
     private
 
+      def set_user_term
+        @term = policy_term_on(params[:id])
+      end
+
       # Only allow a trusted parameter "white list" through.
       def user_term_params
         params.fetch(:user_term, {})
