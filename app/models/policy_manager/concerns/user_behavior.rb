@@ -22,7 +22,7 @@ module PolicyManager::Concerns::UserBehavior
 
         define_method :"check_#{rule_name}" do
           if self.send(rule_name).blank? && needs_policy_confirmation_for?(rule.name)
-            errors.add(rule_name, "needs confirmation")
+            errors.add(rule_name, I18n.t("terms_app.user_behavior.needs_confirmation"))
           end
         end  
       end  

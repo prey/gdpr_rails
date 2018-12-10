@@ -1,5 +1,7 @@
 en:
   terms_app:
+    user_behavior:
+      needs_confirmation: needs confirmation
     title: PolicyManager
     sub_title: PolicyManager
     sign_out: Logout

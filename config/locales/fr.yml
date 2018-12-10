@@ -1,5 +1,7 @@
 fr:
   terms_app:
+    user_behavior:
+      needs_confirmation: besoin de confirmation
     title: Gestionnaire de données personnelles
     sub_title: Gestionnaire de données personnelles
     sign_out: Se déconnecter
