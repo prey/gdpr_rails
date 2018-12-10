@@ -1,7 +1,7 @@
 es:
   terms_app:
     user_behavior:
-      needs_confirmation: needs confirmation
+      needs_confirmation: necesita confirmación
     title: PolicyManager
     sub_title: PolicyManager
     sign_out: Salir
