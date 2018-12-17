@@ -1,0 +1,126 @@
+tr:
+  terms_app:
+    user_behavior:
+      needs_confirmation: onay gerekiyor
+    title: Politika Yöneticisi
+    sub_title: Politika Yöneticisi
+    sign_out: Çıkış
+    menu:
+      policies: Politikalar
+      portability_requests: Portatiflik talepleri
+      user_portability_requests: Portatiflik taleplerim
+      user_pending_policies: Bekleyen politikalarım
+    misc:
+      back: Geri
+      edit: Düzenle
+      show: Göster
+      save: Kaydet
+      download: İndir
+      are_you_sure: Emin misiniz?
+    states:
+      draft: Taslak
+      published: Yayınlanmış
+    categories:
+      index:
+        title: Politikalar
+        table:
+          name: İsim
+          terms: Koşullar
+          show: Göster
+      show:
+        title: "%{name} Politikası"
+        new: Yeni Koşul
+        table:
+          id: Id
+          content: İçerik
+          state: Durum
+          updated_at: Güncellenme Tarihi
+          show: Göster
+    terms:
+      index:
+        title: Koşullar
+        button: Yeni Koşul
+        table:
+          description: Açıklama
+          category: Politika
+          updated_at: Güncellenme Tarihi
+          show: Göster
+          edit: Düzenle
+          destroy: Sil
+      new:
+        title: "%{name} yeni koşul"
+        state: Durum
+        description: Açıklama
+        button: Buton
+        error: koşul kaydetmede hata
+        created: Başarılı şekilde oluşturuldu
+        updated: Başarılı şekilde güncellendi
+        destroyed: Başarılı şekilde silindi
+      edit:
+        title: "%{name} koşulunu düzenle"
+        state: Durum
+        description: Açıklama
+        error: koşul kaydedilirken
+      show:
+        title: Koşul
+        last_update: Son güncelleme
+        table:
+          name: Adı
+          terms: Koşullar
+          show: Göster
+    user_terms:
+      pending:
+        title: Bekliyen politikalarım
+        empty: Bekliyen politika yok
+      show:
+        accepted:
+          message: Kabul edilen politika
+          question: Fikrini değiştirdin mi?
+          reject: Reddet
+          not_now: Şimdi değil
+        pending:
+          message: Lütfen bu politikayı kabul ediniz
+          agree: Kabul
+          not_now: Şimdi değil
+    user_portability_requests:
+      index:
+        title: Taşınabilirlik taleplerim
+        empty:  Taşınabilirlik talebi yok
+        table:
+          state: Durum
+          file: Dosya
+          created_at: Oluşturulma zamanı
+          destroy: Sil
+        button: Yeni taşınabilirlik talebi
+        states:
+          pending: Beklemede
+          progress: İşlemde
+          completed: Tamamlandı
+        has_pending: Bekleyen bir isteğiniz var, henüz başka bir tane oluşturamzsınız.
+        created: Bilgi talebi gönderildi!
+    portability_requests:
+      index:
+        title: Bekleyen talepler
+        destroyed: Silme işlemi başarılı
+        empty: Herhangi bir talep yok
+        table:
+          user: Kullanıcı
+          state: Durum
+          created_at: Oluşturulma zamanı
+          destroy: Sil
+          confirm: Onayla
+        states:
+          pending: Beklemede
+          progress: İşlemde
+          completed: Tamamlandı
+    mails:
+      admin:
+        subject: Kullanıcı %{email} taşınabilirlik isteği gönderdi
+      progress:
+        subject: Verileriniz işleniyor
+      completed:
+        subject: Verileriniz kullanılabilir
+  will_paginate:
+    previous_label: "&lt;"
+    next_label: "&gt;"
+    page_gap: "&hellip;"
