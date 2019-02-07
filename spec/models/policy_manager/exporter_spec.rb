@@ -2,16 +2,16 @@ require 'spec_helper'
 require 'ostruct'
 
 describe PolicyManager::Exporter do
-    
+
   before(:each) do
     PolicyManager::Term.create(description: "el", rule: "age")
 
     @config = PolicyManager::Config.setup do |c|
-      c.add_rule({name: "age", validates_on: [:create, :update], 
+      c.add_rule({name: "age", validates_on: [:create, :update],
                   if: ->(o){ o.enabled_for_validation } })
-      c.exporter = { 
-        path: Rails.root + "tmp/export", 
-        resource: User ,
+      c.exporter = {
+        path: Rails.root + "tmp/export",
+        resource: 'User' ,
         index_template: '<h1>index template, custom</h1>
                         <ul>
                           <% @collection.each do |rule| %>
@@ -24,8 +24,8 @@ describe PolicyManager::Exporter do
       }
 
       c.add_portability_rule({
-        name: "exportable_data", 
-        collection: :foo_data, 
+        name: "exportable_data",
+        collection: :foo_data,
         template: "hellow , here a collection will be rendered
         <%= @base_path %>
          <% @collection.each do |item| %>
@@ -38,13 +38,13 @@ describe PolicyManager::Exporter do
       })
 
       c.add_portability_rule({
-        name: "my_account", 
+        name: "my_account",
         member: :account_data,
-        template: "hellow , here a resource will be rendered <%= image_tag(@member[:image]) %> <%= @member[:name] %> "          
+        template: "hellow , here a resource will be rendered <%= image_tag(@member[:image]) %> <%= @member[:name] %> "
       })
 
       c.add_portability_rule({
-        name: "my_account_from_template", 
+        name: "my_account_from_template",
         member: :account_data,
         template: Rails.root.join("app/views").join("template.erb")
       })
@@ -76,10 +76,10 @@ describe PolicyManager::Exporter do
     user = User.create(email: "a@a.cl")
     assert !user.errors.any?
     PolicyManager::ExporterHandler.any_instance.stubs(:clear!).returns(true)
-      
+
     PolicyManager::ExporterHandler.any_instance.stubs(:handle_zip_upload).returns(true)
     @config.exporter.perform(user)
-  
+
     assert File.exists?(Rails.root.join("tmp/export/#{user.id}"))
     paths = Dir.glob( Rails.root.join("tmp/export/#{user.id}") + "*")
     names = paths.map{|o| File.basename(o) }
@@ -91,8 +91,8 @@ describe PolicyManager::Exporter do
 
     FileUtils.rm_rf(Rails.root.join("tmp/export/#{user.id}"))
     FileUtils.rm_rf(Rails.root.join("tmp/export/#{user.id}-out.zip"))
-  
- 
+
+
   end
 
 end

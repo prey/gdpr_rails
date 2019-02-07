@@ -73,7 +73,7 @@
 
           <% end %>
 
-          <% if controller.current_user.class.to_s == PolicyManager::Config.user_resource %>
+          <% if controller.current_user.class.to_s == PolicyManager::Config.user_resource.to_s %>
 
             <li class="separator"></li>
 
