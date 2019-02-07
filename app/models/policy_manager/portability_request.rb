@@ -5,10 +5,10 @@ module PolicyManager
   class PortabilityRequest < ApplicationRecord
     include Paperclip::Glue
 
-    belongs_to :user, class_name: Config.user_resource.to_s
+    belongs_to :user, class_name: Config.user_resource
 
-    has_attached_file :attachment, 
-      path: Config.exporter.try(:attachment_path) || Rails.root.join("tmp/portability/:id/build.zip").to_s, 
+    has_attached_file :attachment,
+      path: Config.exporter.try(:attachment_path) || Rails.root.join("tmp/portability/:id/build.zip").to_s,
       storage: Config.exporter.try(:attachment_storage) || :filesystem,
       s3_permissions: :private
 
@@ -41,7 +41,7 @@ module PolicyManager
     end
 
     def download_link
-      url = self.attachment.expiring_url(PolicyManager::Config.exporter.expiration_link) 
+      url = self.attachment.expiring_url(PolicyManager::Config.exporter.expiration_link)
       PolicyManager::Config.exporter.customize_link(url)
     end
 

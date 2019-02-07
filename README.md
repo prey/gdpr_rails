@@ -235,7 +235,7 @@ PolicyManager::Config.setup do |c|
   # minimal exporter setup
   c.exporter = {
     path: Rails.root + "tmp/export",
-    resource: User
+    resource: 'User'
   }
 
   # portability rules, collection render. This will call a @user.articles

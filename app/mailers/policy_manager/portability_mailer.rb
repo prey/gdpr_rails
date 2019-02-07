@@ -3,14 +3,14 @@ module PolicyManager
 
     def progress_notification(portability_request_id)
       @portability_request = PortabilityRequest.find(portability_request_id)
-      @user = Config.user_resource.find(@portability_request.user_id)
-      
+      @user = find_user_resource(@portability_request.user_id)
+
       opts = { from: Config.from_email, to: @user.email, subject: I18n.t("terms_app.mails.progress.subject") }
       opts.merge!({
-        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
+        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s,
         template_name: PolicyManager::Config.exporter.mailer_templates[:progress]
       }) if has_custom_template?(:progress)
-      
+
       set_mail_lang
 
       mail(opts)
@@ -18,26 +18,26 @@ module PolicyManager
 
     def completed_notification(portability_request_id)
       @portability_request = PortabilityRequest.find(portability_request_id)
-      @user = Config.user_resource.find(@portability_request.user_id)
+      @user = find_user_resource(@portability_request.user_id)
       @link = @portability_request.download_link
-      
+
       opts = { from: Config.from_email, to: @user.email, subject: I18n.t("terms_app.mails.completed.subject") }
       opts.merge!({
-        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
+        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s,
         template_name: PolicyManager::Config.exporter.mailer_templates[:complete]
       }) if has_custom_template?(:complete)
-      
+
       set_mail_lang
 
       mail(opts)
     end
 
     def admin_notification(user_id)
-      @user = Config.user_resource.find(user_id)
-  
+      @user = find_user_resource(user_id)
+
       opts = { from: Config.from_email, to: Config.admin_email(@user), subject: I18n.t("terms_app.mails.admin.subject", email: @user.email) }
       opts.merge!({
-        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s, 
+        template_path: PolicyManager::Config.exporter.mailer_templates[:path].to_s,
         template_name: PolicyManager::Config.exporter.mailer_templates[:admin]
       }) if has_custom_template?(:admin)
 
@@ -57,5 +57,13 @@ module PolicyManager
       PolicyManager::Config.exporter.mailer_templates[template].present? && PolicyManager::Config.exporter.mailer_templates[:path].to_s.present?
     end
 
+    def find_user_resource(user_id)
+      user_model = if Config.user_resource.is_a?(String)
+        Config.user_resource.constantize
+      else
+        Config.user_resource
+      end
+      user_model.find(user_id)
+    end
   end
 end

@@ -21,8 +21,8 @@ module PolicyManager
       yield self
 
       # sets this defaults after configuration
-      @@user_resource ||= User
-      @@admin_user_resource ||= User
+      @@user_resource ||= 'User'
+      @@admin_user_resource ||= 'User'
 
       self
     end
@@ -45,7 +45,7 @@ module PolicyManager
         user.is_a? admin_user_resource
       else
         raise Rails.logger.error("GDPR ERROR! please add is_admin_method to your gdpr initializer") if @@is_admin_method.blank?
-        @@is_admin_method.call(user) 
+        @@is_admin_method.call(user)
       end
     end
 
