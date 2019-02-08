@@ -1,5 +1,5 @@
 require 'spec_helper'
-module PolicyManager 
+module PolicyManager
   describe PortabilityRequestsController do
 
     routes { PolicyManager::Engine.routes }
@@ -9,17 +9,17 @@ module PolicyManager
 
       @config = PolicyManager::Config.setup do |c|
         c.is_admin_method = ->(o){true}
-        c.user_resource = User
+        c.user_resource = 'User'
         c.from_email = "admin@acme.com"
         c.admin_email_inbox = "admin@acme.com"
-        c.add_rule({name: "age", 
+        c.add_rule({name: "age",
           validates_on: [:create, :update],
-          blocking: true, 
-          if: ->(o){ o.enabled_for_validation } 
+          blocking: true,
+          if: ->(o){ o.enabled_for_validation }
         })
         c.exporter = {
           path: Rails.root + "tmp/export",
-          resource: User
+          resource: 'User'
         }
       end
 

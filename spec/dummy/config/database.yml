@@ -14,7 +14,7 @@ test:
   database: gdpr_test
   host: "localhost"
   username: root
-  password: 
+  password:
   reconnect: true
   port: 3306
   encoding: utf8

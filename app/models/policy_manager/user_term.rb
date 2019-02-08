@@ -3,7 +3,7 @@ require "aasm"
 module PolicyManager
   class UserTerm < ApplicationRecord
     include AASM
-    
+
     belongs_to :user, class_name: Config.user_resource.to_s
     belongs_to :term
 

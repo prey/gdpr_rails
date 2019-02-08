@@ -2,14 +2,14 @@ require "fileutils"
 
 module PolicyManager
   class Exporter
-    attr_accessor :path, 
-                  :resource, 
-                  :index_template, 
-                  :layout, 
-                  :after_zip, 
-                  :mail_helpers, 
+    attr_accessor :path,
+                  :resource,
+                  :index_template,
+                  :layout,
+                  :after_zip,
+                  :mail_helpers,
                   :attachment_path,
-                  :attachment_storage, 
+                  :attachment_storage,
                   :expiration_link,
                   :customize_link,
                   :mailer_templates,
@@ -61,7 +61,7 @@ module PolicyManager
 
     def handled_template(template)
       return if template.blank?
-      if template.is_a?(String) 
+      if template.is_a?(String)
         template
       elsif template.is_a?(Pathname)
         File.open(template).read

@@ -8,7 +8,7 @@
       </a>
 
       <div class="d-flex order-lg-2 ml-auto">
-        
+
         <div class="dropdown">
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url(<%= gravatar_url(controller.current_user, 40)%>)"></span>
@@ -29,14 +29,14 @@
             </a>
             <div class="dropdown-divider"></div>
             -->
-            
+
             <% if PolicyManager::Config.logout_url.present? %>
               <a class="dropdown-item" href="<%= PolicyManager::Config.logout_url %>">
                 <i class="dropdown-icon fe fe-log-out"></i>
                 <%= I18n.t("terms_app.sign_out") %>
               </a>
             <% end %>
-  
+
           </div>
         </div>
 
@@ -54,7 +54,7 @@
       <div class="col-lg order-lg-first">
 
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
-          
+
           <% if PolicyManager::Config.is_admin?(controller.current_user) %>
 
             <li class="nav-item">
