@@ -30,6 +30,11 @@ describe User do
         load Rails.root + 'app/models/user.rb'
       end
 
+      if defined?(PolicyManager::UserTerm)
+        PolicyManager.send(:remove_const, :'UserTerm')
+        load Rails.root + "../../app/models/policy_manager/user_term.rb"
+      end
+
       pr = PolicyManager::Term.create(description: "el", rule: "age")
       pr.publish!
     end
