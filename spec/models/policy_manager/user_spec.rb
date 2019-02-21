@@ -39,6 +39,13 @@ describe User do
       pr.publish!
     end
 
+    after(:each) do
+      @config = PolicyManager::Config.setup do |c|
+        c.user_resource = nil
+        c.admin_user_resource = nil
+      end
+    end
+
     it "dummy user creation with validation rules" do
       user = User.create(email: "a@a.cl")
       assert user.errors.any?
