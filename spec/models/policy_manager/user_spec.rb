@@ -105,14 +105,13 @@ describe User do
     end
 
     it "can't request portability if has one in progress" do
-      User.any_instance.stubs(:enabled_for_validation).returns(false) 
+      User.any_instance.stubs(:enabled_for_validation).returns(false)
       user = User.create(email: "a@a.cl")
       assert !user.errors.any?
       assert user.can_request_portability?
       preq = user.portability_requests.create
       preq.confirm!
       assert !user.can_request_portability?
-  
     end
 
 end
