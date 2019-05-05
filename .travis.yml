@@ -3,7 +3,9 @@ services:
   - mysql
 rvm:
  - 2.3.1
-
+ - 2.4.0
+ - 2.5.0
+ 
 gemfile:
   - gemfiles/rails_5.2.1.gemfile
   - gemfiles/rails_5.2.3.gemfile
