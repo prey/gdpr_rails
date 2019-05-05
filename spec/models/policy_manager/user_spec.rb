@@ -30,8 +30,20 @@ describe User do
         load Rails.root + 'app/models/user.rb'
       end
 
+      if defined?(PolicyManager::UserTerm)
+        PolicyManager.send(:remove_const, :'UserTerm')
+        load Rails.root + "../../app/models/policy_manager/user_term.rb"
+      end
+
       pr = PolicyManager::Term.create(description: "el", rule: "age")
       pr.publish!
+    end
+
+    after(:each) do
+      @config = PolicyManager::Config.setup do |c|
+        c.user_resource = nil
+        c.admin_user_resource = nil
+      end
     end
 
     it "dummy user creation with validation rules" do
@@ -105,14 +117,13 @@ describe User do
     end
 
     it "can't request portability if has one in progress" do
-      User.any_instance.stubs(:enabled_for_validation).returns(false) 
+      User.any_instance.stubs(:enabled_for_validation).returns(false)
       user = User.create(email: "a@a.cl")
       assert !user.errors.any?
       assert user.can_request_portability?
       preq = user.portability_requests.create
       preq.confirm!
       assert !user.can_request_portability?
-  
     end
 
 end

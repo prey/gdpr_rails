@@ -22,7 +22,7 @@ module PolicyManager
 
       # sets this defaults after configuration
       @@user_resource ||= 'User'
-      @@admin_user_resource ||= 'User'
+      @@admin_user_resource ||= @@user_resource
 
       self
     end

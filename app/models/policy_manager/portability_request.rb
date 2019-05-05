@@ -5,7 +5,7 @@ module PolicyManager
   class PortabilityRequest < ApplicationRecord
     include Paperclip::Glue
 
-    belongs_to :user, class_name: Config.user_resource.to_s
+    belongs_to :user, class_name: Config.user_resource.to_s, foreign_key:  :user_id
 
     has_attached_file :attachment,
       path: Config.exporter.try(:attachment_path) || Rails.root.join("tmp/portability/:id/build.zip").to_s,
