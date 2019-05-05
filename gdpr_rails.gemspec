@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   #s.add_dependency "kaminari"
   s.add_development_dependency "mocha"
   s.add_development_dependency "nokogiri"
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "sqlite3", '1.4.1'
   s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "appraisal"
 end

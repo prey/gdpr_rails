@@ -46,6 +46,7 @@ describe PolicyManager::PortabilityRequest do
       User.any_instance.stubs(:enabled_for_validation).returns(false)
         User.any_instance.stubs(:foo_data).returns( (1..100).to_a)
           user = User.create(email: "a@a.cl")
+          FileUtils.rm_rf(Rails.root.join("tmp/export"))
           assert !user.errors.any?
           preq = user.portability_requests.create
           assert preq.pending?
@@ -61,8 +62,9 @@ describe PolicyManager::PortabilityRequest do
           names = paths.map{|o| File.basename(o) }
           arr = names - ["exportable_data", "index.html", "my_account", "my_account_from_template"]
           assert arr.empty?
-          noko = Nokogiri::HTML.parse( File.open(paths.first + "/index.html").read )
-          assert noko.css("h1").text == "layout header"
+          noko = Nokogiri::HTML.parse( File.open(paths.first).read )
+
+          assert noko.css("h1:first").text == "layout header"
           assert noko.css("footer").text == "layout footer"
 
           expect(preq.reload).to be_completed
