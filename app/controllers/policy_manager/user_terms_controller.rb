@@ -126,6 +126,7 @@ module PolicyManager
       def handle_term_accept
         if current_user
           @user_term = current_user.handle_policy_for(@term)
+          return if @user_term.accepted?
           if @user_term.accept!
             @term.rule.on_accept.call(self) if @term.rule.on_accept.is_a?(Proc)
           end
