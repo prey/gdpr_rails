@@ -12,48 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2019_02_21_193827) do
 
-  create_table "another_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "another_users", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "policy_manager_portability_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "state"
-    t.string "attachment"
-    t.string "attachment_file_name"
-    t.string "attachment_file_size"
-    t.datetime "attachment_content_type"
-    t.string "attachment_file_content_type"
-    t.datetime "expire_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_policy_manager_portability_requests_on_user_id"
-  end
-
-  create_table "policy_manager_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "description"
-    t.string "rule"
-    t.string "state"
-    t.datetime "accepted_at"
-    t.datetime "rejected_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "policy_manager_user_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "term_id"
-    t.string "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["state"], name: "index_policy_manager_user_terms_on_state"
-    t.index ["term_id"], name: "index_policy_manager_user_terms_on_term_id"
-    t.index ["user_id"], name: "index_policy_manager_user_terms_on_user_id"
-  end
-
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
