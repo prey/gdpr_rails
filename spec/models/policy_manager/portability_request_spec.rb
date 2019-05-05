@@ -62,7 +62,8 @@ describe PolicyManager::PortabilityRequest do
           names = paths.map{|o| File.basename(o) }
           arr = names - ["exportable_data", "index.html", "my_account", "my_account_from_template"]
           assert arr.empty?
-          noko = Nokogiri::HTML.parse( File.open(paths.first).read )
+          
+          noko = Nokogiri::HTML.parse( File.open(paths.first + "/index.html").read )
 
           assert noko.css("h1:first").text == "layout header"
           assert noko.css("footer").text == "layout footer"
