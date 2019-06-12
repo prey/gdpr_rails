@@ -6,7 +6,7 @@ PATH
       chartkick (= 2.3.4)
       groupdate (= 4.0.0)
       paperclip
-      rails (>= 5.1.4, < 5.3)
+      rails (>= 5.1.4, <= 6)
       redcarpet
       rubyzip (>= 1.0.0)
       will_paginate
