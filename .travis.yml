@@ -22,6 +22,8 @@ matrix:
     gemfile: gemfiles/rails_5.2.1.gemfile
   - rvm: 2.3.8
     gemfile: gemfiles/rails_5.2.3.gemfile
+  - rvm: 2.5.0
+    gemfile: gemfiles/rails-6.gemfile
 
 
 script: COVERALLS_REPO_TOKEN=bPQteZngJWF84BYuws90hMmXwWYcMpV9S bundle exec rspec
