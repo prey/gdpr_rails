@@ -38,7 +38,7 @@
               </td>
               <% if portability_request.completed? %>
                 <td>
-                    <%= link_to portability_request.attachment.expiring_url(60), class: "btn btn-secondary btn-sm" do %>
+                    <%= link_to portability_request.attachment.download_link, class: "btn btn-secondary btn-sm" do %>
                     <i class="fa fa-download"></i>
                     <%= I18n.t("terms_app.misc.download")%>
                   <% end %>
