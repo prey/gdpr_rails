@@ -30,7 +30,7 @@ Portability module lets you define export options, that will generate a navigabl
 + Downloads images to the local filesystem in order to comply with GDPR requirements on data accessibility.
 + Zips all the information and delivers it with a expirable download link
 + ActiveJob to handle the process
-+ Behind the scenes uses the paperclip gem in which you can set up storages, like S3, Google
++ Behind the scenes uses Rails's ActiveStorage (with an optional Paperclip support) in which you can set up storages, like S3, Google
 
 #### Scripts & Cookies
 Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up.
