@@ -1,20 +1,15 @@
-require "paperclip"
 require "aasm"
 
 module PolicyManager
   class PortabilityRequest < ApplicationRecord
-    include Paperclip::Glue
 
     belongs_to :user, class_name: Config.user_resource.to_s, foreign_key:  :user_id
 
-    has_one_attached :attachment
-
-    #has_attached_file :attachment,
-    #  path: Config.exporter.try(:attachment_path) || Rails.root.join("tmp/portability/:id/build.zip").to_s,
-    #  storage: Config.exporter.try(:attachment_storage) || :filesystem,
-    #  s3_permissions: :private
-
-    #do_not_validate_attachment_file_type :attachment
+    if PolicyManager::Config.paperclip
+      include PolicyManager::Concerns::PaperclipBehavior 
+    else
+      include PolicyManager::Concerns::ActiveStorageBehavior
+    end
 
     include AASM
 
@@ -34,27 +29,6 @@ module PolicyManager
 
     def user_email
       self.user.email
-    end
-
-    def file_remote_url=(url_value)
-      
-      self.attachment.attach(
-        io: File.open(url_value), 
-        filename: File.basename(url_value),
-        content_type: 'application/zip'
-      ) unless url_value.blank?
-
-      #self.attachment = File.open(url_value) unless url_value.blank?
-      
-      self.save
-      self.complete!
-    end
-
-    def download_link
-      return '' unless self.attachment.attached?
-      url = Rails.application.routes.url_helpers.rails_blob_path(self.attachment, only_path: true)
-      #self.attachment.expiring_url(PolicyManager::Config.exporter.expiration_link)
-      PolicyManager::Config.exporter.customize_link(url)
     end
 
     def handle_progress

@@ -42,6 +42,8 @@ Configurable *scripts* which will bind cookie names in order to handle the scrip
 ![Admin panel](https://user-images.githubusercontent.com/11976/40152755-856941e2-5954-11e8-87d0-1464c21a61c2.png)
 
 ## Installation
+
+
 Add this line to your application's Gemfile:
 
 as `gem 'gdpr_rails'`
@@ -53,6 +55,37 @@ Then in your application.rb require the policy_manager lib with
 Install & run the migrations
 
 `rake policy_manager:install:migrations`
+
+## Rails ActiveStorage
+
+By default The engine will use the app's active_storage setup for file handling
+
+## Rails Paperclip
+
+If you don't use activeStorage in your application, run this migration to use paperclip
+
+```ruby
+class PaperclipFieldsToPortability < ActiveRecord::Migration[5.2]
+  def change
+    add_column :policy_manager_portability_requests, :attachment, :string
+    add_column :policy_manager_portability_requests , :attachment_file_name, :string
+    add_column :policy_manager_portability_requests , :attachment_file_size, :string
+    add_column :policy_manager_portability_requests , :attachment_file_content_type, :string
+    add_column :policy_manager_portability_requests, :attachment_content_type, :string
+  end
+end
+```
+
+and in your Gdpr config add paperclip option to enable it
+
+```ruby
+
+PolicyManager::Config.setup do |config|
+  config.paperclip = true
+  #....
+end
+```
+
 
 ## Usage examples
 

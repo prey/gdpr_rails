@@ -5,7 +5,6 @@ PATH
       aasm
       chartkick (>= 3.2.0)
       groupdate (= 4.0.0)
-      paperclip
       rails (>= 5.1.4, <= 6)
       redcarpet
       rubyzip (>= 1.0.0)
@@ -246,6 +245,7 @@ DEPENDENCIES
   mocha
   mysql2
   nokogiri
+  paperclip
   pry-byebug
   puma
   rails (= 6.0.0.rc1)

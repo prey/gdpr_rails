@@ -10,6 +10,7 @@ gem "jbuilder"
 gem "capybara", "~> 2.18"
 gem "coveralls", require: false
 gem "database_cleaner"
+gem "paperclip"
 gem "rails", "6.0.0.rc1"
 
 gemspec path: "../"
