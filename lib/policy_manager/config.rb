@@ -10,7 +10,8 @@ module PolicyManager
                    :admin_email_inbox,
                    :error_notifier,
                    :user_resource,
-                   :admin_user_resource
+                   :admin_user_resource,
+                   :paperclip
 
     def self.setup
       @@rules = []

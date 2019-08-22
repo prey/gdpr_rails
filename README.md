@@ -30,7 +30,7 @@ Portability module lets you define export options, that will generate a navigabl
 + Downloads images to the local filesystem in order to comply with GDPR requirements on data accessibility.
 + Zips all the information and delivers it with a expirable download link
 + ActiveJob to handle the process
-+ Behind the scenes uses the paperclip gem in which you can set up storages, like S3, Google
++ Behind the scenes uses Rails's ActiveStorage (with an optional Paperclip support) in which you can set up storages, like S3, Google
 
 #### Scripts & Cookies
 Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up.
@@ -42,6 +42,8 @@ Configurable *scripts* which will bind cookie names in order to handle the scrip
 ![Admin panel](https://user-images.githubusercontent.com/11976/40152755-856941e2-5954-11e8-87d0-1464c21a61c2.png)
 
 ## Installation
+
+
 Add this line to your application's Gemfile:
 
 as `gem 'gdpr_rails'`
@@ -53,6 +55,37 @@ Then in your application.rb require the policy_manager lib with
 Install & run the migrations
 
 `rake policy_manager:install:migrations`
+
+## Rails ActiveStorage
+
+By default The engine will use the app's active_storage setup for file handling
+
+## Rails Paperclip
+
+If you don't use activeStorage in your application, run this migration to use paperclip
+
+```ruby
+class PaperclipFieldsToPortability < ActiveRecord::Migration[5.2]
+  def change
+    add_column :policy_manager_portability_requests, :attachment, :string
+    add_column :policy_manager_portability_requests , :attachment_file_name, :string
+    add_column :policy_manager_portability_requests , :attachment_file_size, :string
+    add_column :policy_manager_portability_requests , :attachment_file_content_type, :string
+    add_column :policy_manager_portability_requests, :attachment_content_type, :string
+  end
+end
+```
+
+and in your Gdpr config add paperclip option to enable it
+
+```ruby
+
+PolicyManager::Config.setup do |config|
+  config.paperclip = true
+  #....
+end
+```
+
 
 ## Usage examples
 

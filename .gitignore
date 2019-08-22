@@ -7,7 +7,7 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 
 spec/dummy/public/system
-
+spec/dummy/storage/
 # Mac
 .DS_Store
 
