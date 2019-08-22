@@ -4,8 +4,8 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS myapp_test;'
+  - gem update bundler
 before_script:
-  - gem install bundler
   - cp ./spec/dummy/config/database.yml.test ./spec/dummy/config/database.yml
   - bundle exec rails db:migrate RAILS_ENV=test
 
