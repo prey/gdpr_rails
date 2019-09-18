@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    gdpr_rails (0.5.0)
+    gdpr_rails (0.5.1)
       aasm
       chartkick (>= 3.2.0)
       groupdate (= 4.0.0)
@@ -13,7 +13,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    aasm (5.0.5)
+    aasm (5.0.6)
       concurrent-ruby (~> 1.0)
     actioncable (5.2.3)
       actionpack (= 5.2.3)
@@ -182,7 +182,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
-    rubyzip (1.2.3)
+    rubyzip (1.2.4)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
