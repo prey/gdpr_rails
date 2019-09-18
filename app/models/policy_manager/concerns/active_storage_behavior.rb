@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require "paperclip"
 
 module PolicyManager::Concerns::ActiveStorageBehavior
   extend ActiveSupport::Concern
