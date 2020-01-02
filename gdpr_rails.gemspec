@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
-  s.add_dependency "rails", ">= 5.1.4", "< 5.3"
+  s.add_dependency "rails", ">= 5.1.4", "< 7"
   s.add_dependency "redcarpet"
   s.add_dependency "will_paginate"
   s.add_dependency "aasm"
