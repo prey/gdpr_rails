@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :terms do
-#   # Task goes here
-# end
+ task :terms do
+   # Task goes here
+ end

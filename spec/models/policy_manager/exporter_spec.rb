@@ -61,6 +61,7 @@ describe PolicyManager::Exporter do
 
   it "initialize folder & clear folder" do
     person = OpenStruct.new(id: 1, name: "John Smith")
+
     PolicyManager::ExporterHandler.any_instance.stubs(:clear!).returns(true)
     PolicyManager::ExporterHandler.any_instance.stubs(:handle_zip_upload).returns(true)
     @config.exporter.perform(person)

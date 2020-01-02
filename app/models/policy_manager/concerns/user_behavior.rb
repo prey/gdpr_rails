@@ -3,9 +3,9 @@ module PolicyManager::Concerns::UserBehavior
   extend ActiveSupport::Concern
 
   included do
-    has_many :user_terms, class_name: "PolicyManager::UserTerm", autosave: true
-    has_many :terms, through: :user_terms, class_name: "PolicyManager::Term"
-    has_many :portability_requests, class_name: "PolicyManager::PortabilityRequest"
+    has_many :user_terms, class_name: "PolicyManager::UserTerm", autosave: true, foreign_key: :user_id, inverse_of: :user
+    has_many :terms, through: :user_terms, class_name: "PolicyManager::Term", foreign_key: :user_id, inverse_of: :user
+    has_many :portability_requests, class_name: "PolicyManager::PortabilityRequest", foreign_key: :user_id, inverse_of: :user
 
     # adds policies
     PolicyManager::Config.rules.each do |rule|
@@ -87,14 +87,14 @@ module PolicyManager::Concerns::UserBehavior
   def confirm_all_policies!
     pending_policies.each do |c|
       term = c.terms.last
-      current_user.handle_policy_for(term).accept!
+      self.handle_policy_for(term).accept!
     end
   end
 
   def reject_all_policies!
     pending_policies.each do |c|
       term = c.terms.last
-      current_user.handle_policy_for(term).reject!
+      self.handle_policy_for(term).reject!
     end
   end
 

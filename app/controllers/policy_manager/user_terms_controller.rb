@@ -1,7 +1,10 @@
 require_dependency "policy_manager/application_controller"
+require "policy_manager/concerns/user_terms"
 
 module PolicyManager
   class UserTermsController < ApplicationController
+
+    include PolicyManager::Concerns::UserTerms
 
     skip_before_action :user_authenticated?, only: [:show, :accept, :reject, :blocking_terms]
     before_action :set_user_term, only: [:accept, :reject, :show, :edit, :update, :destroy]
@@ -44,8 +47,7 @@ module PolicyManager
     end
 
     def accept
-      
-      handle_term_accept
+      @user_term = accept_term(@term)
 
       respond_to do |format|
         format.html{ 
@@ -65,7 +67,7 @@ module PolicyManager
     end
 
     def reject
-      handle_term_reject
+      @user_term = reject_term(@term)
 
       respond_to do |format|
         format.html{ 
@@ -88,70 +90,10 @@ module PolicyManager
       end
     end
 
-=begin
-    # GET /user_terms/new
-    def new
-      @user_term = UserTerm.new
-    end
-
-    # POST /user_terms
-    def create
-      @user_term = UserTerm.new(user_term_params)
-
-      if @user_term.save
-        redirect_to @user_term, notice: 'User term was successfully created.'
-      else
-        render :new
-      end
-    end
-
-    # PATCH/PUT /user_terms/1
-    def update
-      if @user_term.update(user_term_params)
-        redirect_to @user_term, notice: 'User term was successfully updated.'
-      else
-        render :edit
-      end
-    end
-
-    # DELETE /user_terms/1
-    def destroy
-      @user_term.destroy
-      redirect_to user_terms_url, notice: 'User term was successfully destroyed.'
-    end
-=end
-
     private
 
-      def handle_term_accept
-        if current_user
-          @user_term = current_user.handle_policy_for(@term)
-          if @user_term.accept!
-            @term.rule.on_accept.call(self) if @term.rule.on_accept.is_a?(Proc)
-          end
-        end
-
-        cookies["policy_rule_#{@term.rule.name}"] = {
-          :value => "accepted",
-          :expires => 1.year.from_now
-        }
-      end
-
-      def handle_term_reject
-        if current_user
-          @user_term = current_user.handle_policy_for(@term)
-          if @user_term.reject!
-            @term.rule.on_reject.call(self) if @term.rule.on_reject.is_a?(Proc)
-          end
-        end
-
-        cookies.delete("policy_rule_#{@term.rule.name}")
-      end
-
-      # Use callbacks to share common setup or constraints between actions.
       def set_user_term
-        @category = PolicyManager::Config.rules.find{|o| o.name == params[:id]}
-        @term = @category.terms.last
+        @term = policy_term_on(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

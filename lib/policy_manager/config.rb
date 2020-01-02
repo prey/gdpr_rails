@@ -10,7 +10,8 @@ module PolicyManager
                    :admin_email_inbox,
                    :error_notifier,
                    :user_resource,
-                   :admin_user_resource
+                   :admin_user_resource,
+                   :paperclip
 
     def self.setup
       @@rules = []
@@ -22,7 +23,7 @@ module PolicyManager
 
       # sets this defaults after configuration
       @@user_resource ||= 'User'
-      @@admin_user_resource ||= 'User'
+      @@admin_user_resource ||= @@user_resource
 
       self
     end
