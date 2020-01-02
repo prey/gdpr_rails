@@ -36,7 +36,7 @@ module PolicyManager
       resource
       .portability_requests
       .find_by(state: "progress")
-      .update_attributes(file_remote_url: zip_path)
+      .update(file_remote_url: zip_path)
     end
 
     def clear!
