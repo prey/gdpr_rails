@@ -5,9 +5,9 @@ PATH
       aasm
       chartkick (>= 3.2.0)
       groupdate (= 4.0.0)
-      rails (>= 5.1.4, <= 6)
+      rails (>= 5.1.4, < 7)
       redcarpet
-      rubyzip (>= 1.0.0)
+      rubyzip (>= 1.0.0, < 2)
       will_paginate
 
 GEM
@@ -72,7 +72,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
-    chartkick (3.2.1)
+    chartkick (3.3.1)
     climate_control (0.2.0)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
@@ -182,7 +182,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
-    rubyzip (1.2.4)
+    rubyzip (1.3.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -210,7 +210,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    will_paginate (3.1.8)
+    will_paginate (3.2.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -236,4 +236,4 @@ DEPENDENCIES
   sqlite3 (= 1.4.1)
 
 BUNDLED WITH
-   1.16.6
+   2.0.2

@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "redcarpet"
   s.add_dependency "will_paginate"
   s.add_dependency "aasm"
-  s.add_dependency "rubyzip", ">= 1.0.0"
+  s.add_dependency "rubyzip", ">= 1.0.0", "< 2"
   s.add_dependency "groupdate", "4.0.0"
   s.add_dependency "chartkick", ">= 3.2.0"
   #s.add_dependency "kaminari"
