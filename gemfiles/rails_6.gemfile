@@ -11,6 +11,6 @@ gem "capybara", "~> 2.18"
 gem "coveralls", require: false
 gem "database_cleaner"
 gem "paperclip"
-gem "rails", "6.0.0"
+gem "rails", "6.0.2.1"
 
 gemspec path: "../"

@@ -13,7 +13,7 @@
 
 ## About this project
 
-PolicyManager (Aka GDPR RAILS) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
+PolicyManager (Aka GDPR Rails) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
 
 ### Main Features:
 
@@ -329,7 +329,10 @@ portability_request         DELETE /portability_requests/:id(.:format)          
 + Patricio Jofré - pato@preyhq.com
 
 ## Contributing
-just fork the repo and send us a Pull Request, with some tests please :)
+- Just fork the repo and send us a Pull Request, with some tests please :)
+- FYI: The CI pipeline on travis will require gemlocks for each or the Rails versions we test against.
+  - Run `bundle exec appraisal install` and commit the generated files in the `./gemfile/` directory
+  - Check out [Appraisal](https://github.com/thoughtbot/appraisal) for more context.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

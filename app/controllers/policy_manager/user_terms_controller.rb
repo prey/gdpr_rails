@@ -29,7 +29,7 @@ module PolicyManager
         format.html{ }
         format.json{ render json: PolicyManager::Config.rules
                                                        .select{|p| p.blocking }
-                                                       .map(&:name) 
+                                                       .map(&:name)
         }
       end
     end
@@ -37,9 +37,9 @@ module PolicyManager
     def accept_multiples
       rules = current_user.pending_policies.map{|o| "policy_rule_#{o.name}"}
       resource_params = params.require(:user).permit(rules)
-      current_user.update_attributes(resource_params)
+      current_user.update(resource_params)
       @pending_policies = current_user.pending_policies
-      
+
       respond_to do |format|
         format.html{ }
         format.json{ render json: @pending_policies }
@@ -50,11 +50,11 @@ module PolicyManager
       @user_term = accept_term(@term)
 
       respond_to do |format|
-        format.html{ 
+        format.html{
           if @user_term.errors.any?
             redirect_to root_url , notice: "hey there are some errors! #{@user_term.errors.full_messages.join()}"
           else
-            redirect_to root_url 
+            redirect_to root_url
           end
         }
         format.js
@@ -70,11 +70,11 @@ module PolicyManager
       @user_term = reject_term(@term)
 
       respond_to do |format|
-        format.html{ 
+        format.html{
           if @user_term.errors.any?
             redirect_to root_url , notice: "hey there are some errors! #{@user_term.errors.full_messages.join()}"
           else
-            redirect_to root_url 
+            redirect_to root_url
           end
         }
         format.js
