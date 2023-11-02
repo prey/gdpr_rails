@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'aasm'
   s.add_dependency 'chartkick', '3.4.2'
   s.add_dependency 'groupdate'
-  s.add_dependency 'rails', '>= 5.1.4', '<= 6.0.2.1'
+  s.add_dependency 'rails', '>= 5.1.4', '< 7.0'
   s.add_dependency 'redcarpet'
   s.add_dependency 'rubyzip'
   s.add_dependency 'will_paginate'

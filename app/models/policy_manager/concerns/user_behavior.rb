@@ -15,7 +15,7 @@ module PolicyManager::Concerns::UserBehavior
 
       if rule.validates_on
 
-        validate :"check_#{rule_name}", :on => rule.validates_on, :if => ->(o){ 
+        validate :"check_#{rule_name}", :on => rule.validates_on, :if => ->(o){
           return true if rule.if.nil? 
           rule.if.call(o) rescue true 
         }
@@ -24,9 +24,9 @@ module PolicyManager::Concerns::UserBehavior
           if self.send(rule_name).blank? && needs_policy_confirmation_for?(rule.name)
             errors.add(rule_name, I18n.t("terms_app.user_behavior.needs_confirmation"))
           end
-        end  
-      end  
-      
+        end
+      end
+
       define_method :"has_consented_#{rule.name}?" do
         !needs_policy_confirmation_for?(rule.name)
       end
@@ -55,8 +55,6 @@ module PolicyManager::Concerns::UserBehavior
       end
     end
   end
-
-  def 
 
   def portability_schema
     PolicyManager::Config.portability_rules.map(&:name)
@@ -136,5 +134,4 @@ module PolicyManager::Concerns::UserBehavior
       user_term.accept! unless user_term.accepted?
     end
   end
-
 end
