@@ -15,7 +15,12 @@ module PolicyManager::Concerns::UserBehavior
 
       if rule.validates_on
 
-        validate :"check_#{rule_name}", :on => rule.validates_on, :if => ->(o){
+        validate :"check_#{rule_name}", if: ->(o){
+          # These two lines are the same as "on: rule.validates_on" but actually that way raises an error
+          return false if rule.validates_on == :create && persisted?
+
+          return false if rule.validates_on == :update && new_record?
+
           return true if rule.if.nil? 
           rule.if.call(o) rescue true 
         }
