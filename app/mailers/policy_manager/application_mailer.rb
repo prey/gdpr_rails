@@ -6,7 +6,11 @@ module PolicyManager
     # configurable mailer helpers
     if Config.exporter.present?
       Config.exporter.mail_helpers.each do |helpers|
-        add_template_helper(helpers)
+        if Rails::VERSION::MAJOR >= 6 && Rails::VERSION::MINOR > 0
+          helper(helpers)
+        else
+          add_template_helper(helpers)
+        end
       end
     end
   end
