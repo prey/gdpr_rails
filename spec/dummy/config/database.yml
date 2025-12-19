@@ -10,14 +10,8 @@ default: &default
   timeout: 5000
 
 test:
-  adapter: mysql2
-  database: gdpr_test
-  host: <%= ENV.fetch("MYSQL_HOST") { "localhost"} %>
-  username: root
-  password:
-  reconnect: true
-  port: 3306
-  encoding: utf8
+  <<: *default
+  database: db/test.sqlite3
 
 
 testSQLITE:

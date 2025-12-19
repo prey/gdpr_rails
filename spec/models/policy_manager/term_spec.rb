@@ -16,12 +16,12 @@ describe PolicyManager::Term do
     end
 
     it "create ok" do
-      t = PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      t = PolicyManager::Term.create(description: "aaa", rule: @config.rules.first.name)
       assert t.persisted? == true
     end
 
     it "get rule as an instance of Rule" do
-      t = PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      t = PolicyManager::Term.create(description: "aaa", rule: @config.rules.first.name)
       assert t.persisted? == true
       assert t.rule.instance_of?(PolicyManager::Rule) == true
     end
