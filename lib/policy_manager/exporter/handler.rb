@@ -83,11 +83,11 @@ module PolicyManager
 
       puts "saving at #{self.path.join rule.name}"
 
-      json = JsonExporterView.new({
+      json = JsonExporterView.new(
         assigns: {member: o},
         template: rule.json_template,
         folder: base_dir
-      }).save if rule.json_template.present?
+      ).save if rule.json_template.present?
     end
 
     def render_collection(rule)
@@ -114,11 +114,11 @@ module PolicyManager
         }).save(resource_path)
 
 
-        json = JsonExporterView.new({
+        json = JsonExporterView.new(
           assigns: {collection: o},
           template: rule.json_template,
           folder: folder_dir
-        }).save if rule.json_template.present?
+        ).save if rule.json_template.present?
 
         puts "saving at #{self.path.join rule.name}"
       end

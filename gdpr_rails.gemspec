@@ -13,12 +13,13 @@ Gem::Specification.new do |s|
   s.summary = 'policy_manager engine for rails'
   s.description = 'policy_manager engine for rails gdpr compliance'
   s.license = 'MIT'
+  s.required_ruby_version = '>= 3.0'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   s.add_dependency 'aasm'
   s.add_dependency 'chartkick', '3.4.2'
   s.add_dependency 'groupdate'
-  s.add_dependency 'rails', '>= 5.1.4', '< 7.0'
+  s.add_dependency 'rails', '>= 6.1', '< 7.1'
   s.add_dependency 'redcarpet'
   s.add_dependency 'rubyzip'
   s.add_dependency 'will_paginate'
@@ -27,6 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'nokogiri'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'sqlite3', '1.4.1'
+  s.add_development_dependency 'sqlite3', '~> 1.6'
   s.metadata['rubygems_mfa_required'] = 'true'
 end

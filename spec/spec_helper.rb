@@ -1,3 +1,4 @@
+require "logger"
 require "pry-byebug"
 require 'database_cleaner'
 require 'rails_helper'

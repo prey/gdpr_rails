@@ -56,8 +56,6 @@ module PolicyManager::Concerns::UserBehavior
     end
   end
 
-  def 
-
   def portability_schema
     PolicyManager::Config.portability_rules.map(&:name)
   end

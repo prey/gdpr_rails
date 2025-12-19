@@ -4,11 +4,10 @@ module PolicyManager
   class JsonExporterView
     attr_accessor :template, :folder, :assigns
 
-    def initialize(vars={}, options)
-      self.folder = options[:folder]
-      self.assigns = options[:assigns]
-      @template = options.fetch(:template) #, self.class.template)
-      return self
+    def initialize(assigns:, folder:, template:)
+      self.folder = folder
+      self.assigns = assigns
+      @template = template
     end
 
     def save

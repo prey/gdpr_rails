@@ -52,39 +52,19 @@ Then in your application.rb require the policy_manager lib with
 
 `require "policy_manager"`
 
+## Requirements
+
+- Ruby 3.0+
+- Rails 6.1+
+- ActiveStorage configured in the host application
+
 Install & run the migrations
 
 `rake policy_manager:install:migrations`
 
 ## Rails ActiveStorage
 
-By default The engine will use the app's active_storage setup for file handling
-
-## Rails Paperclip
-
-If you don't use activeStorage in your application, run this migration to use paperclip
-
-```ruby
-class PaperclipFieldsToPortability < ActiveRecord::Migration[5.2]
-  def change
-    add_column :policy_manager_portability_requests, :attachment, :string
-    add_column :policy_manager_portability_requests , :attachment_file_name, :string
-    add_column :policy_manager_portability_requests , :attachment_file_size, :string
-    add_column :policy_manager_portability_requests , :attachment_file_content_type, :string
-    add_column :policy_manager_portability_requests, :attachment_content_type, :string
-  end
-end
-```
-
-and in your Gdpr config add paperclip option to enable it
-
-```ruby
-
-PolicyManager::Config.setup do |config|
-  config.paperclip = true
-  #....
-end
-```
+ActiveStorage is required and used for file handling. Ensure your host app has ActiveStorage installed and configured.
 
 
 ## Usage examples
@@ -253,8 +233,6 @@ after_zip: ->(zip_path, resource){
 ```
 
 + **mail_helpers**:  If you have some helpers you want to add to the mailers, then you can pass an Array of helpers, `[MailHelper, OtherMailHelper]`,
-+ **attachment_path**: Paperclip upload path , defaults to "portability/:id/build.zip",
-+ **attachment_storage**: Paperclip storage, defaults to filesystem , you can set `s3` or `google` or whatever paperclip supports
 + **expiration_link**: integer, defaults to 60 (1 minute),
 
 #### Portability Rules:
