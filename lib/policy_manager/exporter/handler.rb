@@ -50,7 +50,6 @@ module PolicyManager
       end
 
       render_index
-      puts "FOLDER CREATED AT #{base_path}"
     end
 
     def handle_render_for(rule)
@@ -80,8 +79,6 @@ module PolicyManager
         template: rule.template,
         rule: rule
       }).save(resource_path)
-
-      puts "saving at #{self.path.join rule.name}"
 
       json = JsonExporterView.new(
         assigns: {member: o},
@@ -119,8 +116,6 @@ module PolicyManager
           template: rule.json_template,
           folder: folder_dir
         ).save if rule.json_template.present?
-
-        puts "saving at #{self.path.join rule.name}"
       end
     end
 
@@ -135,7 +130,6 @@ module PolicyManager
         base_path: resource_path,
         template: template
       }).save( resource_path )
-      puts "saving at #{resource_path}"
     end
 
     def generate_zip

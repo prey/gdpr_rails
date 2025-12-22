@@ -27,9 +27,7 @@ module PolicyManager
                             <li><%= link_to rule.name, "./#{rule.name}/index.html" %></li>
                           <% end %>
                         </ul>',
-        after_zip: ->(zip_path, resource){ 
-          puts "THIS IS GREAT #{zip_path} was zipped, now what ??" 
-        }
+        after_zip: ->(zip_path, resource){ }
       }
 
       Config.stubs(:from_email).returns("foo@bar.org")

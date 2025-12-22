@@ -19,9 +19,7 @@ describe User do
                             <% end %>
                           </ul>',
           layout: "portability",
-          after_zip: ->(zip_path, resource){ 
-            puts "THIS IS GREAT #{zip_path} was zipped, now what ??" 
-          }
+          after_zip: ->(zip_path, resource){ }
         }
       end
 

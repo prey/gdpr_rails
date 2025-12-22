@@ -19,7 +19,7 @@ describe PolicyManager::Exporter do
                           <% end %>
                         </ul>',
         layout: 'portability',
-        after_zip: ->(o, r){ puts "THIS IS GREAT #{o} was zipped, now what ??" }
+        after_zip: ->(o, r){  }
 
       }
 
