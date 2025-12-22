@@ -8,6 +8,7 @@ RUN apt-get update -qq && \
       npm \
       libsqlite3-dev \
       default-libmysqlclient-dev \
+      libyaml-dev \
       tzdata && \
     rm -rf /var/lib/apt/lists/*
 
@@ -23,13 +24,12 @@ RUN bundle install --jobs 4 --retry 3
 # Copy the rest of the source
 COPY . .
 
-# Install appraisal-specific gemfiles (rails-6.1)
+# Install appraisal-specific gemfiles
 RUN bundle exec appraisal install
 
 # Set environment variables for testing
 ENV RAILS_ENV=test
 ENV SECRET_KEY_BASE=test_secret_key_base_for_docker_tests
 
-# Default command runs the Rails 6.1 appraisal specs
-# schema.rb already contains all necessary tables (engine + dummy app)
-CMD ["bundle", "exec", "appraisal", "rails-6.1", "rake", "spec"]
+# Default command runs the appraisal matrix (6.1, 7.0, 7.1) sequentially
+CMD ["sh", "-c", "for target in rails-6.1 rails-7.0 rails-7.1; do echo \"== Running $target ==\"; bundle exec appraisal $target rake spec || exit 1; done"]
