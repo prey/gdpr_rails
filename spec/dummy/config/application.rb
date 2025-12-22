@@ -6,7 +6,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 # Ensure Logger is loaded before ActiveSupport in containerized runs
 require 'logger'
-require "policy_manager"
+require 'policy_manager'
 
 module Dummy
   class Application < Rails::Application

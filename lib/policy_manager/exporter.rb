@@ -1,4 +1,4 @@
-require "fileutils"
+require 'fileutils'
 
 module PolicyManager
   class Exporter
@@ -15,9 +15,9 @@ module PolicyManager
                   :mailer_templates,
                   :mailer
 
-    def initialize(opts={})
+    def initialize(opts = {})
       self.path = opts[:path]
-      self.resource = opts[:resource] #.call if opts[:resource].is_a?(Proc)
+      self.resource = opts[:resource] # .call if opts[:resource].is_a?(Proc)
       self.index_template = opts[:index_template]
       self.layout = opts[:layout]
       self.after_zip = opts[:after_zip]
@@ -61,6 +61,7 @@ module PolicyManager
 
     def handled_template(template)
       return if template.blank?
+
       if template.is_a?(String)
         template
       elsif template.is_a?(Pathname)
@@ -76,6 +77,5 @@ module PolicyManager
         <% end %>
       </ul>'
     end
-
   end
 end

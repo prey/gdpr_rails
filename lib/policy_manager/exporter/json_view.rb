@@ -1,4 +1,4 @@
-require "fileutils"
+require 'fileutils'
 
 module PolicyManager
   class JsonExporterView
@@ -15,32 +15,29 @@ module PolicyManager
     end
 
     def save_json(file, data)
-      File.open(file, "w") do |f|
+      File.open(file, 'w') do |f|
         f.write(data)
       end
     end
 
     def render_json
-      ac = PolicyManager::ExporterController.new()
-      options = handled_template.merge!({assigns: self.assigns })
+      ac = PolicyManager::ExporterController.new
+      options = handled_template.merge!({ assigns: assigns })
       content = ac.render_to_string(options)
       save_json("#{folder}/data.json", content)
     end
 
     def handled_template
       begin
-        if URI.parse(@template)
-          return {template: @template}
-        end
+        return { template: @template } if URI.parse(@template)
       rescue URI::InvalidURIError
       end
 
-      if @template.is_a?(String) 
-        return {inline: @template}
+      if @template.is_a?(String)
+        { inline: @template }
       elsif @template.is_a?(Pathname)
-        return {file: @template }
+        { file: @template }
       end
     end
-
   end
 end

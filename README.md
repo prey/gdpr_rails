@@ -256,9 +256,8 @@ PolicyManager::Config.setup do |c|
     name: "exportable_data",
     collection: :articles,
     template: "hello, a collection will be rendered here use @collection.to_json",
-    json_template: "collection.json.jbuilder", # or Rails.root.join("app/views/collection.json.jbuilder")
-
-    per: 10
+    json_template: "collection.json.jbuilder", # or Rails.root.join("app/views/collection/json.jbuilder")
+    per: 20
   })
 
   # portability rules, member render. This will call a @user.account_data

@@ -1,53 +1,48 @@
 require 'spec_helper'
 
 def reload_models
-
-  #if defined?(PolicyManager::ApplicationMailer)
+  # if defined?(PolicyManager::ApplicationMailer)
   #  PolicyManager.send(:remove_const, :"ApplicationMailer")
   #  load PolicyManager::Engine.root + 'app/mailers/policy_manager/application_mailer.rb'
-  #end
+  # end
 
-  #if defined?(User)
+  # if defined?(User)
   #  Object.send(:remove_const, :User)
   #  load Rails.root + 'app/models/user.rb'
-  #end
-
+  # end
 end
 
 module PolicyManager
   describe PortabilityMailer do
-    
     before :each do
-      @exporter_config = { 
-        path: Rails.root + "tmp/export", 
-        resource: User ,
+      @exporter_config = {
+        path: Rails.root + 'tmp/export',
+        resource: User,
         index_template: '<h1>index template, custom</h1>
                         <ul>
                           <% @collection.each do |rule| %>
                             <li><%= link_to rule.name, "./#{rule.name}/index.html" %></li>
                           <% end %>
                         </ul>',
-        after_zip: ->(zip_path, resource){ }
+        after_zip: ->(zip_path, resource) {}
       }
 
-      Config.stubs(:from_email).returns("foo@bar.org")
-
+      Config.stubs(:from_email).returns('foo@bar.org')
     end
 
-    it "progress notification with custom template" do
+    it 'progress notification with custom template' do
       @config = PolicyManager::Config.setup do |c|
-        c.from_email = "foo@bar.org"
-        c.admin_email_inbox = "foo@baaz.org"
-        c.exporter = @exporter_config.merge({mailer_templates: {
-            path: "user_mailer",
-            progress: "progress"
-          }
-        })
+        c.from_email = 'foo@bar.org'
+        c.admin_email_inbox = 'foo@baaz.org'
+        c.exporter = @exporter_config.merge({ mailer_templates: {
+                                              path: 'user_mailer',
+                                              progress: 'progress'
+                                            } })
       end
 
       reload_models
 
-      user = User.create(email: "a@a.cl")
+      user = User.create(email: 'a@a.cl')
       assert !user.errors.any?
       preq = user.portability_requests.create
       preq.confirm!
@@ -60,17 +55,16 @@ module PolicyManager
       assert_match 'in progress!', sent_email.body.to_s
     end
 
-    it "progress notification with default template" do
-
+    it 'progress notification with default template' do
       @config = PolicyManager::Config.setup do |c|
-        c.from_email = "foo@bar.org"
-        c.admin_email_inbox = "foo@baaz.org"
+        c.from_email = 'foo@bar.org'
+        c.admin_email_inbox = 'foo@baaz.org'
         c.exporter = @exporter_config
       end
 
       reload_models
 
-      user = User.create(email: "a@a.cl")
+      user = User.create(email: 'a@a.cl')
       assert !user.errors.any?
       preq = user.portability_requests.create
       preq.confirm!
@@ -83,22 +77,20 @@ module PolicyManager
       assert_match 'hello your files are being downloaded', sent_email.body.to_s
     end
 
-    it "completed notification with custom template" do
-
+    it 'completed notification with custom template' do
       @config = PolicyManager::Config.setup do |c|
-        c.from_email = "foo@bar.org"
-        c.admin_email_inbox = "foo@baaz.org"
-        c.exporter = @exporter_config.merge!({mailer_templates: {
-            path: "user_mailer",
-            complete: "complete",
-            progress: "progress"
-          }
-        })
+        c.from_email = 'foo@bar.org'
+        c.admin_email_inbox = 'foo@baaz.org'
+        c.exporter = @exporter_config.merge!({ mailer_templates: {
+                                               path: 'user_mailer',
+                                               complete: 'complete',
+                                               progress: 'progress'
+                                             } })
       end
 
       reload_models
 
-      user = User.create(email: "a@a.cl")
+      user = User.create(email: 'a@a.cl')
       assert !user.errors.any?
       preq = user.portability_requests.create
       preq.confirm!
@@ -112,17 +104,16 @@ module PolicyManager
       assert_match 'completed!', sent_email.body.to_s
     end
 
-    it "completed notification with default template" do
-
+    it 'completed notification with default template' do
       @config = PolicyManager::Config.setup do |c|
-        c.from_email = "foo@bar.org"
-        c.admin_email_inbox = "foo@baaz.org"
+        c.from_email = 'foo@bar.org'
+        c.admin_email_inbox = 'foo@baaz.org'
         c.exporter = @exporter_config
       end
 
       reload_models
 
-      user = User.create(email: "a@a.cl")
+      user = User.create(email: 'a@a.cl')
       assert !user.errors.any?
       preq = user.portability_requests.create
       preq.confirm!
@@ -136,23 +127,21 @@ module PolicyManager
       assert_match 'your complete data was processed and can be downloaded', sent_email.body.to_s
     end
 
-    it "admin notification with custom template" do
-
+    it 'admin notification with custom template' do
       @config = PolicyManager::Config.setup do |c|
-        c.from_email = "foo@bar.org"
-        c.admin_email_inbox = -> (o){ "foo@bar.org" }
-        c.exporter = @exporter_config.merge({mailer_templates: {
-            path: "user_mailer",
-            complete: "complete",
-            progress: "progress",
-            admin: "admin"
-          }
-        })
+        c.from_email = 'foo@bar.org'
+        c.admin_email_inbox = ->(_o) { 'foo@bar.org' }
+        c.exporter = @exporter_config.merge({ mailer_templates: {
+                                              path: 'user_mailer',
+                                              complete: 'complete',
+                                              progress: 'progress',
+                                              admin: 'admin'
+                                            } })
       end
 
       reload_models
 
-      user = User.create(email: "a@a.cl")
+      user = User.create(email: 'a@a.cl')
       assert !user.errors.any?
       preq = user.portability_requests.create
       preq.confirm!
@@ -165,17 +154,16 @@ module PolicyManager
       assert_match 'admin portability notification', sent_email.body.to_s
     end
 
-    it "admin notification with default template" do
-
+    it 'admin notification with default template' do
       @config = PolicyManager::Config.setup do |c|
-        c.from_email = "foo@bar.org"
+        c.from_email = 'foo@bar.org'
         c.exporter = @exporter_config
-        c.admin_email_inbox = "foo@bar.org"
+        c.admin_email_inbox = 'foo@bar.org'
       end
 
       reload_models
-      
-      user = User.create(email: "a@a.cl")
+
+      user = User.create(email: 'a@a.cl')
       assert !user.errors.any?
       preq = user.portability_requests.create
       preq.confirm!
@@ -187,6 +175,5 @@ module PolicyManager
       assert_equal 'User ' + user.email + ' sent a portability request', sent_email.subject
       assert_match 'hello, the user ' + user.email + ' sent a portability request.', sent_email.body.to_s
     end
-
   end
 end
