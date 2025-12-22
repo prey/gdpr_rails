@@ -76,23 +76,23 @@ describe User do
     end
 
     it "get policies on existing terms will return pending policies" do
-      pr = PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      pr = PolicyManager::Term.create(description: "aaa", rule: @config.rules.first.name)
       pr.publish!
       user = User.create(email: "a@a.cl", policy_rule_age: true)
       pr = PolicyManager::Term.create(description: "version 2", rule: "age")
       pr.publish!
       assert user.pending_policies.size == 1
-      assert user.needs_policy_confirmation_for?(config.rules.first.name)
+      assert user.needs_policy_confirmation_for?(@config.rules.first.name)
     end
 
     it "accept policies will empty pending policies" do
-      pr = PolicyManager::Term.create(description: "aaa", rule: config.rules.first.name)
+      pr = PolicyManager::Term.create(description: "aaa", rule: @config.rules.first.name)
       pr.publish!
       user = User.create(email: "a@a.cl", policy_rule_age: true)
       pr = PolicyManager::Term.create(description: "version 2", rule: "age")
       pr.publish!
       assert user.pending_policies.size == 1
-      user_term = user.handle_policy_for(config.rules.first.terms.last)
+      user_term = user.handle_policy_for(@config.rules.first.terms.last)
       user_term.accept!
       assert user.pending_policies.size == 0
     end

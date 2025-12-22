@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_21_193828) do
+ActiveRecord::Schema.define(version: 2019_02_21_193829) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_193828) do
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
+    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
@@ -35,6 +36,35 @@ ActiveRecord::Schema.define(version: 2019_02_21_193828) do
 
   create_table "another_users", force: :cascade do |t|
     t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "policy_manager_portability_requests", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.integer "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  create_table "policy_manager_terms", force: :cascade do |t|
+    t.text "description"
+    t.string "rule"
+    t.string "state"
+    t.datetime "accepted_at"
+    t.datetime "rejected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "policy_manager_user_terms", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "term_id"
+    t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

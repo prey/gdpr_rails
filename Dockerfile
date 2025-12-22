@@ -1,4 +1,4 @@
-FROM ruby:3.2-slim
+FROM ruby:3.1-slim
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
@@ -26,8 +26,10 @@ COPY . .
 # Install appraisal-specific gemfiles (rails-6.1)
 RUN bundle exec appraisal install
 
-# Ensure Logger is loaded for Rails/ActiveSupport bootstrap
-ENV RUBYOPT="-rlogger"
+# Set environment variables for testing
+ENV RAILS_ENV=test
+ENV SECRET_KEY_BASE=test_secret_key_base_for_docker_tests
 
-# Default command runs migrations then the Rails 6.1 appraisal specs
-CMD ["sh", "-c", "BUNDLE_GEMFILE=/app/gemfiles/rails_6.1.gemfile bundle exec rake app:db:migrate RAILS_ENV=test && BUNDLE_GEMFILE=/app/gemfiles/rails_6.1.gemfile bundle exec rake app:db:test:prepare RAILS_ENV=test && BUNDLE_GEMFILE=/app/gemfiles/rails_6.1.gemfile bundle exec rspec"]
+# Default command runs the Rails 6.1 appraisal specs
+# schema.rb already contains all necessary tables (engine + dummy app)
+CMD ["bundle", "exec", "appraisal", "rails-6.1", "rake", "spec"]

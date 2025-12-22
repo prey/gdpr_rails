@@ -14,6 +14,11 @@ test:
   database: db/test.sqlite3
 
 
+testSQLITE:
+  <<: *default
+  database: db/test.sqlite3
+
+
 development:
   <<: *default
   database: db/development.sqlite3
