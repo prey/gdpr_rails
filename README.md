@@ -15,6 +15,14 @@
 
 PolicyManager (Aka GDPR Rails) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
 
+## Requirements
+
+- Ruby 2.5+
+- Rails 5.2+
+- ActiveStorage (required for portability features)
+
+**Note:** Paperclip is no longer supported. Please use ActiveStorage instead.
+
 ### Main Features:
 
 #### Policy Rules
@@ -30,7 +38,7 @@ Portability module lets you define export options, that will generate a navigabl
 + Downloads images to the local filesystem in order to comply with GDPR requirements on data accessibility.
 + Zips all the information and delivers it with a expirable download link
 + ActiveJob to handle the process
-+ Behind the scenes uses Rails's ActiveStorage (with an optional Paperclip support) in which you can set up storages, like S3, Google
++ Behind the scenes uses Rails's ActiveStorage in which you can set up storages, like S3, Google
 
 #### Scripts & Cookies
 Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up.
