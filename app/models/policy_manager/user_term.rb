@@ -1,4 +1,4 @@
-require "aasm"
+require 'aasm'
 
 module PolicyManager
   class UserTerm < ApplicationRecord
@@ -7,21 +7,20 @@ module PolicyManager
     belongs_to :user, class_name: Config.user_resource.to_s, foreign_key: :user_id
     belongs_to :term
 
-    validates_uniqueness_of :term_id, :scope => :user_id
+    validates_uniqueness_of :term_id, scope: :user_id
 
-    aasm :column => :state do
-      state :passive, :initial => true
+    aasm column: :state do
+      state :passive, initial: true
       state :rejected
       state :accepted
 
       event :accept do
-        transitions from: [:passive, :rejected], to: :accepted
+        transitions from: %i[passive rejected], to: :accepted
       end
 
       event :reject do
-        transitions from: [:passive, :accepted], to: :rejected
+        transitions from: %i[passive accepted], to: :rejected
       end
     end
-
   end
 end

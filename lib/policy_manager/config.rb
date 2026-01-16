@@ -1,6 +1,5 @@
 module PolicyManager
   class Config
-
     mattr_accessor :exporter,
                    :from_email,
                    :is_admin_method,
@@ -10,8 +9,7 @@ module PolicyManager
                    :admin_email_inbox,
                    :error_notifier,
                    :user_resource,
-                   :admin_user_resource,
-                   :paperclip
+                   :admin_user_resource
 
     def self.setup
       @@rules = []
@@ -45,7 +43,10 @@ module PolicyManager
       if has_different_admin_user_resource?
         user.is_a? admin_user_resource
       else
-        raise Rails.logger.error("GDPR ERROR! please add is_admin_method to your gdpr initializer") if @@is_admin_method.blank?
+        if @@is_admin_method.blank?
+          raise Rails.logger.error('GDPR ERROR! please add is_admin_method to your gdpr initializer')
+        end
+
         @@is_admin_method.call(user)
       end
     end
@@ -55,7 +56,9 @@ module PolicyManager
     end
 
     def self.user_language(user)
-      @@user_language_method.call(user) rescue :en
+      @@user_language_method.call(user)
+    rescue StandardError
+      :en
     end
 
     def self.rules
@@ -66,17 +69,16 @@ module PolicyManager
       @@portability_rules ||= []
     end
 
-    def self.add_rule(opts={}, &block)
+    def self.add_rule(opts = {}, &block)
       @@rules << PolicyManager::Rule.new(opts, &block)
     end
 
-    def self.add_portability_rule(opts={}, &block)
+    def self.add_portability_rule(opts = {}, &block)
       @@portability_rules << PolicyManager::PortabilityRule.new(opts, &block)
     end
 
-    def self.add_script(opts={}, &block)
+    def self.add_script(opts = {}, &block)
       @@scripts << PolicyManager::Script.new(opts, &block)
     end
-
   end
 end

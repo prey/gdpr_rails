@@ -1,29 +1,27 @@
 require 'spec_helper'
 
 describe PolicyManager::Config do
-  it "return empty rules" do
+  it 'return empty rules' do
     config = PolicyManager::Config.setup do
     end
-    assert config.rules == [] 
+    assert config.rules == []
   end
 
-  it "add rule default" do
+  it 'add rule default' do
     config = PolicyManager::Config.setup do |c|
-      c.add_rule({ name: "age" })
+      c.add_rule({ name: 'age' })
     end
     assert config.rules.size == 1
-    assert config.rules.first.name == "age"
-    assert config.rules.first.validates_on == nil #== [:create]
+    assert config.rules.first.name == 'age'
+    assert config.rules.first.validates_on.nil? #== [:create]
   end
 
-  it "add rule on" do
+  it 'add rule on' do
     config = PolicyManager::Config.setup do |c|
-      c.add_rule({ name: "age", validates_on: [:create, :update] })
+      c.add_rule({ name: 'age', validates_on: %i[create update] })
     end
     assert config.rules.size == 1
-    assert config.rules.first.name == "age"
-    assert config.rules.first.validates_on == [:create, :update]
+    assert config.rules.first.name == 'age'
+    assert config.rules.first.validates_on == %i[create update]
   end
-
 end
-

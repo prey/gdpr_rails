@@ -7,6 +7,6 @@ class CreatePolicyManagerUserTerms < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    #add_index :terms_user_terms, :state
+    # add_index :terms_user_terms, :state
   end
 end

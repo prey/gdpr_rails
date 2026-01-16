@@ -1,8 +1,7 @@
-require_dependency "policy_manager/application_controller"
+require_dependency 'policy_manager/application_controller'
 
 module PolicyManager
   class CategoriesController < ApplicationController
-
     before_action :allow_admins
 
     # GET /categories
@@ -12,11 +11,9 @@ module PolicyManager
 
     # GET /categories/1
     def show
-      @category = PolicyManager::Config.rules.find{|o| o.name == params[:id]}
-      @terms = @category.terms.paginate(:page => params[:page], 
-                                        :per_page => 12)
+      @category = PolicyManager::Config.rules.find { |o| o.name == params[:id] }
+      @terms = @category.terms.paginate(page: params[:page],
+                                        per_page: 20)
     end
-
-    private
   end
 end

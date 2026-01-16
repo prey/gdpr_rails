@@ -1,13 +1,12 @@
-require_dependency "policy_manager/application_controller"
+require_dependency 'policy_manager/application_controller'
 
 module PolicyManager
   class TermsController < ApplicationController
-    before_action :set_term, only: [:show, :edit, :update, :destroy]
+    before_action :set_term, only: %i[show edit update destroy]
     before_action :allow_admins
-    
+
     # GET /terms/1
-    def show
-    end
+    def show; end
 
     # GET /terms/new
     def new
@@ -15,15 +14,14 @@ module PolicyManager
     end
 
     # GET /terms/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /terms
     def create
       @term = Term.new(term_params)
 
       if @term.save
-        redirect_to category_term_path(@term.rule.name, @term), notice: I18n.t("terms_app.terms.new.created")
+        redirect_to category_term_path(@term.rule.name, @term), notice: I18n.t('terms_app.terms.new.created')
       else
         render :new
       end
@@ -32,7 +30,7 @@ module PolicyManager
     # PATCH/PUT /terms/1
     def update
       if @term.update(term_params)
-        redirect_to category_term_path(@term.rule.name, @term), notice: I18n.t("terms_app.terms.new.updated")
+        redirect_to category_term_path(@term.rule.name, @term), notice: I18n.t('terms_app.terms.new.updated')
       else
         render :edit
       end
@@ -41,7 +39,7 @@ module PolicyManager
     # DELETE /terms/1
     def destroy
       @term.destroy
-      redirect_to category_terms_path(@term.rule.name), notice: I18n.t("terms_app.terms.new.destroyed")
+      redirect_to category_terms_path(@term.rule.name), notice: I18n.t('terms_app.terms.new.destroyed')
     end
 
     private
@@ -55,6 +53,5 @@ module PolicyManager
     def term_params
       params.require(:term).permit(:description, :rule, :state)
     end
-    
   end
 end
