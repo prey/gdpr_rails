@@ -28,7 +28,7 @@
             <th><%= I18n.t("terms_app.portability_requests.index.table.user") %></th>
             <th><%= I18n.t("terms_app.portability_requests.index.table.state") %></th>
             <th><%= I18n.t("terms_app.portability_requests.index.table.created_at") %></th>
-            <!--<th>Expire at</th>-->
+            <%# <th>Expire at</th> %>
             <th colspan="2"></th>
           </tr>
         </thead>
@@ -44,7 +44,7 @@
 
                 </td>
               <td><%= portability_request.created_at %></td>
-              <!--<td><%= portability_request.expire_at %></td>-->
+              <%# <td><%= portability_request.expire_at %></td> %>
               <td>
                 <%= link_to I18n.t("terms_app.portability_requests.index.table.confirm"), confirm_portability_request_path(portability_request), data: { confirm: I18n.t("terms_app.misc.are_you_sure") } if portability_request.pending?
                 %>

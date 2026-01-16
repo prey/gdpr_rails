@@ -60,13 +60,20 @@ Then in your application.rb require the policy_manager lib with
 
 `require "policy_manager"`
 
+## Requirements
+
+- Ruby 3.0+
+- Rails 6.1+
+- ActiveStorage configured in the host application
+
 Install & run the migrations
 
 `rake policy_manager:install:migrations`
 
 ## Rails ActiveStorage
 
-By default The engine will use the app's active_storage setup for file handling
+ActiveStorage is required and used for file handling. Ensure your host app has ActiveStorage installed and configured.
+
 
 ## Usage examples
 
@@ -257,9 +264,8 @@ PolicyManager::Config.setup do |c|
     name: "exportable_data",
     collection: :articles,
     template: "hello, a collection will be rendered here use @collection.to_json",
-    json_template: "collection.json.jbuilder", # or Rails.root.join("app/views/collection.json.jbuilder")
-
-    per: 10
+    json_template: "collection.json.jbuilder", # or Rails.root.join("app/views/collection/json.jbuilder")
+    per: 20
   })
 
   # portability rules, member render. This will call a @user.account_data

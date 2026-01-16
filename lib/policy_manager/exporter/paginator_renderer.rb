@@ -1,4 +1,4 @@
-require "will_paginate"
+require 'will_paginate'
 require 'will_paginate/view_helpers/action_view'
 require 'will_paginate/array'
 
@@ -9,25 +9,25 @@ module PolicyManager
     def to_html
       list_items = pagination.map do |item|
         case item
-          when (1.class == Integer ? Integer : Fixnum)
-            page_number(item)
-          else
-            send(item)
+        when (1.class == Integer ? Integer : Integer)
+          page_number(item)
+        else
+          send(item)
         end
       end.join(@options[:link_separator])
 
-      list_wrapper = tag :nav, list_items, class: "pagination button-group"
+      list_wrapper = tag :nav, list_items, class: 'pagination button-group'
       tag :nav, list_wrapper
     end
 
     def container_attributes
-      super.except(*[:link_options])
+      super.except(:link_options)
     end
 
     protected
 
     def page_number(page)
-      link_options = @options[:link_options] || {}
+      @options[:link_options] || {}
 
       if page == current_page
         tag(:a, page, class: 'btn page-item active', href: '')
@@ -37,22 +37,21 @@ module PolicyManager
     end
 
     def page_path(page)
-      return "../index.html" if page == 1
-      if @collection.current_page == 1
-        return "./#{page}/index.html" if @collection.current_page < page
-        return "../#{page}/index.html" if @collection.current_page > page
-      else
-        return "../#{page}/index.html"
-      end
+      return '../index.html' if page == 1
+
+      return "../#{page}/index.html" unless @collection.current_page == 1
+      return "./#{page}/index.html" if @collection.current_page < page
+
+      "../#{page}/index.html" if @collection.current_page > page
     end
 
     def previous_or_next_page(page, text, classname)
-      link_options = @options[:link_options] || {}
+      @options[:link_options] || {}
       if page
-        link_wrapper = tag(:a, text || page, href: page_path(page), class: "page-link btn" + classname.to_s)
+        tag(:a, text || page, href: page_path(page), class: 'page-link btn' + classname.to_s)
         # link_wrapper, class: 'page-item '
       else
-        tag(:a, text, href:'', class: 'page-link btn')
+        tag(:a, text, href: '', class: 'page-link btn')
         # span_wrapper, class: 'page-item disabled'
       end
     end
@@ -70,6 +69,5 @@ module PolicyManager
       num = @collection.current_page < @collection.total_pages && @collection.current_page + 1
       previous_or_next_page num, @options[:next_label], 'next btn'
     end
-
   end
 end

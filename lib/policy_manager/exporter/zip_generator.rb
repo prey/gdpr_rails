@@ -21,9 +21,9 @@ module PolicyManager
 
     # Zip the input directory.
     def write
-      entries = Dir.entries(@input_dir) - %w(. ..)
+      entries = Dir.entries(@input_dir) - %w[. ..]
 
-      ::Zip::File.open(@output_file, ::Zip::File::CREATE) do |zipfile|
+      ::Zip::File.open(@output_file, create: true) do |zipfile|
         write_entries entries, '', zipfile
       end
     end
@@ -35,8 +35,6 @@ module PolicyManager
       entries.each do |e|
         zipfile_path = path == '' ? e : File.join(path, e)
         disk_file_path = File.join(@input_dir, zipfile_path)
-        puts "Deflating #{disk_file_path}"
-
         if File.directory? disk_file_path
           recursively_deflate_directory(disk_file_path, zipfile, zipfile_path)
         else
@@ -47,7 +45,7 @@ module PolicyManager
 
     def recursively_deflate_directory(disk_file_path, zipfile, zipfile_path)
       zipfile.mkdir zipfile_path
-      subdir = Dir.entries(disk_file_path) - %w(. ..)
+      subdir = Dir.entries(disk_file_path) - %w[. ..]
       write_entries subdir, zipfile_path, zipfile
     end
 

@@ -1,7 +1,5 @@
 module PolicyManager
   class ExporterController < ActionController::Base
-
-    include ExporterHelper 
-
+    include ExporterHelper
   end
 end

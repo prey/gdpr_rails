@@ -2,15 +2,15 @@ module PolicyManager
   class Script
     include ActiveModel::Serialization
 
-    attr_accessor :script, 
-                  :name, 
-                  :environments, 
+    attr_accessor :script,
+                  :name,
+                  :environments,
                   :cookies,
                   :description,
                   :permanent,
                   :domain
 
-    def initialize(opts={})
+    def initialize(opts = {})
       self.name = opts[:name]
       self.script = opts[:script]
       self.cookies = opts[:cookies]
@@ -18,39 +18,37 @@ module PolicyManager
       self.description = opts[:description]
       self.permanent = opts[:permanent]
       self.domain = opts[:domain]
-      self
     end
 
     def can_render?
-      self.environments.map(&:to_s).include?(Rails.env)
+      environments.map(&:to_s).include?(Rails.env)
     end
 
     def description
       @description.is_a?(Proc) ? @description.call : @description
     end
 
-    def as_json(opts={})
+    def as_json(_opts = {})
       data = {}
-      fields = [:script, :name, :cookies, :description]
+      fields = %i[script name cookies description]
       fields.each { |k| data[k] = send(k) }
       data
     end
 
     def self.cookies
       PolicyManager::Config
-                    .scripts
-                    .select{|o| o.cookies.present? }
+        .scripts
+        .select { |o| o.cookies.present? }
     end
 
     def self.cookies_permanent
       PolicyManager::Config
-                    .scripts
-                    .select{|o| o.cookies.present? && o.permanent? }
+        .scripts
+        .select { |o| o.cookies.present? && o.permanent? }
     end
 
     def self.scripts
-      PolicyManager::Config.scripts.select{|o| o.script.present?}
+      PolicyManager::Config.scripts.select { |o| o.script.present? }
     end
-
   end
 end

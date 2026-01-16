@@ -1,29 +1,27 @@
-
-require "will_paginate"
+require 'will_paginate'
 require 'will_paginate/view_helpers/action_view'
 require 'will_paginate/array'
 
 module PolicyManager
   class BootstrapLinkRenderer < WillPaginate::ActionView::LinkRenderer
-
     ELLIPSIS = '&hellip;'
 
     def to_html
       list_items = pagination.map do |item|
         case item
-          when (1.class == Integer ? Integer : Fixnum)
-            page_number(item)
-          else
-            send(item)
+        when (1.class == Integer ? Integer : Integer)
+          page_number(item)
+        else
+          send(item)
         end
-      end.join("")
+      end.join('')
 
-      list_wrapper = tag :nav, list_items, class: "pagination button-group"
+      list_wrapper = tag :nav, list_items, class: 'pagination button-group'
       tag :nav, list_wrapper
     end
 
     def container_attributes
-      super.except(*[:link_options])
+      super.except(:link_options)
     end
 
     protected
@@ -39,7 +37,7 @@ module PolicyManager
       end
     end
 
-    def previous_or_next_page(page, text, classname)
+    def previous_or_next_page(page, text, _classname)
       link_options = @options[:link_options] || {}
 
       if page

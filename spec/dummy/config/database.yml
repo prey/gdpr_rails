@@ -10,19 +10,14 @@ default: &default
   timeout: 5000
 
 test:
-  adapter: mysql2
-  database: gdpr_test
-  host: <%= ENV.fetch("MYSQL_HOST") { "localhost"} %>
-  username: root
-  password:
-  reconnect: true
-  port: 3306
-  encoding: utf8
+  <<: *default
+  database: db/test.sqlite3
 
 
 testSQLITE:
   <<: *default
   database: db/test.sqlite3
+
 
 development:
   <<: *default
@@ -31,10 +26,6 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-testsqlite:
-  <<: *default
-  database: db/test.sqlite3
-
 production:
   <<: *default
   database: db/production.sqlite3

@@ -11,12 +11,12 @@ gemspec
 # your gem to rubygems.org.
 gem 'mysql2'
 # To use a debugger
-gem 'pry-byebug', group: [:development, :test]
-gem 'puma'
 gem 'haml'
 gem 'jbuilder'
+gem 'pry-byebug', group: %i[development test]
+gem 'puma'
 # Added at 2018-04-02 12:15:56 -0300 by michelson:
-gem "capybara", "~> 2.18"
+gem 'capybara', '~> 3.39'
 gem 'coveralls', require: false
 gem 'database_cleaner'
-gem "paperclip"
+gem 'webrick', require: false
