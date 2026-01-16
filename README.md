@@ -15,6 +15,14 @@
 
 PolicyManager (Aka GDPR Rails) was created with flexibility in mind to comply with the requirements of the GDPR ([General Data Protection Regulation](https://www.eugdpr.org/)). It's currently being developed at preyproject and will be battle-tested on [preyproject.com](https://preyproject.com) from May 25th.
 
+## Requirements
+
+- Ruby 2.5+
+- Rails 5.2+
+- ActiveStorage (required for portability features)
+
+**Note:** Paperclip is no longer supported. Please use ActiveStorage instead.
+
 ### Main Features:
 
 #### Policy Rules
@@ -30,7 +38,7 @@ Portability module lets you define export options, that will generate a navigabl
 + Downloads images to the local filesystem in order to comply with GDPR requirements on data accessibility.
 + Zips all the information and delivers it with a expirable download link
 + ActiveJob to handle the process
-+ Behind the scenes uses Rails's ActiveStorage (with an optional Paperclip support) in which you can set up storages, like S3, Google
++ Behind the scenes uses Rails's ActiveStorage in which you can set up storages, like S3, Google
 
 #### Scripts & Cookies
 Configurable *scripts* which will bind cookie names in order to handle the script rendering and the cookie clean up.
@@ -59,33 +67,6 @@ Install & run the migrations
 ## Rails ActiveStorage
 
 By default The engine will use the app's active_storage setup for file handling
-
-## Rails Paperclip
-
-If you don't use activeStorage in your application, run this migration to use paperclip
-
-```ruby
-class PaperclipFieldsToPortability < ActiveRecord::Migration[5.2]
-  def change
-    add_column :policy_manager_portability_requests, :attachment, :string
-    add_column :policy_manager_portability_requests , :attachment_file_name, :string
-    add_column :policy_manager_portability_requests , :attachment_file_size, :string
-    add_column :policy_manager_portability_requests , :attachment_file_content_type, :string
-    add_column :policy_manager_portability_requests, :attachment_content_type, :string
-  end
-end
-```
-
-and in your Gdpr config add paperclip option to enable it
-
-```ruby
-
-PolicyManager::Config.setup do |config|
-  config.paperclip = true
-  #....
-end
-```
-
 
 ## Usage examples
 
@@ -253,8 +234,6 @@ after_zip: ->(zip_path, resource){
 ```
 
 + **mail_helpers**:  If you have some helpers you want to add to the mailers, then you can pass an Array of helpers, `[MailHelper, OtherMailHelper]`,
-+ **attachment_path**: Paperclip upload path , defaults to "portability/:id/build.zip",
-+ **attachment_storage**: Paperclip storage, defaults to filesystem , you can set `s3` or `google` or whatever paperclip supports
 + **expiration_link**: integer, defaults to 60 (1 minute),
 
 #### Portability Rules:
