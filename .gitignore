@@ -17,3 +17,4 @@ spec/dummy/storage/
 # Rails
 Gemfile.lock
 coverage/
+gemfiles/*.gemfile.lock

@@ -58,6 +58,7 @@ describe PolicyManager::CategoriesController do
     assert_response :success
     assert_select 'table td', 'desc 1'
 
+    PolicyManager::Config.add_rule({ name: 'age-non' })
     pr = PolicyManager::Term.create(description: 'desc 2', rule: 'age-non')
     pr.publish!
 

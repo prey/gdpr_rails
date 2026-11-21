@@ -20,3 +20,10 @@ gem 'capybara', '~> 3.39'
 gem 'coveralls', require: false
 gem 'database_cleaner'
 gem 'webrick', require: false
+
+# Dropped from Ruby 3.4's default gems; Rails 6.1/7.0 still require them.
+gem 'base64'
+gem 'bigdecimal'
+gem 'drb'
+gem 'mutex_m'
+gem 'ostruct'
