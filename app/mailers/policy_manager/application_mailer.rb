@@ -4,13 +4,10 @@ module PolicyManager
     layout 'mailer'
 
     # configurable mailer helpers
+    # Strings let hosts name helpers without autoloading them from an initializer.
     if Config.exporter.present?
-      Config.exporter.mail_helpers.each do |helpers|
-        if Rails::VERSION::MAJOR >= 6 && Rails::VERSION::MINOR > 0
-          helper(helpers)
-        else
-          add_template_helper(helpers)
-        end
+      Array(Config.exporter.mail_helpers).each do |mail_helper|
+        helper(mail_helper.is_a?(String) ? mail_helper.constantize : mail_helper)
       end
     end
   end

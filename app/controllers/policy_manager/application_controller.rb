@@ -22,7 +22,7 @@ module PolicyManager
     def user_authenticated?
       return if current_user
 
-      render file: 'policy_manager/401.erb',
+      render template: 'policy_manager/401',
              layout: 'policy_manager/blank',
              status: :unauthorized
     end
