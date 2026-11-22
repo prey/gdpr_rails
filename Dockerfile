@@ -1,4 +1,4 @@
-FROM ruby:3.1-slim
+FROM ruby:3.4-slim
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
@@ -31,5 +31,5 @@ RUN bundle exec appraisal install
 ENV RAILS_ENV=test
 ENV SECRET_KEY_BASE=test_secret_key_base_for_docker_tests
 
-# Default command runs the appraisal matrix (6.1, 7.0, 7.1) sequentially
-CMD ["sh", "-c", "for target in rails-6.1 rails-7.0 rails-7.1; do echo \"== Running $target ==\"; bundle exec appraisal $target rake spec || exit 1; done"]
+# Default command runs the appraisal matrix sequentially
+CMD ["sh", "-c", "for target in rails-6.1 rails-7.0 rails-7.1 rails-7.2 rails-8.0 rails-8.1; do echo \"== Running $target ==\"; bundle exec appraisal $target rake spec || exit 1; done"]

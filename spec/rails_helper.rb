@@ -36,7 +36,11 @@ ActiveRecord::Migration.maintain_test_schema! unless ENV['TRAVIS']
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  if config.respond_to?(:fixture_paths=)
+    config.fixture_paths = ["#{::Rails.root}/spec/fixtures"]
+  else
+    config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  end
 
   # config.include PolicyManager::Engine.routes.url_helpers
 

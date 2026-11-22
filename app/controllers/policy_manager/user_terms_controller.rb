@@ -1,6 +1,3 @@
-require_dependency 'policy_manager/application_controller'
-require 'policy_manager/concerns/user_terms'
-
 module PolicyManager
   class UserTermsController < ApplicationController
     include PolicyManager::Concerns::UserTerms

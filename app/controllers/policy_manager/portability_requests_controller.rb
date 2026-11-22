@@ -1,4 +1,3 @@
-require_dependency 'policy_manager/application_controller'
 module PolicyManager
   class PortabilityRequestsController < ApplicationController
     before_action :set_portability_request, only: :destroy

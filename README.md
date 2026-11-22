@@ -17,8 +17,8 @@ PolicyManager (Aka GDPR Rails) was created with flexibility in mind to comply wi
 
 ## Requirements
 
-- Ruby 2.5+
-- Rails 5.2+
+- Ruby 3.0+ (tested on 3.4)
+- Rails 6.1 through 8.1 (tested on 6.1, 7.0, 7.1, 7.2, 8.0 and 8.1)
 - ActiveStorage (required for portability features)
 
 **Note:** Paperclip is no longer supported. Please use ActiveStorage instead.
@@ -63,7 +63,7 @@ Then in your application.rb require the policy_manager lib with
 ## Requirements
 
 - Ruby 3.0+
-- Rails 6.1+
+- Rails 6.1 through 8.1
 - ActiveStorage configured in the host application
 
 Install & run the migrations
@@ -240,7 +240,7 @@ after_zip: ->(zip_path, resource){
 }
 ```
 
-+ **mail_helpers**:  If you have some helpers you want to add to the mailers, then you can pass an Array of helpers, `[MailHelper, OtherMailHelper]`,
++ **mail_helpers**:  If you have some helpers you want to add to the mailers, then you can pass an Array of helpers, `[MailHelper, OtherMailHelper]`, or their names (`['MailHelper']`) so the initializer does not autoload them,
 + **expiration_link**: integer, defaults to 60 (1 minute),
 
 #### Portability Rules:
@@ -315,9 +315,9 @@ portability_request         DELETE /portability_requests/:id(.:format)          
 
 ## Contributing
 - Just fork the repo and send us a Pull Request, with some tests please :)
-- FYI: The CI pipeline on travis will require gemlocks for each or the Rails versions we test against.
-  - Run `bundle exec appraisal install` and commit the generated files in the `./gemfile/` directory
-  - Check out [Appraisal](https://github.com/thoughtbot/appraisal) for more context.
+- The suite runs against every supported Rails version with [Appraisal](https://github.com/thoughtbot/appraisal):
+  - `bundle exec appraisal install`, then `bundle exec appraisal rails-7.2 rake spec` (or `docker build -t gdpr_rails . && docker run --rm gdpr_rails` for the whole matrix).
+  - Gemfile locks are not committed.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

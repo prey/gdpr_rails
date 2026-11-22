@@ -1,5 +1,3 @@
-require_dependency 'policy_manager/application_controller'
-
 module PolicyManager
   class UserPortabilityRequestsController < ApplicationController
     def index

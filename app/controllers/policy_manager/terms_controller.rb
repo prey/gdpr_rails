@@ -1,5 +1,3 @@
-require_dependency 'policy_manager/application_controller'
-
 module PolicyManager
   class TermsController < ApplicationController
     before_action :set_term, only: %i[show edit update destroy]
